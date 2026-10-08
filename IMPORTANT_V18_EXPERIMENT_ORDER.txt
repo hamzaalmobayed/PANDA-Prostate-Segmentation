@@ -1,0 +1,31 @@
+V18 — EXPLICIT EXPERIMENT ORDER
+
+All experiments that were stopped earlier are the deferred Pilot/Ablation experiments:
+- A0 baseline
+- A1 + Vahadane
+- A2 + multilevel
+- A3 + class balance
+- A4 + KMeans
+- A5 + coordinate encoding
+- normalization comparisons
+- KMeans on/off
+- coordinates on/off
+- encoder comparisons
+- provider holdout experiments
+
+Order:
+1) Final main training
+2) Validation / best checkpoint
+3) Validation threshold selection
+4) Held-out Test
+5) Dense full-WSI reconstruction
+6) Support-aware L0/L1/L2 fusion
+7) Core final metrics / figures / WSI statistics
+8) ALL deferred Pilot/Ablation experiments  <-- LAST compute-heavy stage
+9) reviewer-proof-finalize                  <-- lightweight stats/reporting only
+
+Step 9 does NOT train anything and does NOT repeat Test/WSI reconstruction.
+
+No model settings, training settings, data split, patch counts, normalization,
+resume, SSD-wait, cache, or performance settings were changed.
+Existing D:\PANDA_PROSTATE checkpoints/results are reused.

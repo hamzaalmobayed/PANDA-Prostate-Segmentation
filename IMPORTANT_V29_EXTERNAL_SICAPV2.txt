@@ -1,0 +1,39 @@
+V29 — COMPLETE PACKAGE + SEPARATE SICAPv2 EXTERNAL VALIDATION
+
+NORMAL PANDA PIPELINE (unchanged from V28):
+    START_AUTORECONNECT_FOREVER.bat
+or
+    python run_full_panda_paper.py
+
+EXTERNAL SICAPv2 TEST (separate terminal/process):
+    START_EXTERNAL_SICAPV2_AUTORECONNECT.bat
+or
+    python run_external_sicapv2_test.py
+
+The external script does NOT train and does NOT change the normal PANDA pipeline.
+It automatically downloads public SICAPv2 v2 (Mendeley Data, CC BY 4.0), extracts it,
+uses the official Test partition, loads D:\PANDA_PROSTATE latest best.pt, uses the fixed
+PANDA validation threshold and TRAIN-derived Vahadane target, runs external binary tumor
+segmentation, and creates metrics/statistics/figures plus a lossless combined PNG for every
+external test image.
+
+Resume coverage:
+- before/during/after dataset download (.part + HTTP Range)
+- before/during/after ZIP extraction (member-by-member resume)
+- index creation
+- before/during/after inference (durable cache per image)
+- before/during/after statistics
+- before/during/after combined-image creation
+- Python crash / external SSD disappearance: local C: watchdog restarts automatically
+
+External output root:
+    D:\PANDA_PROSTATE\external_sicapv2\results\
+
+Important scientific handling:
+- SICAPv2 public data are 512x512 10x prostate histology patches, not PANDA pyramid WSIs.
+- Any nonzero SICAP Gleason-pattern mask pixel is mapped to binary tumor.
+- Metrics are evaluated on valid tissue.
+- No SICAP label is used to tune the model or threshold.
+- Source-WSI aggregated metrics are produced by pooling counts for tiles from the same
+  SICAP source WSI; they are clearly named as aggregated metrics rather than pretending
+  the patch release is a native WSI pyramid.

@@ -1,0 +1,19 @@
+V14 SSD / TORCH.SAVE RESUME FIX
+
+Only resilience behavior changed from V13. Scientific/model/training settings are unchanged.
+
+Fixes:
+- PyTorch checkpoint RuntimeError messages such as `unexpected pos 64 vs 0`,
+  `inline_container.cc`, and Errno 22 are classified as storage interruptions.
+- The process waits for the SSD to become stable and retries the SAME checkpoint save.
+- A partial `*.tmp` checkpoint is discarded; the previous atomic checkpoint remains intact.
+- Final-training resume checkpoint loads and train/validation boundary loads are themselves SSD-safe.
+- Stage exception handling detects storage failures BEFORE trying to write a FAIL event,
+  preventing a second crash while D: is disconnected.
+- Existing final training periodic checkpoint interval is unchanged (~100 batches).
+- All V13 performance tuning, 30 max epochs, patience 7, model settings, data split,
+  stain normalization, patch retention, final-first order, pilots, metrics, etc. are unchanged.
+
+Expected after the reported crash at 9999/10000:
+- With the existing D:\PANDA_PROSTATE untouched, restart should load the last intact
+  periodic checkpoint (normally around batch 9900) and replay only the batches after it.

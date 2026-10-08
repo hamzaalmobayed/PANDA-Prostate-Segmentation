@@ -1,0 +1,28 @@
+V15 — FINAL TRAINING SPEED ONLY
+================================
+This build keeps the V14 scientific pipeline/model and V14 SSD-save/resume fix unchanged.
+
+Performance-only changes:
+1) Prebuilds/reuses the lossless Vahadane PNG cache for final Train+Val BEFORE epoch timing.
+   - Existing cache files are reused.
+   - If interrupted, rerun: already-built cache files are skipped.
+   - A target-specific completion marker avoids rescanning 80k files on later restarts.
+2) On a cache hit PandaPatchDataset no longer opens the original RGB patch first.
+   Old behavior read original RGB + cached RGB + tumor mask + valid mask.
+   New behavior reads cached RGB + tumor mask + valid mask only.
+3) VahadaneProcessor is constructed only on a true cache miss.
+4) Keeps: 4 workers, persistent_workers=True, pin_memory=True, prefetch_factor=4,
+   AMP, channels_last, non_blocking GPU copies, zero_grad(set_to_none=True), cudnn.benchmark=True.
+5) Enables TF32/high matmul precision on supported CUDA hardware for throughput.
+
+UNCHANGED SCIENTIFIC SETTINGS:
+- U-Net + EfficientNet-B4, pretrained
+- coordinate encoding dim 32, dropout 0.1
+- patch 512, Train 80,000, batch 8, L0/L1/L2
+- Vahadane with TRAIN-derived target applied consistently
+- BCE+Dice, AdamW, LR 2e-4, WD 1e-4
+- 30 epochs max, early stopping patience 7
+- same augmentation, same split, same masks/valid-mask semantics
+- same checkpoint/resume design and V14 SSD torch.save handling
+- no patch pruning/deletion
+- final training first, then Val/Test/WSI, then remaining pilots

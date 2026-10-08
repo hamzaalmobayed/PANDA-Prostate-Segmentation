@@ -1,0 +1,15 @@
+torch
+torchvision
+timm
+numpy
+pandas
+Pillow
+opencv-python
+scikit-learn
+matplotlib
+tqdm
+openslide-python
+tiatoolbox
+segmentation-models-pytorch
+requests
+openpyxl

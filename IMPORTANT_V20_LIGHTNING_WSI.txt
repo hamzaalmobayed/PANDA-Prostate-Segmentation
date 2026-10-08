@@ -1,0 +1,34 @@
+V20 LIGHTNING WSI — maximum safe speed without changing the scientific model/evaluation
+
+What changed (performance only):
+- Reuses ALL existing V18/V19 `*_validsupport_v2.npz` caches. Completed WSIs are not rerun.
+- One shared low-resolution tissue mask per WSI instead of rebuilding it at each L0/L1/L2.
+- Vectorized integral-image tissue-grid filtering (same grid, same threshold criterion).
+- Parallel Vahadane CPU normalization with 4 worker threads, each with its own processor.
+- 6GB RTX 3050 now tries inference batch=16 first; automatic OOM fallback remains.
+- Prepares 4 inference batches per CPU chunk for better utilization.
+- Keeps V19 streaming RAM behavior and uncompressed NPZ caches.
+
+UNCHANGED:
+- trained model/checkpoint
+- U-Net/EfficientNet-B4 architecture
+- patch size, stride, L0/L1/L2 coordinates
+- Train-derived Vahadane target
+- GT/valid-mask rules
+- support-aware fusion
+- validation threshold rule
+- all metrics/statistics
+- split membership
+- pilot order
+- reviewer-proof outputs
+- SSD resume/cache semantics
+
+Environment overrides:
+  set PANDA_WSI_BATCH=16
+  set PANDA_WSI_PREP_WORKERS=4
+  set PANDA_WSI_PREP_CHUNK=64
+
+IMPORTANT: finishing ~1577 full WSIs in <24h would require roughly a 9x end-to-end
+speedup from an 8.2-minute/WSI baseline. This single RTX 3050 laptop cannot be
+guaranteed to achieve that without changing the scientific evaluation or using
+stronger/multiple GPUs. V20 is intended to maximize safe throughput on the current machine.

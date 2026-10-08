@@ -1,0 +1,7 @@
+PANDA V12 — FINAL FIRST + KEEP ALL PATCHES
+
+Changes from V11:
+- Removed the end-of-pipeline prune stage entirely.
+- The selected 80,000 training patches are NOT deleted.
+- Unselected candidate patch files are also NOT deleted.
+- All other V11 behavior remains unchanged: final training first, 30 max epochs, patience 7, CUDA/AMP, fast DataLoader, Vahadane target from Train and applied consistently to Train/Val/Test/WSI inference, durable resume, then pilot experiments.

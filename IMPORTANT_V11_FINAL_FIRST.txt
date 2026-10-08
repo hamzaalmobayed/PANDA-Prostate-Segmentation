@@ -1,0 +1,32 @@
+PANDA V11 — FINAL MODEL FIRST, PILOTS AFTERWARD
+
+Default one-command order now is:
+  existing QC/extraction/selection stages
+  -> FINAL MAIN TRAINING
+  -> validation threshold + held-out test + WSI reconstruction/fusion + paper results
+  -> resume/finish pilot/article experiments
+  -> keep all patch files; NO patch-pruning stage
+
+Patch retention:
+The selected 80,000 training patches are kept permanently, and unselected candidate patch files are also left untouched. No pruning/deletion step runs at the end.
+
+Final training changes:
+  max epochs = 30
+  early stopping patience = 7 validation epochs
+  best checkpoint = highest validation Dice
+  batch size = 8
+  AdamW lr=2e-4, wd=1e-4
+  CUDA + AMP when available
+  num_workers=4, persistent_workers=True, pin_memory=True on CUDA, prefetch_factor=2
+  durable main-training resume every ~100 train batches
+  exact TRAIN-complete phase checkpoint before validation
+  validation progress checkpoint every batch
+
+Stain normalization:
+  Vahadane target/reference is selected/fitted from TRAIN only.
+  The SAME fixed TRAIN-derived target is applied to Train, Validation, Test, and dense WSI inference.
+  Augmentation remains TRAIN only.
+  Persistent lossless stain cache remains enabled for patch datasets.
+
+Resume:
+Do NOT delete D:\PANDA_PROSTATE. Existing completed pilot experiments are reused when the pipeline returns to pilots.

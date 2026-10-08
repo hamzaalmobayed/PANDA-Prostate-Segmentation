@@ -1,0 +1,20 @@
+V21 — AUTO-RECONNECT FOREVER
+
+Use:
+    START_AUTORECONNECT_FOREVER.bat
+
+Why this version is more robust:
+- The Python pipeline already waits/retries when it recognizes SSD/storage errors.
+- V21 additionally copies a PowerShell watchdog to the INTERNAL Windows drive
+  (%LOCALAPPDATA%\PANDA_WATCHDOG).
+- Therefore the watchdog remains alive even when the external D: SSD disappears.
+- If Python exits/crashes because the SSD vanished, the watchdog waits until the
+  pipeline folder becomes readable again, then automatically restarts Python.
+- Existing pipeline checkpoints, WSI cache files, and PASS markers are reused,
+  so already-completed work is skipped/resumed according to the existing V20 logic.
+
+IMPORTANT:
+- Do NOT close the watchdog window.
+- Keep the same D:\PANDA_PROSTATE work directory.
+- No model, training, validation, test, WSI, fusion, threshold, metric, or speed
+  setting from V20 was changed. Only automatic recovery was added.

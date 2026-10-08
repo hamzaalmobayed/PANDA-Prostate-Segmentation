@@ -1,0 +1,26 @@
+V28 FULL PACKAGE
+
+This is the complete V25 package with the latest V27 pilot speed/resume changes already integrated.
+
+Run:
+    START_AUTORECONNECT_FOREVER.bat
+
+Main runner:
+    run_full_panda_paper.py
+
+Latest pilot changes included:
+- TRAIN workers auto up to 6
+- VAL workers same fast worker count
+- prefetch=4
+- pin_memory on CUDA
+- AMP/channels_last/non_blocking/cudnn benchmark/TF32 preserved
+- stain target cached per Dataset/worker
+- resume during TRAIN
+- checkpoint after TRAIN / before VAL
+- resume during VAL
+- checkpoint after VAL / before next epoch
+- resume next epoch
+- internal Windows resume mirror
+
+All V25 good/bad TEST visuals and per-image folders are preserved.
+Scientific experiment settings are unchanged.

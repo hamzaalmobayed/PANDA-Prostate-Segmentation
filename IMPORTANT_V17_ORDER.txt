@@ -1,0 +1,17 @@
+V17 ORDER CHANGE ONLY (on top of V16 reviewer-proof additions)
+
+Final execution order:
+1) Final main training
+2) Validation-selected threshold + held-out Test + dense WSI reconstruction/fusion + core final results
+3) Resume/finish remaining Pilot experiments
+4) reviewer-proof-finalize (LIGHTWEIGHT)
+   - paired two-sided pilot statistics
+   - effect sizes
+   - Holm correction
+   - final reproducibility note
+   - NO retraining
+   - NO repeated Test
+   - NO repeated WSI reconstruction
+
+All model/training/data/resume/SSD/cache/performance settings are unchanged from V16/V15.
+Existing D:\PANDA_PROSTATE checkpoints are reused.

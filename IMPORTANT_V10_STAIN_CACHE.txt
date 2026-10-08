@@ -1,0 +1,10 @@
+V10 SPEED FIX
+=============
+1) Adds persistent lossless disk cache for Macenko and Vahadane normalized RGB patches.
+2) Cache is built lazily: first access normalizes once and atomically saves PNG; later epochs/workers reuse it.
+3) Cache path: D:\PANDA_PROSTATE\cache\stain_v10\<normalization>\<target-signature>\*.png
+4) Cache namespace includes the stain-target identity to prevent stale-target reuse.
+5) Keeps V9 DataLoader speed settings: num_workers=4, persistent_workers=True, pin_memory=True, prefetch_factor=2.
+6) Final main training also uses the persistent Vahadane disk cache.
+7) Existing completed pilot experiments and pipeline PASS state are untouched and resumed from D:\PANDA_PROSTATE.
+8) Cache PNGs are lossless; normalization remains scientifically the same. Only repeated recomputation is removed.

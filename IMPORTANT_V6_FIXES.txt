@@ -1,0 +1,29 @@
+PANDA PROSTATE V6 - SSD/CUDA/PROGRESS HARDENING
+
+Fixes in this build
+1) SSD disconnect while writing pipeline_state.json no longer causes the exception-handler crash:
+   FileNotFoundError: [WinError 3] ... 'D:\\'
+   load_state/save_state now wait for storage to return and retry atomically.
+
+2) Pilot experiments show visible progress:
+   - experiment/epoch progress bar
+   - TRAIN batch progress bar + current loss
+   - VAL batch progress bar
+   - one-line epoch summary with train loss, val Dice and best Dice
+
+3) Pilot experiments have durable epoch resume:
+   - pilot_resume.pt is written atomically after each completed epoch
+   - completed experiments still reuse summary.json
+   - after process restart, an incomplete experiment resumes from the next completed epoch
+
+4) CUDA is explicit:
+   startup prints [CUDA] ENABLED and GPU name when available.
+   every pilot prints [PILOT CUDA] ... ENABLED.
+   Model/tensors are moved to CUDA, AMP is enabled when configured, pin_memory/non_blocking are enabled.
+
+5) Overall pipeline stage progress is printed as [PIPELINE PROGRESS] stage X/Y.
+
+IMPORTANT
+- Keep the same work root D:\\PANDA_PROSTATE. Existing completed stage state and experiment summary.json files are reused.
+- Do NOT delete D:\\PANDA_PROSTATE before running V6.
+- Use RUN_ALL_RESUMABLE.bat or: python run_full_panda_paper.py

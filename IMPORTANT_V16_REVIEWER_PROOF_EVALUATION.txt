@@ -1,0 +1,43 @@
+# V16 Reviewer-Proof Additions
+
+This version is based on V15 and intentionally does NOT change the scientific training pipeline,
+model architecture, optimizer, loss, patch sampling, split, normalization policy, or resume behavior.
+
+## Added
+- True dense WSI evaluation remains the source of WSI metrics.
+- Per-slide denominator fields: valid pixels, GT tumor pixels, predicted tumor pixels.
+- Boundary metrics on WSI evaluation grid:
+  - HD95
+  - ASSD
+  - Surface Dice (2 evaluation-grid-pixel tolerance)
+  - distances also exported as level-0-equivalent pixels.
+- Boundary summary table with defined/undefined case counts.
+- Fusion-vs-each-level paired two-sided slide bootstrap.
+- 95% CI for paired differences.
+- Effect sizes: Cohen's dz + paired probability of superiority.
+- Holm multiple-comparison correction.
+- Provider (Radboud vs Karolinska) two-sided unpaired bootstrap difference + effect size.
+- Reproducibility bundle:
+  - exact split slide IDs
+  - dataset counts recomputed from generated split
+  - seed/config
+  - software/CUDA versions
+  - generated README_REPRODUCIBILITY.md
+- Pilot experiments now save raw best-epoch per-slide validation metrics.
+- Pilot major ablation comparisons use paired two-sided bootstrap + effect sizes + Holm correction
+  when paired slide-level results are available.
+
+## Intentionally NOT added
+- CAMELYON ITC / micrometastasis / macrometastasis sensitivity.
+- CAMELYON FROC challenge matching.
+  These are lymph-node-metastasis-specific and are not valid PANDA prostate categories.
+- External independent prostate dataset validation.
+  No external dataset was provided to this pipeline; the code must not fabricate one.
+- Foundation-model comparisons (UNI/Virchow/Prov-GigaPath etc.).
+  They require separate models/weights/licensing/compute and are not silently substituted into the fixed model.
+- Clinical-impact prose / manuscript novelty wording.
+  Those are manuscript tasks, not executable measurements.
+
+## Backward compatibility
+Existing `D:\PANDA_PROSTATE` training/checkpoints/results are reused.
+No patch pruning/deletion was added.

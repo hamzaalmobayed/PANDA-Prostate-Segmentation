@@ -1,0 +1,33 @@
+V19 — FAST DENSE VAL/TEST WSI INFERENCE (performance only)
+
+Scientific pipeline/model/training/evaluation definitions are unchanged from V18.
+
+Performance changes:
+1) Dense WSI model inference is batched on CUDA instead of batch=1.
+   - 6-GB RTX 3050 default: batch=8
+   - automatic CUDA OOM fallback: 8 -> 4 -> 2 -> 1
+   - optional override: set PANDA_WSI_BATCH=<N>
+2) torch.inference_mode + AMP + channels_last + pinned/non-blocking transfer.
+3) Validation threshold sweep is streamed slide-by-slide.
+   V18 retained reconstructed validation WSIs in RAM, which can cause Windows
+   paging/progressive slowdown with ~1500 slides.
+4) Test no longer keeps all reconstructed WSI arrays in RAM.
+   Only final per-slide metrics stay in memory; best/median/worst are reloaded
+   from the already-saved cache.
+5) NEW WSI cache files use uncompressed NPZ for faster disk I/O.
+   Existing V18 compressed NPZ caches remain readable and are reused.
+6) Cache filename/schema is unchanged:
+   *_validsupport_v2.npz
+   Therefore every already-completed VAL/TEST WSI is SKIPPED/reused; no rerun.
+
+Unchanged:
+- exact WSI split
+- patch coordinates / patch size / levels / stride
+- Vahadane policy
+- trained model and checkpoint
+- threshold range/rule
+- GT/valid-mask rules
+- support-aware fusion
+- all metrics/statistics
+- Pilot order / reviewer-proof finalization
+- SSD resume behavior

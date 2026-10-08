@@ -1,0 +1,35 @@
+V13 DEVICE-TUNED PERFORMANCE PROFILE
+====================================
+Target machine supplied by user:
+- Intel Core i5-13420H
+- 16 GB RAM
+- NVIDIA GeForce RTX 3050 Laptop GPU 6 GB
+- Windows 11
+
+Scientific/training configuration is unchanged from V12:
+- Batch size 8
+- U-Net + EfficientNet-B4
+- 512x512 patches
+- 80,000 selected train patches
+- AdamW, LR 2e-4, WD 1e-4
+- BCE + Dice
+- max 30 epochs, early stopping patience 7
+- Vahadane using train-derived target consistently for train/val/test/WSI
+
+Performance-only changes:
+- num_workers = 4 (kept at 4 intentionally for 16 GB RAM + Windows spawn)
+- prefetch_factor = 4
+- persistent_workers = True
+- pin_memory = True when CUDA is available
+- non_blocking CUDA transfers already retained
+- channels_last already retained
+- AMP already retained
+- cuDNN benchmark already retained
+- optimizer.zero_grad(set_to_none=True) already retained
+- worker_init_fn limits each worker's Torch/OpenCV CPU thread pools to avoid oversubscription
+- disables Albumentations online update checks in spawned workers, reducing startup stalls
+- stain normalization persistent cache retained
+- no patch pruning; all extracted patches are kept
+- final training/test runs before remaining pilot experiments
+
+Why not 6 workers? On this 16 GB Windows machine each spawned worker imports a large Python/TIAToolbox stack. Four workers with deeper prefetch is a safer high-throughput profile and avoids RAM/process-thrashing that can make 6 workers slower.

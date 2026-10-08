@@ -1,0 +1,25 @@
+V30 — SICAPv2 download 403 fix
+
+Problem fixed:
+- Anonymous request to Mendeley API zip/file_downloaded can now return HTTP 403
+  because the current Digital Commons Data API uses authenticated API access.
+
+New automatic download order:
+1) Mendeley public S3 cache v2 candidate:
+   https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/9xxm58dvs3-2.zip
+2) Documented public Mendeley S3 cache v1 archive:
+   https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/9xxm58dvs3-1.zip
+3) Legacy API only as last resort.
+
+The downloader:
+- resumes partial downloads with HTTP Range
+- switches source immediately on 401/403/404
+- does not loop forever on the Mendeley 403
+- records the actual source in SICAPv2.zip.source.json
+- leaves the external-test/model/statistics/visual logic unchanged
+
+Run directly:
+    python run_external_sicapv2_test.py
+
+Normal PANDA pipeline remains:
+    python run_full_panda_paper.py

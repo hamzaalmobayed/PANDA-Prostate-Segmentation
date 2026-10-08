@@ -1,0 +1,26 @@
+V31 — SICAPv2 Kaggle mirror download fix
+
+Mendeley currently returns HTTP 403 for the anonymous scripted archive routes
+used by V29/V30.
+
+V31 now uses the public Kaggle mirror FIRST:
+    https://www.kaggle.com/datasets/shridharspol/sicapv2
+
+Implementation:
+- Automatically installs kagglehub if missing.
+- Downloads the public dataset directly into:
+    D:\PANDA_PROSTATE\external_sicapv2\dataset\
+- Uses output_dir so the ~GB dataset is not intentionally cached on C:.
+- Verifies the SICAPv2 images/masks/Test partition structure before marking the
+  download complete.
+- On SSD disconnect: waits for D: and retries.
+- Re-running reuses an already-discovered completed dataset.
+- Mendeley remains only as a fallback.
+
+Run:
+    python run_external_sicapv2_test.py
+
+The normal pipeline remains independent:
+    python run_full_panda_paper.py
+
+External inference/model/threshold/metrics/visual/statistical logic is unchanged.

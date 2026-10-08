@@ -1,0 +1,12 @@
+V9 TRAINING INPUT-PIPELINE SPEED UPDATE
+
+Defaults now used across pilot and main training:
+- num_workers=4
+- persistent_workers=True
+- pin_memory=True when CUDA is available
+- prefetch_factor=2
+
+Pilot training now prints [PILOT DATALOADER] with the effective settings.
+The main resumable loader keeps FixedEpochSampler ordering/resume offset while allowing 4 workers to parallelize image/mask loading, normalization and augmentation.
+
+No completed experiment/result folders are deleted. Existing D:\PANDA_PROSTATE progress is reused.

@@ -1,0 +1,11 @@
+PANDA PROSTATE V7 - runtime fix
+
+1) Fixed the exact V6 crash in pilot normalization experiments:
+   PIL.Image.open(r.mask) was wrong because pandas.Series.mask is a METHOD.
+   All manifest mask accesses in the affected runtime paths now use r["mask"].
+2) valid_mask accesses in the affected runtime paths also use bracket notation.
+3) Core PandaPatchDataset is protected against the same pandas attribute collision.
+4) Existing completed experiments and D:\PANDA_PROSTATE progress are reused; no re-extraction is required.
+5) V6 CUDA/progress bars/SSD-safe state write behavior is preserved.
+
+Run: RUN_ALL_RESUMABLE.bat

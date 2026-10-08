@@ -1,0 +1,30 @@
+V22 — GOOD TEST LIVE VISUALS
+
+Added:
+- During TEST, if a slide has a good fusion Dice, the code immediately saves a
+  visual preview for that slide.
+
+Default rule:
+- Save only when fusion_dice >= 0.80
+
+Optional override:
+- set PANDA_GOOD_TEST_MIN_DICE=0.85
+
+Saved folder:
+- D:\PANDA_PROSTATE\paper_results\test_visuals_good_live\
+
+Saved files for each accepted TEST WSI:
+- good_<image_id>_dice_<score>_preview.png
+- good_<image_id>_dice_<score>_probability.png
+- good_<image_id>_dice_<score>_mask.png
+- good_<image_id>_dice_<score>_overlay.png
+- good_<image_id>_dice_<score>_error_map.png
+
+Unchanged:
+- model
+- training settings
+- VAL/TEST/WPI pipeline
+- thresholds
+- metrics
+- WSI cache / resume / auto-reconnect
+- V20/V21 speed and watchdog behavior

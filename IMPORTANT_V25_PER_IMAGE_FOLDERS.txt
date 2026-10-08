@@ -1,0 +1,30 @@
+V25 — PER-IMAGE FOLDERS FOR SAVED VISUALS
+
+Change from V24:
+- Each saved image case now gets its own folder.
+
+Good live test cases:
+- D:\PANDA_PROSTATE\paper_results\test_visuals_good_live\good_<image_id>\
+  contains:
+  - ..._preview.png
+  - ..._probability.png
+  - ..._mask.png
+  - ..._overlay.png
+  - ..._error_map.png
+
+Bad pathology-review test cases:
+- D:\PANDA_PROSTATE\paper_results\test_visuals_bad_review\bad_<image_id>\
+  contains:
+  - ..._overview.png
+  - ..._detail_crop.png
+  - ..._detail_original.png
+  - ..._detail_gt_mask.png
+  - ..._detail_model_mask.png
+  - ..._detail_error_map.png
+  - ..._probability.png
+
+Everything else remains unchanged:
+- model/training/test/metrics
+- V20/V21 speed and auto-reconnect
+- V22 good live visuals
+- V24 first-30 bad live saving logic

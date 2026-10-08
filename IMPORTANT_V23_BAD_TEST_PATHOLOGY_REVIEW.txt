@@ -1,0 +1,47 @@
+V23 — BAD TEST PATHOLOGY REVIEW
+
+Added on top of V22:
+1) Keep the GOOD test live visuals from V22 unchanged.
+2) After TEST finishes, automatically save up to 30 poor TEST WSIs
+   (fusion_dice < 0.80 by default) for pathology review.
+
+Saved folder:
+- D:\PANDA_PROSTATE\paper_results\test_visuals_bad_review\
+
+For each selected poor TEST WSI:
+- bad_<image_id>_dice_<score>_overview.png
+  Full-slide overview with:
+  Original H&E / Original Mask / Model Mask / Error Map
+- bad_<image_id>_dice_<score>_detail_crop.png
+  High-detail crop centered on the largest error region, again with:
+  Original H&E / Original Mask / Model Mask / Error Map
+- Individual files:
+  *_detail_original.png
+  *_detail_gt_mask.png
+  *_detail_model_mask.png
+  *_detail_error_map.png
+  *_probability.png
+
+Summary files:
+- bad_case_manifest.csv
+- bad_case_summary.json
+
+Default settings:
+- save bad cases when fusion_dice < 0.80
+- save up to 30 cases
+- high-detail crop size = 3072 level-0 pixels
+
+Environment overrides:
+- set PANDA_BAD_TEST_MAX_DICE=0.80
+- set PANDA_BAD_TEST_MAX_CASES=20
+- set PANDA_BAD_TEST_CROP_L0=4096
+
+Unchanged:
+- model
+- training
+- thresholds
+- metrics
+- test logic
+- auto reconnect
+- V20/V21 speed features
+- V22 good-case saving
