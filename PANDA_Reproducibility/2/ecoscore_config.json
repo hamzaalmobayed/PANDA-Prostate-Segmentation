@@ -1,0 +1,478 @@
+{
+    "apiVersion": 1,
+    "configurations": {
+        "DISPLAYOFFAC": {
+            "id": "eco_config_displayoff_AC",
+            "weight": 15,
+            "evaluatorType": "RANGE_NUM",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "5",
+                    "minRange": 1,
+                    "maxRange": 180
+                },
+                {
+                    "score": 0.8,
+                    "state": "4",
+                    "minRange": 181,
+                    "maxRange": 600
+                },
+                {
+                    "score": 0.6,
+                    "state": "3",
+                    "minRange": 601,
+                    "maxRange": 1500
+                },
+                {
+                    "score": 0.4,
+                    "state": "2",
+                    "minRange": 1501,
+                    "maxRange": 3600
+                },
+                {
+                    "score": 0.2,
+                    "state": "1",
+                    "minRange": 3601,
+                    "maxRange": 14400
+                },
+                {
+                    "score": 0.1,
+                    "state": "12",
+                    "minRange": 14401,
+                    "maxRange": 2147483647
+                },
+                {
+                    "score": 0,
+                    "state": "0",
+                    "minRange": 0,
+                    "maxRange": 0
+                }
+            ]
+        },
+        "DISPLAYOFFDC": {
+            "id": "eco_config_displayoff_DC",
+            "weight": 15,
+            "evaluatorType": "RANGE_NUM",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "5",
+                    "minRange": 1,
+                    "maxRange": 180
+                },
+                {
+                    "score": 0.8,
+                    "state": "4",
+                    "minRange": 181,
+                    "maxRange": 600
+                },
+                {
+                    "score": 0.6,
+                    "state": "3",
+                    "minRange": 601,
+                    "maxRange": 1500
+                },
+                {
+                    "score": 0.4,
+                    "state": "2",
+                    "minRange": 1501,
+                    "maxRange": 3600
+                },
+                {
+                    "score": 0.2,
+                    "state": "1",
+                    "minRange": 3601,
+                    "maxRange": 14400
+                },
+                {
+                    "score": 0.1,
+                    "state": "12",
+                    "minRange": 14401,
+                    "maxRange": 2147483647
+                },
+                {
+                    "score": 0,
+                    "state": "0",
+                    "minRange": 0,
+                    "maxRange": 0
+                }
+            ]
+        },
+        "SLEEPAC": {
+            "id": "eco_config_sleep_AC",
+            "weight": 17,
+            "evaluatorType": "RANGE_NUM",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "5",
+                    "minRange": 1,
+                    "maxRange": 180
+                },
+                {
+                    "score": 0.8,
+                    "state": "4",
+                    "minRange": 181,
+                    "maxRange": 600
+                },
+                {
+                    "score": 0.6,
+                    "state": "3",
+                    "minRange": 601,
+                    "maxRange": 1500
+                },
+                {
+                    "score": 0.4,
+                    "state": "2",
+                    "minRange": 1501,
+                    "maxRange": 3600
+                },
+                {
+                    "score": 0.2,
+                    "state": "1",
+                    "minRange": 3601,
+                    "maxRange": 14400
+                },
+                {
+                    "score": 0.1,
+                    "state": "12",
+                    "minRange": 14401,
+                    "maxRange": 2147483647
+                },
+                {
+                    "score": 0,
+                    "state": "0",
+                    "minRange": 0,
+                    "maxRange": 0
+                }
+            ]
+        },
+        "SLEEPDC": {
+            "id": "eco_config_sleep_DC",
+            "weight": 17,
+            "evaluatorType": "RANGE_NUM",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "5",
+                    "minRange": 1,
+                    "maxRange": 180
+                },
+                {
+                    "score": 0.8,
+                    "state": "4",
+                    "minRange": 181,
+                    "maxRange": 600
+                },
+                {
+                    "score": 0.6,
+                    "state": "3",
+                    "minRange": 601,
+                    "maxRange": 1500
+                },
+                {
+                    "score": 0.4,
+                    "state": "2",
+                    "minRange": 1501,
+                    "maxRange": 3600
+                },
+                {
+                    "score": 0.2,
+                    "state": "1",
+                    "minRange": 3601,
+                    "maxRange": 14400
+                },
+                {
+                    "score": 0.1,
+                    "state": "12",
+                    "minRange": 14401,
+                    "maxRange": 2147483647
+                },
+                {
+                    "score": 0,
+                    "state": "0",
+                    "minRange": 0,
+                    "maxRange": 0
+                }
+            ]
+        },
+        "POWERMODEAC": {
+            "id": "eco_config_powermode_AC",
+            "weight": 7,
+            "evaluatorType": "EQUAL_GUID",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "BestPowerEfficiency",
+                    "stateValue": "{961CC777-2547-4F9D-8174-7D86181B8A7A}"
+                },
+                {
+                    "score": 0.5,
+                    "state": "Balanced",
+                    "stateValue": "{00000000-0000-0000-0000-000000000000}"
+                },
+                {
+                    "score": 0.1,
+                    "state": "BestPerformance",
+                    "stateValue": "{DED574B5-45A0-4F42-8737-46345C09C238}"
+                }
+            ]
+        },
+        "POWERMODEDC": {
+            "id": "eco_config_powermode_DC",
+            "weight": 7,
+            "evaluatorType": "EQUAL_GUID",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "BestPowerEfficiency",
+                    "stateValue": "{961CC777-2547-4F9D-8174-7D86181B8A7A}"
+                },
+                {
+                    "score": 0.5,
+                    "state": "Balanced",
+                    "stateValue": "{00000000-0000-0000-0000-000000000000}"
+                },
+                {
+                    "score": 0.1,
+                    "state": "BestPerformance",
+                    "stateValue": "{DED574B5-45A0-4F42-8737-46345C09C238}"
+                }
+            ]
+        },
+        "CABC": {
+            "id": "eco_config_cabc",
+            "weight": 1,
+            "evaluatorType": "EQUAL_STR",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "AlwaysOn",
+                    "stateValue": "AlwaysOn"
+                },
+                {
+                    "score": 0.5,
+                    "state": "DcOnly",
+                    "stateValue": "DcOnly"
+                },
+                {
+                    "score": 0.1,
+                    "state": "Off",
+                    "stateValue": "Off"
+                }
+            ]
+        },
+        "TRANSPARENCYEFFECTS": {
+            "id": "eco_config_tranparencyeffects",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "OFF",
+                    "stateValue": false
+                },
+                {
+                    "score": 0,
+                    "state": "ON",
+                    "stateValue": true
+                }
+            ]
+        },
+        "USBBATTERYSAVER": {
+            "id": "eco_config_usbbatterysaver",
+            "weight": 3,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "SCREENSAVER": {
+            "id": "eco_config_screensaver",
+            "weight": 2,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "OFF",
+                    "stateValue": false
+                },
+                {
+                    "score": 0,
+                    "state": "ON",
+                    "stateValue": true
+                }
+            ]
+        },
+        "DARKTHEME_WINDOWMODE": {
+            "id": "eco_config_darktheme_windowmode",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "DARKTHEME_APPMODE": {
+            "id": "eco_config_darktheme_appmode",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "HUMANPRESENCEDIM": {
+            "id": "eco_config_humanpresencedim",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "HUMANPRESENCELOCK": {
+            "id": "eco_config_humanpresencelock",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "BRIGHTNESS": {
+            "id": "eco_config_brightness",
+            "weight": 10,
+            "evaluatorType": "RANGE_NUM_LIST",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "GREAT",
+                    "minRange": 0,
+                    "maxRange": 40
+                },
+                {
+                    "score": 0.75,
+                    "state": "GOOD",
+                    "minRange": 41,
+                    "maxRange": 60
+                },
+                {
+                    "score": 0.5,
+                    "state": "AVERAGE",
+                    "minRange": 61,
+                    "maxRange": 80
+                },
+                {
+                    "score": 0.25,
+                    "state": "BAD",
+                    "minRange": 81,
+                    "maxRange": 100
+                }
+            ]
+        },
+        "ADAPTIVEBRIGHTNESS": {
+            "id": "eco_config_adaptivebrightness",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL_LIST",
+            "efficiencyLevels": [
+                {
+                    "score": 1,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 0,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "HIGHDYNAMICRANGE": {
+            "id": "eco_config_highdynamicrange",
+            "weight": 1,
+            "evaluatorType": "EQUAL_BOOL",
+            "efficiencyLevels": [
+                {
+                    "score": 0,
+                    "state": "ON",
+                    "stateValue": true
+                },
+                {
+                    "score": 1,
+                    "state": "OFF",
+                    "stateValue": false
+                }
+            ]
+        },
+        "WIFIPOWERSAVINGAC": {
+            "id": "eco_config_wifipowersaving_AC",
+            "weight": 5,
+            "evaluatorType": "EQUAL_NUM",
+            "efficiencyLevels": [
+                {
+                    "score": 0,
+                    "state": "MaximumPerformance",
+                    "stateValue": 0
+                },
+                {
+                    "score": 0.4,
+                    "state": "LowPowerSaving",
+                    "stateValue": 1
+                },
+                {
+                    "score": 0.8,
+                    "state": "MediumPowerSaving",
+                    "stateValue": 2
+                },
+                {
+                    "score": 1,
+                    "state": "MaximumPowerSaving",
+                    "stateValue": 3
+                }
+            ]
+        }
+    }
+}
