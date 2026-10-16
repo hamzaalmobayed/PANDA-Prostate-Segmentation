@@ -1,0 +1,15 @@
+{
+  "python": "3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "numpy": "1.26.4",
+  "pandas": "2.2.3",
+  "opencv": "4.9.0",
+  "torch": "2.5.1+cu118",
+  "torch_cuda_runtime": "11.8",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "timm": "1.0.12",
+  "sklearn": "1.5.2",
+  "tiatoolbox": "1.6.0",
+  "segmentation_models_pytorch": "0.5.0"
+}

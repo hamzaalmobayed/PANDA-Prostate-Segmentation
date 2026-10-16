@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "purpose": "Post-pilot reviewer-proof statistical/reporting finalization only",
+  "does_not_repeat_training": true,
+  "does_not_repeat_wsi_test": true,
+  "does_not_repeat_wsi_reconstruction": true,
+  "pilot_comparisons_available": 5,
+  "pilot_comparisons_csv": "D:\\PANDA_PROSTATE\\paper_results\\stats\\pilot_major_comparisons_two_sided_holm.csv",
+  "note": "CAMELYON-only ITC/micro/macro/FROC analyses remain intentionally not applicable to PANDA."
+}
