@@ -1,0 +1,8 @@
+{
+  "train_csv_rows": 10616,
+  "valid_segmentation_pairs": 10512,
+  "missing_masks": 100,
+  "missing_masks_csv": "D:\\PANDA_PROSTATE\\manifests\\excluded_missing_masks.csv",
+  "mapping_rule": "train.csv image_id -> train_images/<id>.tiff and train_label_masks/<id>_mask.tiff",
+  "native_pyramid_qc": "D:\\PANDA_PROSTATE\\qc\\01c_native_pyramid.json"
+}
