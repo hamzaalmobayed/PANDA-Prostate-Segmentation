@@ -1,0 +1,25 @@
+{
+  "total_rows": 10512,
+  "split_counts": {
+    "train": 7358,
+    "val": 1577,
+    "test": 1577
+  },
+  "provider_counts": {
+    "karolinska": 5454,
+    "radboud": 5058
+  },
+  "provider_by_split": {
+    "karolinska": {
+      "test": 818,
+      "train": 3818,
+      "val": 818
+    },
+    "radboud": {
+      "test": 759,
+      "train": 3540,
+      "val": 759
+    }
+  },
+  "source_of_truth": "Counts recomputed from the actual split CSV generated from train.csv; no manuscript hard-coded counts."
+}
