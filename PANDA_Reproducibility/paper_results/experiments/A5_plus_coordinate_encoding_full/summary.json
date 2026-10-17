@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "experiment": "A5_plus_coordinate_encoding_full",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "vahadane",
+  "use_coords": true,
+  "encoder": "efficientnet_b4_custom",
+  "best_epoch": 7,
+  "best_val_dice": 0.804021188213299,
+  "best_val_iou": 0.6722704284469327,
+  "best_val_precision": 0.7918114014107659,
+  "best_val_recall": 0.8166134239255569
+}
