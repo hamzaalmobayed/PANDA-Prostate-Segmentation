@@ -1,0 +1,14 @@
+{
+  "experiment": "encoder_efficientnet_b2",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "vahadane",
+  "use_coords": false,
+  "encoder": "efficientnet-b2",
+  "best_val_dice": 0.7787082047963013,
+  "best_val_iou": 0.6376102810601629,
+  "best_val_precision": 0.8168242923629123,
+  "best_val_recall": 0.8471021286939612,
+  "device": "cuda",
+  "cuda_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+}
