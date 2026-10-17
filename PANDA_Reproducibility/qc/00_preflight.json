@@ -1,0 +1,14 @@
+{
+  "step": "00_preflight",
+  "passed": true,
+  "time": "2026-08-16 14:03:46",
+  "repairs": [],
+  "details": {
+    "empty_csv_safe": true,
+    "atomic_csv": true,
+    "atomic_json": true,
+    "atomic_torch": true,
+    "cuda_available": true,
+    "torch_version": "2.5.1+cu118"
+  }
+}
