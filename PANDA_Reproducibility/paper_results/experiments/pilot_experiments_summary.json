@@ -1,0 +1,9 @@
+{
+  "ablation_rows": 6,
+  "normalization_rows": 3,
+  "kmeans_coord_rows": 4,
+  "encoder_rows": 5,
+  "provider_holdout_rows": 2,
+  "paired_major_comparisons_available": 5,
+  "paired_major_comparisons_csv": "D:\\PANDA_PROSTATE\\paper_results\\stats\\pilot_major_comparisons_two_sided_holm.csv"
+}
