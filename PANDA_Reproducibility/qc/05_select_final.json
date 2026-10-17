@@ -1,0 +1,77 @@
+{
+  "step": "05_select_final",
+  "passed": true,
+  "time": "2026-08-17 17:32:04",
+  "repairs": [],
+  "details": {
+    "requested_total": 80000,
+    "actual_total": 80000,
+    "targets": {
+      "(0, 'normal')": 13334,
+      "(1, 'normal')": 13333,
+      "(2, 'normal')": 13333,
+      "(0, 'tumor')": 13334,
+      "(1, 'tumor')": 13333,
+      "(2, 'tumor')": 13333
+    },
+    "counts": {
+      "(0, 'normal')": 13334,
+      "(0, 'tumor')": 13334,
+      "(1, 'normal')": 13333,
+      "(1, 'tumor')": 13333,
+      "(2, 'normal')": 13333,
+      "(2, 'tumor')": 13333
+    },
+    "selection": [
+      {
+        "level": 0,
+        "category": "normal",
+        "available": 56869,
+        "feature_candidates": 25000,
+        "selected": 13334,
+        "target": 13334
+      },
+      {
+        "level": 0,
+        "category": "tumor",
+        "available": 41658,
+        "feature_candidates": 25000,
+        "selected": 13334,
+        "target": 13334
+      },
+      {
+        "level": 1,
+        "category": "normal",
+        "available": 52916,
+        "feature_candidates": 25000,
+        "selected": 13333,
+        "target": 13333
+      },
+      {
+        "level": 1,
+        "category": "tumor",
+        "available": 40448,
+        "feature_candidates": 25000,
+        "selected": 13333,
+        "target": 13333
+      },
+      {
+        "level": 2,
+        "category": "normal",
+        "available": 29255,
+        "feature_candidates": 25000,
+        "selected": 13333,
+        "target": 13333
+      },
+      {
+        "level": 2,
+        "category": "tumor",
+        "available": 21081,
+        "feature_candidates": 21081,
+        "selected": 13333,
+        "target": 13333
+      }
+    ],
+    "selected_train_csv": "D:\\PANDA_PROSTATE\\selected\\train_selected.csv"
+  }
+}
