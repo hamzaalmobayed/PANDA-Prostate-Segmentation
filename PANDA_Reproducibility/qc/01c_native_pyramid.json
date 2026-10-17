@@ -1,0 +1,10 @@
+{
+  "step": "01c_native_pyramid",
+  "passed": true,
+  "time": "2026-08-14 18:11:48",
+  "repairs": [],
+  "details": {
+    "checked_slides": 10512,
+    "rule": ">=3 native levels; first three downsamples within 25% of 1x/4x/16x."
+  }
+}
