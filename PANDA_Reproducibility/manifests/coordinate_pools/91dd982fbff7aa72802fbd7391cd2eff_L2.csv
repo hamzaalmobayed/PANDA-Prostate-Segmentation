@@ -1,0 +1,9 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,12288,0.04341779436383929,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,2048,0.09728567940848214,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,14336,0.07293701171875,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,0,0.130035400390625,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,6144,0.04194859095982143,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,18432,0.10918317522321429,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,16384,0.10170636858258929,0.0,normal
+91dd982fbff7aa72802fbd7391cd2eff,radboud,train,2,0,4096,0.08073643275669642,0.0,normal
