@@ -1,0 +1,5 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+bbbe47a9dda0f30ae9d6457531b84ffa,radboud,test,2,0,12288,0.2601318359375,0.0,normal
+bbbe47a9dda0f30ae9d6457531b84ffa,radboud,test,2,0,14336,0.2511138916015625,0.0,normal
+bbbe47a9dda0f30ae9d6457531b84ffa,radboud,test,2,0,16384,0.24140421549479166,0.0,normal
+bbbe47a9dda0f30ae9d6457531b84ffa,radboud,test,2,0,10240,0.2657216389973958,0.0,normal
