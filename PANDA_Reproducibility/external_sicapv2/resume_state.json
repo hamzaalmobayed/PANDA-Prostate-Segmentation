@@ -1,0 +1,8 @@
+{
+  "dataset": "SICAPv2",
+  "phase": "COMPLETE",
+  "updated_at": "2026-10-04 00:51:19",
+  "test_images": 18765,
+  "source_wsi": 18765,
+  "results": "D:\\PANDA_PROSTATE\\external_sicapv2\\results"
+}
