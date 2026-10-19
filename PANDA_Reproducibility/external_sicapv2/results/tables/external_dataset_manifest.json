@@ -1,0 +1,12 @@
+{
+  "dataset": "SICAPv2",
+  "version": 2,
+  "dataset_page": "https://data.mendeley.com/datasets/9xxm58dvs3/2",
+  "license": "CC BY 4.0",
+  "split_source": "all_images_fallback",
+  "paired_test_images": 18765,
+  "source_wsi_groups": 18765,
+  "missing_masks_count": 0,
+  "missing_masks_examples": [],
+  "binary_mapping": "SICAP mask pixel > 0 => tumor; 0 => non-tumor, evaluated on H&E-derived valid tissue"
+}
