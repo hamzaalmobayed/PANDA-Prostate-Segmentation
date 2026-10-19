@@ -1,0 +1,10 @@
+LARGE_NOT_UPLOADED | runs/final_main_training/best.pt
+LARGE_NOT_UPLOADED | selected/train_selected.csv
+CLEANUP_FAILED | GitHub HTTP 400 : The remote server returned an error: (400) Bad Request.
+UPLOADED=14
+EXISTING_TARGETS=0
+FAILED=0
+LARGE_NOT_UPLOADED=2
+NOTE: Full historical Git cleanup not performed.
+NOTE: Entire repository not rescanned.
+NOTE: Dependency pinning and reproducibility not fully verified.
