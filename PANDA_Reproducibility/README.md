@@ -66,3 +66,23 @@ fallback index, not the official test partition.
 PRECISE was evaluated using a separate full-WSI protocol.
 These results are not directly interchangeable with
 the PANDA held-out evaluation.
+
+<!-- PANDA_A2_FIGURE_DOCUMENTATION -->
+
+## Figure and script traceability
+
+- `FIGURE_PROVENANCE_DETAILED.csv`: candidate generation
+  scripts, image filenames, SHA-256 values, and unresolved
+  source identifiers for the manuscript figures.
+- `HARDCODED_PATHS_SUMMARY.csv`: scripts containing
+  machine-specific absolute paths.
+- `CHANGELOG.md`: reproducibility work and limitations.
+
+The image-producing scripts are not assumed to regenerate
+the final assembled figure without further verification.
+Manual assembly and labeling may have been performed with
+Microsoft Paint.
+
+Detailed source-case identities, reference annotations,
+predictions and actual executed commands must be checked
+before any figure is marked VERIFIED.
