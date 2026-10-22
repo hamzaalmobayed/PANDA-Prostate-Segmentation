@@ -11,6 +11,42 @@ Optional: --csv PATH --outdir PATH --groups 8
 Dependencies: numpy pandas matplotlib pillow
 """
 from __future__ import annotations
+
+
+def _panda_portable_path(original):
+    """Resolve legacy PANDA paths through configurable project roots."""
+    import os
+    from pathlib import Path
+
+    text = str(original)
+    normalized = text.replace("/", "\\")
+
+    roots = [
+        (
+            "PANDA_ARTICLE_ROOT",
+            'D:\\PANDA_PROSTATE_FINAL_ARTICLE_COMPLETE_SAFE_RESUME_V31_KAGGLE_SICAP_DOWNLOAD_FIX\\final_article_pkg'
+        ),
+        (
+            "PANDA_DATA_ROOT",
+            r"D:\PANDA_PROSTATE"
+        ),
+    ]
+
+    for variable, legacy_root in roots:
+        legacy = legacy_root.replace("/", "\\").rstrip("\\")
+        if (
+            normalized.lower() == legacy.lower()
+            or normalized.lower().startswith(legacy.lower() + "\\")
+        ):
+            root = os.environ.get(variable, legacy)
+            suffix = normalized[len(legacy):].lstrip("\\")
+            return str(Path(root).joinpath(*[
+                x for x in suffix.split("\\") if x
+            ]))
+
+    return original
+
+
 import argparse, hashlib, json
 from pathlib import Path
 import numpy as np
@@ -21,8 +57,8 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from PIL import Image
 
-CSV_DEFAULT=Path(r'D:\PANDA_PROSTATE\paper_results\tables\per_slide_wsi_metrics.csv')
-OUTPUT_DEFAULT=Path(r'D:\PANDA_PROSTATE\PANDA_Figures_1-17_Editable_Replacement_Templates.png\PLOS_FIXED')
+CSV_DEFAULT=Path(_panda_portable_path(r'D:\PANDA_PROSTATE\paper_results\tables\per_slide_wsi_metrics.csv'))
+OUTPUT_DEFAULT=Path(_panda_portable_path(r'D:\PANDA_PROSTATE\PANDA_Figures_1-17_Editable_Replacement_Templates.png\PLOS_FIXED'))
 SPECS=[('L0','L0 (1x)'),('L1','L1 (4x downsample)'),('L2','L2 (16x downsample)'),('fusion','Three-level fusion')]
 
 def resolve_csv(user):
