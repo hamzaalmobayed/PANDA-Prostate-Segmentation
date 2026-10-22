@@ -4,6 +4,42 @@
 Place next to V31 scripts, then Run in your Python IDE. No CLI options required.
 Optional --work-root D:/PANDA_PROSTATE --source-dir PATH --skip-inference
 """
+
+
+def _panda_portable_path(original):
+    """Resolve legacy PANDA paths through configurable project roots."""
+    import os
+    from pathlib import Path
+
+    text = str(original)
+    normalized = text.replace("/", "\\")
+
+    roots = [
+        (
+            "PANDA_ARTICLE_ROOT",
+            'D:\\PANDA_PROSTATE_FINAL_ARTICLE_COMPLETE_SAFE_RESUME_V31_KAGGLE_SICAP_DOWNLOAD_FIX\\final_article_pkg'
+        ),
+        (
+            "PANDA_DATA_ROOT",
+            r"D:\PANDA_PROSTATE"
+        ),
+    ]
+
+    for variable, legacy_root in roots:
+        legacy = legacy_root.replace("/", "\\").rstrip("\\")
+        if (
+            normalized.lower() == legacy.lower()
+            or normalized.lower().startswith(legacy.lower() + "\\")
+        ):
+            root = os.environ.get(variable, legacy)
+            suffix = normalized[len(legacy):].lstrip("\\")
+            return str(Path(root).joinpath(*[
+                x for x in suffix.split("\\") if x
+            ]))
+
+    return original
+
+
 import argparse, csv, json, os, sys, re, traceback, hashlib, importlib.util
 from pathlib import Path
 import base64, zlib, shutil
@@ -320,14 +356,14 @@ def _install_helpers(project_root, code_folder):
     return helper_dir
 
 def _find_project_root(explicit):
-    candidates=[Path(explicit),Path(__file__).resolve().parent,Path(__file__).resolve().parent.parent,Path(r'D:\PANDA_PROSTATE')]
+    candidates=[Path(explicit),Path(__file__).resolve().parent,Path(__file__).resolve().parent.parent,Path(_panda_portable_path(r'D:\PANDA_PROSTATE'))]
     for candidate in candidates:
         if (candidate/'paper_results'/'tables'/'best_threshold.json').exists():return candidate
     return Path(explicit)
 
 def main():
     ap=argparse.ArgumentParser(description='PANDA paper B1-B6 no retraining, safe original-preserving runner')
-    ap.add_argument('--work-root',default=os.environ.get('PANDA_WORK_ROOT',r'D:\PANDA_PROSTATE'))
+    ap.add_argument('--work-root',default=os.environ.get('PANDA_WORK_ROOT',_panda_portable_path(r'D:\PANDA_PROSTATE')))
     ap.add_argument('--source-dir',default=str(Path(__file__).resolve().parent))
     ap.add_argument('--iterations',type=int,default=10000)
     ap.add_argument('--skip-inference',action='store_true',help='Do not run slow B5 inference')
