@@ -1,5 +1,41 @@
 from __future__ import annotations
 
+
+def _panda_portable_path(original):
+    """Resolve legacy PANDA paths through configurable project roots."""
+    import os
+    from pathlib import Path
+
+    text = str(original)
+    normalized = text.replace("/", "\\")
+
+    roots = [
+        (
+            "PANDA_ARTICLE_ROOT",
+            'D:\\PANDA_PROSTATE_FINAL_ARTICLE_COMPLETE_SAFE_RESUME_V31_KAGGLE_SICAP_DOWNLOAD_FIX\\final_article_pkg'
+        ),
+        (
+            "PANDA_DATA_ROOT",
+            r"D:\PANDA_PROSTATE"
+        ),
+    ]
+
+    for variable, legacy_root in roots:
+        legacy = legacy_root.replace("/", "\\").rstrip("\\")
+        if (
+            normalized.lower() == legacy.lower()
+            or normalized.lower().startswith(legacy.lower() + "\\")
+        ):
+            root = os.environ.get(variable, legacy)
+            suffix = normalized[len(legacy):].lstrip("\\")
+            return str(Path(root).joinpath(*[
+                x for x in suffix.split("\\") if x
+            ]))
+
+    return original
+
+
+
 """
 Standalone external-validation pipeline for SICAPv2.
 
@@ -1127,7 +1163,7 @@ def write_final_readme(results_root: Path, index_df: pd.DataFrame):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--work-root", default=os.environ.get("PANDA_WORK_ROOT", r"D:\PANDA_PROSTATE"))
+    ap.add_argument("--work-root", default=os.environ.get("PANDA_WORK_ROOT", _panda_portable_path(r"D:\PANDA_PROSTATE")))
     ap.add_argument("--data-root", default=os.environ.get("PANDA_DATA_ROOT", r"D:\prostat"))
     ap.add_argument("--dataset-url", default=ZIP_API_URL)
     args = ap.parse_args()
@@ -1200,7 +1236,7 @@ if __name__ == "__main__":
             # Storage errors are always self-healed. Other errors fail so scientific/data
             # mismatches are not silently guessed; the external watchdog restarts only after
             # storage becomes available.
-            work_guess = Path(os.environ.get("PANDA_WORK_ROOT", r"D:\PANDA_PROSTATE"))
+            work_guess = Path(os.environ.get("PANDA_WORK_ROOT", _panda_portable_path(r"D:\PANDA_PROSTATE")))
             if _storage_like(e) or not _drive_ready(work_guess):
                 _wait_storage(work_guess)
                 print("[EXTERNAL RESUME] Restarting same phase automatically...", flush=True)
