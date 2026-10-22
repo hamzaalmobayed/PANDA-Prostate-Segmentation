@@ -1,3 +1,39 @@
+
+
+def _panda_portable_path(original):
+    """Resolve legacy PANDA paths through configurable project roots."""
+    import os
+    from pathlib import Path
+
+    text = str(original)
+    normalized = text.replace("/", "\\")
+
+    roots = [
+        (
+            "PANDA_ARTICLE_ROOT",
+            'D:\\PANDA_PROSTATE_FINAL_ARTICLE_COMPLETE_SAFE_RESUME_V31_KAGGLE_SICAP_DOWNLOAD_FIX\\final_article_pkg'
+        ),
+        (
+            "PANDA_DATA_ROOT",
+            r"D:\PANDA_PROSTATE"
+        ),
+    ]
+
+    for variable, legacy_root in roots:
+        legacy = legacy_root.replace("/", "\\").rstrip("\\")
+        if (
+            normalized.lower() == legacy.lower()
+            or normalized.lower().startswith(legacy.lower() + "\\")
+        ):
+            root = os.environ.get(variable, legacy)
+            suffix = normalized[len(legacy):].lstrip("\\")
+            return str(Path(root).joinpath(*[
+                x for x in suffix.split("\\") if x
+            ]))
+
+    return original
+
+
 import os
 import sys
 from pathlib import Path
@@ -22,10 +58,10 @@ Image.MAX_IMAGE_PIXELS = None
 # -----------------------------
 # Configuration
 # -----------------------------
-DEFAULT_PATCH_ROOT = r"D:\PANDA_PROSTATE\patches\train"
+DEFAULT_PATCH_ROOT = _panda_portable_path(r"D:\PANDA_PROSTATE\patches\train")
 DEFAULT_WSI_ROOT = r"D:\prostat\train_images"
 DEFAULT_MASK_ROOT = r"D:\prostat\train_label_masks"
-DEFAULT_VISUAL_ROOT = r"D:\PANDA_PROSTATE\paper_results\test_visuals_good_live"  # optional direct preview/mask source
+DEFAULT_VISUAL_ROOT = _panda_portable_path(r"D:\PANDA_PROSTATE\paper_results\test_visuals_good_live")  # optional direct preview/mask source
 
 PANEL_COLORS = {
     1: "#2F80ED",   # blue
