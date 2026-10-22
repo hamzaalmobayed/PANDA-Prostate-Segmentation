@@ -14,6 +14,42 @@ Optional:
     python GENERATE_STRUCTURED_SAMPLING_TREE_4_LEVELS_V3.py --outdir "D:\\...\\PLOS_FIXED"
 """
 from __future__ import annotations
+
+
+def _panda_portable_path(original):
+    """Resolve legacy PANDA paths through configurable project roots."""
+    import os
+    from pathlib import Path
+
+    text = str(original)
+    normalized = text.replace("/", "\\")
+
+    roots = [
+        (
+            "PANDA_ARTICLE_ROOT",
+            'D:\\PANDA_PROSTATE_FINAL_ARTICLE_COMPLETE_SAFE_RESUME_V31_KAGGLE_SICAP_DOWNLOAD_FIX\\final_article_pkg'
+        ),
+        (
+            "PANDA_DATA_ROOT",
+            r"D:\PANDA_PROSTATE"
+        ),
+    ]
+
+    for variable, legacy_root in roots:
+        legacy = legacy_root.replace("/", "\\").rstrip("\\")
+        if (
+            normalized.lower() == legacy.lower()
+            or normalized.lower().startswith(legacy.lower() + "\\")
+        ):
+            root = os.environ.get(variable, legacy)
+            suffix = normalized[len(legacy):].lstrip("\\")
+            return str(Path(root).joinpath(*[
+                x for x in suffix.split("\\") if x
+            ]))
+
+    return original
+
+
 import argparse
 from pathlib import Path
 from datetime import datetime
@@ -24,7 +60,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 from PIL import Image
 
-DEFAULT_DIR = Path(r'D:\PANDA_PROSTATE\PANDA_Figures_1-17_Editable_Replacement_Templates.png\PLOS_FIXED')
+DEFAULT_DIR = Path(_panda_portable_path(r'D:\PANDA_PROSTATE\PANDA_Figures_1-17_Editable_Replacement_Templates.png\PLOS_FIXED'))
 
 
 def box(ax, x, y, w, h, label, fill, edge, size=12, weight='bold'):
