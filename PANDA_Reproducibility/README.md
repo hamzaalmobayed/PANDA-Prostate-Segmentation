@@ -35,6 +35,13 @@ The figure and analysis scripts read two environment variables:
 |---|---|
 | `PANDA_DATA_ROOT` | work folder written by the pipeline (`patches/`, `selected/`, `manifests/`, `runs/`, `paper_results/`, `stain_target_train.png`) |
 | `PANDA_ARTICLE_ROOT` | checkout of this repository |
+| `PANDA_WORK_ROOT` | work folder for `PANDA_B_ANALYSIS_ONE_CLICK.py` and the SICAPv2 script (same folder as `PANDA_DATA_ROOT`) |
+
+The `D:\...` paths left in `PANDA_Pipeline/` are the executed defaults. Each is
+remapped through these variables (`_panda_portable_path`) or overridden by a
+command-line option; see `HARDCODED_PATHS_SUMMARY.csv`. In the SICAPv2 script,
+`PANDA_DATA_ROOT` also sets `--data-root`, which that script does not read; pass
+`--data-root` explicitly if you set the variable to the work folder.
 
 ## Manuscript figures
 
@@ -42,7 +49,7 @@ The figure and analysis scripts read two environment variables:
 |---|---|---|
 | Fig 1 | `figure_scripts/make_figures_1_2_4_7.py` | stored training patches and masks of WSI `362d30ace92ce17128d176137362b8c2` |
 | Fig 2 | `figure_scripts/make_figures_1_2_4_7.py` | same WSI: stored L2 patches, masks, coordinate pools; `selected/train_selected.csv` |
-| Fig 3 | `PANDA_Pipeline/GENERATE_MULTILEVEL_PATCH_MASK_OVERLAY.py` | case `0018ae58b01bdadc8e347995b69f99aa` (printed on the figure) |
+| Fig 3 | `figure_scripts/make_figure_3.py` | nested stored L0/L1/L2 tumor patches and masks of training WSI `0018ae58b01bdadc8e347995b69f99aa` |
 | Fig 4 | `figure_scripts/make_figures_1_2_4_7.py` | L0 training patch of WSI `362d30ac…`; `stain_target_train.png` |
 | Fig 5 | `PANDA_Pipeline/GENERATE_AUGMENTATION_VISUALIZATION.py` | a stored PANDA patch |
 | Fig 6 | `PANDA_Pipeline/GENERATE_STRUCTURED_SAMPLING_TREE_4_LEVELS_V3.py` | schematic |
@@ -74,7 +81,7 @@ figure is in `FIGURE_PROVENANCE_AUDIT.csv`.
 | 6 Common support | `paper_results/B_followup_analyses/tables/B4_*.csv` | `PANDA_B_ANALYSIS_ONE_CLICK.py` |
 | 7 Patch audit | `paper_results/tables/patch_metrics_per_level_and_pooled.csv` | `panda_stream_paper.py` |
 | 8 Boundary metrics | `paper_results/tables/boundary_metrics_summary.csv` | `panda_stream_paper.py` |
-| 9 Level-specific thresholds | not archived (see below) | |
+| 9 Level-specific thresholds | `paper_results/tables/level_specific_thresholds_table9.csv`, `level_specific_threshold_sweep_validation.csv` | `analysis_scripts/rebuild_level_thresholds.py` |
 | 10 Provider metrics | `paper_results/tables/provider_metrics_95CI.csv` | `panda_stream_paper.py` |
 | 11 Provider transfer | `paper_results/tables/pilot_leave_one_provider_out.csv` | `run_full_panda_paper.py` (pilot stage) |
 | 12 Literature context | values from the cited studies | |
@@ -84,19 +91,30 @@ figure is in `FIGURE_PROVENANCE_AUDIT.csv`.
 S1 Table (the 30 WSIs of the pathologist-guided review) is in
 `supporting_information/` and is produced by `figure_scripts/make_S1_table.py`.
 
+## Analysis scripts
+
+`analysis_scripts/` rebuilds results from the saved WSI caches and manifests
+(`python <script> <output_dir>` with `PANDA_DATA_ROOT` set):
+
+| Script | Rebuilds | Check against archived outputs |
+|---|---|---|
+| `rebuild_level_thresholds.py` | Table 9: validation sweep 0.30–0.70 for L0, L1, L2 and fusion; validation-selected thresholds applied to test | fused sweep identical to `threshold_sensitivity_validation.csv`; test counts at 0.43 identical to `per_slide_wsi_metrics.csv` for all 1,577 WSIs and all four maps |
+| `coverage_from_caches.py` | `coverage_analysis/` | identical files |
+| `provider_tumor_definition.py` | `paper_results/tables/provider_tumor_definition_test_patches.csv` (share of test tumor patches labeled tumor over all annotated-valid pixels; third limitation) | |
+
 ## Known gaps
 
-- **Table 9.** The level-specific threshold-sensitivity output is not archived. Only
-  the fused validation sweep (`threshold_sensitivity_validation.csv`) is included.
-- **Coverage exports.** `coverage_analysis/` has no archived generating script.
 - **WSI caches.** `paper_results/wsi_cache/` here is partial (951 validation and
-  1,564 test caches of 1,577 each). B4 needs all 1,577 test caches.
-- **B4 precision.** The caches store fused probabilities as float16. B4 rescored
-  them with `prob >= 0.43`, and NumPy casts that threshold to float16
-  (0.4299316). Compared with the original float32 evaluation in
-  `per_slide_wsi_metrics.csv`, this adds 5,135 TP and 6,821 FP pixels in total
-  (at most 70 per WSI, 0.034% of predicted pixels). It never removes a positive.
-  Pooled fusion Dice is 0.852160 against 0.852159.
+  1,564 test caches of 1,577 each), and the PRECISE caches are not included.
+  B4 and the first two analysis scripts need the full cache sets.
+- **B4 precision.** The caches store probabilities as float16. The original
+  evaluation (`panda_stream_paper.py`) cast them to float32 before applying
+  0.43, so float16(0.43) = 0.4299316 scored negative. B4 compared the float16
+  array with 0.43 directly; NumPy then casts the threshold to float16 and the
+  same pixels score positive. This adds 5,135 TP and 6,821 FP fused pixels in
+  total (at most 70 per WSI, 0.034% of predicted pixels) and never removes a
+  positive. Pooled fusion Dice is 0.852160 against 0.852159. With the float32
+  cast, the caches reproduce `per_slide_wsi_metrics.csv` exactly.
 - **Stale config.** `paper_results/reproducibility_config.json` keeps the planned
   defaults (for example, early-stopping patience 7). The executed training
   settings are in `runs/final_main_training/config.json` (patience 5, 30 epochs,

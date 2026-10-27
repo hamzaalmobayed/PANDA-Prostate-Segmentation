@@ -18,10 +18,13 @@ B1–B3 read `paper_results/tables/per_slide_wsi_metrics.csv`. B4 reads the 1,57
 test caches in `paper_results/wsi_cache/`; the copy in this repository is partial,
 so B4 needs the full cache set.
 
-**B4 precision.** The caches store probabilities as float16. `prob >= 0.43`
-therefore compares against float16(0.43) = 0.4299316. Against the original
-float32 evaluation, fused counts gain 5,135 TP and 6,821 FP pixels in total (at
-most 70 per WSI) and never lose a positive. Pooled fusion Dice is 0.852160 against
-0.852159. The B4 per-slide file can be reproduced exactly from the caches.
+**B4 precision.** The caches store probabilities as float16. B4 applies
+`prob >= 0.43` to the float16 array, so NumPy compares against float16(0.43) =
+0.4299316. The original evaluation cast the maps to float32 first, so pixels
+stored as 0.4299316 scored negative there. B4 therefore gains 5,135 TP and 6,821
+FP fused pixels in total (at most 70 per WSI) and never loses a positive. Pooled
+fusion Dice is 0.852160 against 0.852159. Both files can be reproduced exactly
+from the caches: B4 as written, `per_slide_wsi_metrics.csv` with the float32 cast
+(`analysis_scripts/rebuild_level_thresholds.py` checks this).
 
 Original source WSIs and annotations are not redistributed here.

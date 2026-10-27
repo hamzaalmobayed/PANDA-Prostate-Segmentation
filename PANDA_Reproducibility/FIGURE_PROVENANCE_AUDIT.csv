@@ -1,7 +1,7 @@
 figure,source_slide_or_patch,source_mask,source_prediction,producer_script,parameters,verified
 Fig1,PANDA training WSI 362d30ace92ce17128d176137362b8c2: stored L0/L1/L2 normal and tumor patches,Tumor_Masks of the same patches,none,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,"patch choice: fewest mask seams, then most tissue",YES
 Fig2,"PANDA training WSI 362d30ace92ce17128d176137362b8c2: 16 stored L2 patches; L0 tumor patch x0=7296,y0=20864; selected patches",stitched L2 tumor and valid masks,none,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,"tissue mask: Otsu on saturation, threshold>=0.20, disk 2, min object 500",YES
-Fig3,0018ae58b01bdadc8e347995b69f99aa (printed on the figure),,,GENERATE_MULTILEVEL_PATCH_MASK_OVERLAY.py,,PARTIAL
+Fig3,"PANDA training WSI 0018ae58b01bdadc8e347995b69f99aa: stored tumor patches L0 x0=1152,y0=6656; L1 x0=512,y0=6144; L2 x0=0,y0=2048",Tumor_Masks of the same patches,none,PANDA_Reproducibility/figure_scripts/make_figure_3.py,patches nested by level-0 field; L2 cropped to in-slide columns,YES
 Fig4,"PANDA training WSI 362d30ace92ce17128d176137362b8c2: L0 tumor patch x0=7296,y0=20864",n/a,n/a,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,Vahadane (TIAToolbox) fitted on stain_target_train.png,YES
 Fig5,,,,GENERATE_AUGMENTATION_VISUALIZATION.py,,NO
 Fig6,,,,GENERATE_STRUCTURED_SAMPLING_TREE_4_LEVELS_V3.py,,NO
