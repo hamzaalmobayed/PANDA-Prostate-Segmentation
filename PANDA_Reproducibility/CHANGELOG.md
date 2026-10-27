@@ -1,5 +1,32 @@
 # PANDA Reproducibility Changelog
 
+## 27 October 2026 (second update)
+
+### Added
+- `analysis_scripts/rebuild_level_thresholds.py`: rebuilds Table 9 from the WSI
+  caches. Output: `paper_results/tables/level_specific_threshold_sweep_validation.csv`
+  and `level_specific_thresholds_table9.csv`. Every Table 9 value is reproduced;
+  the fused sweep matches `threshold_sensitivity_validation.csv` and the test
+  counts at 0.43 match `per_slide_wsi_metrics.csv` for all 1,577 WSIs.
+- `analysis_scripts/coverage_from_caches.py`: generating script for
+  `coverage_analysis/`; reproduces the archived files.
+- `analysis_scripts/provider_tumor_definition.py` and
+  `paper_results/tables/provider_tumor_definition_test_patches.csv`: source of
+  the provider tumor-definition sentence in the third limitation.
+- `figure_scripts/make_figure_3.py`: Fig 3 drawn from nested stored L0/L1/L2
+  patches of the same WSI, with the field of each finer level marked.
+
+### Removed
+- `PANDA_Pipeline/GENERATE_MULTILEVEL_PATCH_MASK_OVERLAY.py`, replaced by
+  `figure_scripts/make_figure_3.py`.
+
+### Corrected
+- B4 precision note: the original evaluation read the same float16 caches but
+  cast them to float32 before thresholding; it did not use separate
+  full-precision maps. Both per-slide files are reproducible from the caches.
+- `HARDCODED_PATHS_SUMMARY.csv` now records how each executed default path is
+  overridden.
+
 ## 27 October 2026
 
 ### Repository history

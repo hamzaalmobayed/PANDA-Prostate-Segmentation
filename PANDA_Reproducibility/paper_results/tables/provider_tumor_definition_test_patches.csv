@@ -1,0 +1,7 @@
+provider,level,tumor_patches,all_tumor,share_all_tumor
+karolinska,0,1050,1050,1.0
+karolinska,1,1050,556,0.5295
+karolinska,2,840,152,0.181
+radboud,0,1179,0,0.0
+radboud,1,1132,0,0.0
+radboud,2,579,0,0.0
