@@ -1,0 +1,22 @@
+{
+  "checkpoint": "D:\\PANDA_PROSTATE\\runs\\final_main_training\\best.pt",
+  "optimal_validation_threshold": 0.43,
+  "test_slides": 1577,
+  "levels": [
+    0,
+    1,
+    2
+  ],
+  "fusion": "support-aware mean probability of L0/L1/L2 on common WSI grid",
+  "wsi_evaluation": "dense streaming reconstruction from retained original Test WSIs",
+  "boundary_metrics": [
+    "HD95",
+    "ASSD",
+    "surface Dice"
+  ],
+  "boundary_units": "evaluation-grid pixels + level-0-equivalent pixels",
+  "major_statistics_csv": "D:\\PANDA_PROSTATE\\paper_results\\stats\\major_wsi_comparisons_two_sided_holm.csv",
+  "provider_difference_stats": "D:\\PANDA_PROSTATE\\paper_results\\stats\\provider_difference_bootstrap.json",
+  "raw_per_slide_points": "D:\\PANDA_PROSTATE\\paper_results\\tables\\per_slide_wsi_metrics.csv",
+  "reproducibility_readme": "D:\\PANDA_PROSTATE\\paper_results\\README_REPRODUCIBILITY.md"
+}

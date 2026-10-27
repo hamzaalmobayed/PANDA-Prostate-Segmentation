@@ -1,0 +1,9 @@
+map,subset,n,mean_dice,median_dice,sd_dice,empty_reference_convention
+L0,all_original_zero_empty,1577,0.5131013060735913,0.6801132497860106,0.3595141959552997,"both empty -> 0, for original; tumor-bearing only preferred"
+L0,fusion_tumor_bearing_only,1126,0.7186152395009356,0.7584390421271971,0.18234255889562728,"both empty -> 0, for original; tumor-bearing only preferred"
+L1,all_original_zero_empty,1577,0.5427930519758182,0.7199656135826349,0.38816769877740936,"both empty -> 0, for original; tumor-bearing only preferred"
+L1,fusion_tumor_bearing_only,1126,0.7601995052982818,0.7987384564764799,0.21367866752768078,"both empty -> 0, for original; tumor-bearing only preferred"
+L2,all_original_zero_empty,1577,0.4125873142552027,0.44346076458752515,0.3892323043617616,"both empty -> 0, for original; tumor-bearing only preferred"
+L2,fusion_tumor_bearing_only,1126,0.5778420911016471,0.6161186702491004,0.3415569101385635,"both empty -> 0, for original; tumor-bearing only preferred"
+fusion,all_original_zero_empty,1577,0.5373609909530256,0.7156271717873709,0.3876261796300682,"both empty -> 0, for original; tumor-bearing only preferred"
+fusion,fusion_tumor_bearing_only,1126,0.7525917253400722,0.7938013441301703,0.2199190387726375,"both empty -> 0, for original; tumor-bearing only preferred"

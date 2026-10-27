@@ -1,0 +1,13 @@
+{
+  "step": "03_alignment",
+  "passed": true,
+  "time": "2026-08-14 18:12:42",
+  "repairs": [],
+  "details": {
+    "samples": 16,
+    "samples_with_overlap_above_threshold": 14,
+    "mean_overlap_jaccard": 0.6343731646594304,
+    "visual_dir": "D:\\PANDA_PROSTATE\\qc\\alignment_samples",
+    "note": "Visual triptych = RGB | raw provider mask | binary tumor overlay. Review these before extraction."
+  }
+}

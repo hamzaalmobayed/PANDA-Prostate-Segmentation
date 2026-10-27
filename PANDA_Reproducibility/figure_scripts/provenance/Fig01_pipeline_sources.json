@@ -1,0 +1,67 @@
+{
+  "script": "make_figures_1_2_4_7.py",
+  "slide_id": "362d30ace92ce17128d176137362b8c2",
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "pyramid_L0": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-6656__y0-21888__ds-1__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "c7b687373eca8af518ea6ea5764a2a4500938f360368b43088a7efca065b7a6d"
+    },
+    "pyramid_L1": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-6144__y0-19968__ds-4__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "db9621957cb23f25ed55ce0a50ba363d0bd0cd8f11a0b37858eb1ce13611aab1"
+    },
+    "pyramid_L2": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-18432__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "47b7e2fe5b989a78e208458bf3d4700220ffa1008bb3a8ba41cec772b3574a4d"
+    },
+    "normal_L0_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Normal/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-15104__y0-9728__ds-1__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "94fe6f0753f6ccd94299c410e23c538909fffb6de333a2d081b22719d22d2930"
+    },
+    "tumor_L0_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7552__y0-20480__ds-1__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "39569aa7183717765dc24bc554d68cf60067e1189e5ee5c22dad87d35a4e12f5"
+    },
+    "normal_L1_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Normal/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-14336__y0-9216__ds-4__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "0e3676a6d4ee2a7de5816085c467e61c83e6ec1d82d46b9783589e366a2f15c3"
+    },
+    "tumor_L1_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-16384__y0-6656__ds-4__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "cc1ff8625f8a72ee5f790967232313d337b7a197cb91a215d9722a5ffd024096"
+    },
+    "normal_L2_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-10240__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "9097cabc411158d37790f86113009730cd3dd4314492b03cc251c5df2efc8685"
+    },
+    "tumor_L2_image": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-20480__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "eec13c20fa03a6728d9c8b938f4343fc91bb85650420587e98ad6e30ee2d903d"
+    },
+    "normal_L0_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Normal_Masks/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-15104__y0-9728__ds-1__ps-512__stride-128__class-Normal__tumor_mask.png",
+      "sha256": "d613804e89b9eafe8155bd76c549618b3f961edea87dd59f3f2c1151e18f38ad"
+    },
+    "tumor_L0_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor_Masks/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7552__y0-20480__ds-1__ps-512__stride-128__class-Tumor__tumor_mask.png",
+      "sha256": "0fd4bb820e9fdc4df60e1a4d0156feaf348fc1a4910c6ea25241afcbe16a7ffb"
+    },
+    "normal_L1_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Normal_Masks/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-14336__y0-9216__ds-4__ps-512__stride-128__class-Normal__tumor_mask.png",
+      "sha256": "d613804e89b9eafe8155bd76c549618b3f961edea87dd59f3f2c1151e18f38ad"
+    },
+    "tumor_L1_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor_Masks/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-16384__y0-6656__ds-4__ps-512__stride-128__class-Tumor__tumor_mask.png",
+      "sha256": "b152c9aeaf09d6521331772e74720540fa4d60ee74a13417dd179aec2ad71112"
+    },
+    "normal_L2_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal_Masks/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-10240__y0-8192__ds-16__ps-512__stride-128__class-Normal__tumor_mask.png",
+      "sha256": "d613804e89b9eafe8155bd76c549618b3f961edea87dd59f3f2c1151e18f38ad"
+    },
+    "tumor_L2_mask": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor_Masks/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-20480__ds-16__ps-512__stride-128__class-Tumor__tumor_mask.png",
+      "sha256": "3aa419c99648e99a60f973673b29de9da41f26727c9deb9c450b9ba360959b34"
+    }
+  }
+}

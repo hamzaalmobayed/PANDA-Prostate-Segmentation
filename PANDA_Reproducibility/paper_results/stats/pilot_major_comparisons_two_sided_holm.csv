@@ -1,0 +1,14 @@
+comparison,status,reason,experiment_a,experiment_b,metric,n_paired_slides,mean_a,mean_b,mean_difference,difference_95CI_low,difference_95CI_high,two_sided_bootstrap_p,cohen_dz,probability_superiority,bootstrap_iterations,p_holm,significant_holm_0.05
+A1_plus_vahadane_vs_A0_baseline_L2_random_no_norm_no_coords,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+A2_plus_multilevel_vs_A1_plus_vahadane,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+A3_plus_class_balance_vs_A2_plus_multilevel,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+A4_plus_kmeans_selection_vs_A3_plus_class_balance,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+A5_plus_coordinate_encoding_full_vs_A4_plus_kmeans_selection,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+normalization_macenko_vs_normalization_none,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+normalization_vahadane_vs_normalization_none,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+kmeans_on_vs_kmeans_off_balanced_random,not_available,Per-slide validation metrics missing (experiment may predate V16 or be incomplete).,,,,,,,,,,,,,,,
+coords_on_vs_coords_off,ok,,coords_on,coords_off,dice,1153.0,0.42478644293588225,0.42963254332584216,-0.004846100389959873,-0.01320563982880647,0.0034828339240617744,0.256,-0.03448605830510025,0.53122289679098,1000.0,0.256,False
+encoder_resnet50_vs_encoder_efficientnet_b4,ok,,encoder_resnet50,encoder_efficientnet_b4,dice,1153.0,0.421835430829234,0.44417197720510476,-0.022336546375870698,-0.03220491270007351,-0.012595226785485388,0.0,-0.1295823312003647,0.35516045099739807,1000.0,0.0,True
+encoder_resnet101_vs_encoder_efficientnet_b4,ok,,encoder_resnet101,encoder_efficientnet_b4,dice,1153.0,0.4026318994152118,0.44417197720510476,-0.04154007778989301,-0.05262412343528333,-0.03111472640306844,0.0,-0.22219704284477698,0.32870771899392887,1000.0,0.0,True
+encoder_efficientnet_b0_vs_encoder_efficientnet_b4,ok,,encoder_efficientnet_b0,encoder_efficientnet_b4,dice,1153.0,0.41847498911233905,0.44417197720510476,-0.02569698809276569,-0.03611995138434147,-0.015156125864760311,0.0,-0.14887555762044574,0.4019947961838682,1000.0,0.0,True
+encoder_efficientnet_b2_vs_encoder_efficientnet_b4,ok,,encoder_efficientnet_b2,encoder_efficientnet_b4,dice,1153.0,0.4264422488935043,0.44417197720510476,-0.017729728311600454,-0.02679972766606122,-0.008652769431273336,0.0,-0.11088241220242545,0.3803122289679098,1000.0,0.0,True

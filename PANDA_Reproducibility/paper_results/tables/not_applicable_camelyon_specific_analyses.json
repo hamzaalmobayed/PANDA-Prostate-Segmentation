@@ -1,0 +1,4 @@
+{
+  "FROC_ITC_micro_macro": "not copied",
+  "reason": "CAMELYON ITC/micrometastasis/macrometastasis definitions are lymph-node-metastasis-specific and are not prostate-biopsy categories."
+}

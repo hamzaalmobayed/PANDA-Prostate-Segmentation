@@ -1,0 +1,9 @@
+{
+  "saved_cases_so_far": 30,
+  "max_cases": 30,
+  "max_dice_threshold": 0.8,
+  "crop_level0_px": 3072,
+  "folder": "D:\\PANDA_PROSTATE\\paper_results\\test_visuals_bad_review",
+  "mode": "saved during TEST in arrival order",
+  "note": "The first poor TEST WSIs encountered (below threshold) are saved immediately."
+}

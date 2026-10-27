@@ -1,0 +1,5 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+6412f5e8c6ee428db6bffe8d921b8be9,karolinska,val,2,14336,14336,0.07987213134765625,0.0,normal
+6412f5e8c6ee428db6bffe8d921b8be9,karolinska,val,2,14336,16384,0.048778533935546875,0.0,normal
+6412f5e8c6ee428db6bffe8d921b8be9,karolinska,val,2,12288,14336,0.07614517211914062,0.0,normal
+6412f5e8c6ee428db6bffe8d921b8be9,karolinska,val,2,12288,16384,0.04505157470703125,0.0,normal

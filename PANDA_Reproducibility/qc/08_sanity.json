@@ -1,0 +1,11 @@
+{
+  "step": "08_sanity",
+  "passed": true,
+  "time": "2026-08-17 19:07:33",
+  "repairs": [],
+  "details": {
+    "best_small_set_dice": 0.8398328837965265,
+    "required": 0.8,
+    "n": 24
+  }
+}

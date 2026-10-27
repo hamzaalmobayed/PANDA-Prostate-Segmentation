@@ -1,0 +1,14 @@
+{
+  "experiment": "provider_holdout_karolinska",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "vahadane",
+  "use_coords": true,
+  "encoder": "efficientnet_b4_custom",
+  "best_val_dice": 0.453009523900586,
+  "best_val_iou": 0.2928327813903583,
+  "best_val_precision": 0.8341195186332678,
+  "best_val_recall": 0.32141053313435897,
+  "device": "cuda",
+  "cuda_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+}

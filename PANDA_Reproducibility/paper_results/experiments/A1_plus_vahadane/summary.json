@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "experiment": "A1_plus_vahadane",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "vahadane",
+  "use_coords": false,
+  "encoder": "efficientnet_b4_custom",
+  "best_epoch": 3,
+  "best_val_dice": 0.6591339335946396,
+  "best_val_iou": 0.49157328245442766,
+  "best_val_precision": 0.733710220331684,
+  "best_val_recall": 0.5983191596252776
+}

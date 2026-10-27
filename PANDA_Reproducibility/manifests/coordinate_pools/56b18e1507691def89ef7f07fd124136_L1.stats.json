@@ -1,0 +1,22 @@
+{
+  "image_id": "56b18e1507691def89ef7f07fd124136",
+  "provider": "radboud",
+  "split": "train",
+  "level": 1,
+  "target_downsample": 4.0,
+  "patch_size": 512,
+  "stride": 128,
+  "grid_positions_total": 1316,
+  "grid_positions_processed": 1316,
+  "rejected_low_tissue": 1142,
+  "rejected_low_valid_annotation": 0,
+  "rejected_mixed_borderline": 22,
+  "eligible_normal_before_cap": 60,
+  "eligible_tumor_before_cap": 92,
+  "normal_candidates_after_cap": 32,
+  "tumor_candidates_after_cap": 32,
+  "candidate_cap_per_class_slide_level": 32,
+  "scan_engine": "shared_lowres_plus_vectorized_integral_exact_grid",
+  "shared_wsi_session": true,
+  "backward_compatible_resume": true
+}

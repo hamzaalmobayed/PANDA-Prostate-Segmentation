@@ -1,0 +1,14 @@
+{
+  "experiment": "normalization_macenko",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "macenko",
+  "use_coords": true,
+  "encoder": "efficientnet_b4_custom",
+  "best_val_dice": 0.7971082902839898,
+  "best_val_iou": 0.6626600581295705,
+  "best_val_precision": 0.802301064438111,
+  "best_val_recall": 0.8242851580675756,
+  "device": "cuda",
+  "cuda_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+}
