@@ -1,0 +1,15 @@
+{
+  "step": "06_normalization",
+  "passed": true,
+  "time": "2026-08-17 17:41:13",
+  "repairs": [
+    "Automatically selected a representative Vahadane target from TRAIN only"
+  ],
+  "details": {
+    "target": "D:\\PANDA_PROSTATE\\stain_target_train.png",
+    "samples": 24,
+    "failures": 0,
+    "mean_absolute_color_change": 13.090305275387232,
+    "visual_dir": "D:\\PANDA_PROSTATE\\qc\\normalization_samples"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "n_slides": 1577,
+  "mean_dice": 0.5373609909530256,
+  "sd_dice": 0.3876261796300682,
+  "min_dice": 0.0,
+  "max_dice": 1.0,
+  "median_dice": 0.7156271717873709,
+  "total_valid_pixels": 175470512,
+  "total_gt_tumor_pixels": 35040152,
+  "total_pred_tumor_pixels": 35437972,
+  "pixel_units_note": "Counts are on the WSI evaluation grid; boundary distances are also exported in level-0-equivalent pixels."
+}

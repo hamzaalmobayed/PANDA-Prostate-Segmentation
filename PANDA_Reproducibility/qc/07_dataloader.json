@@ -1,0 +1,41 @@
+{
+  "step": "07_dataloader",
+  "passed": true,
+  "time": "2026-08-17 17:55:33",
+  "repairs": [],
+  "details": {
+    "image_shape": [
+      8,
+      3,
+      512,
+      512
+    ],
+    "mask_shape": [
+      8,
+      1,
+      512,
+      512
+    ],
+    "mask_values": [
+      -1.0,
+      0.0,
+      1.0
+    ],
+    "valid_pixels": 816140,
+    "ignored_pixels": 1281012,
+    "levels": [
+      0,
+      1,
+      2
+    ],
+    "coords_min": [
+      0.2222222238779068,
+      0.13793103396892548
+    ],
+    "coords_max": [
+      0.800000011920929,
+      0.7985404133796692
+    ],
+    "visual": "D:\\PANDA_PROSTATE\\qc\\dataloader_samples\\batch_overlay.jpg"
+  }
+}

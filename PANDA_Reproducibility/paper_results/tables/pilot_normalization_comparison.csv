@@ -1,0 +1,4 @@
+status,experiment,n_train,n_val,normalization,use_coords,encoder,best_epoch,best_val_dice,best_val_iou,best_val_precision,best_val_recall,device,cuda_name
+PASS,normalization_none,8000,2000,none,False,efficientnet_b4_custom,5.0,0.8892556366507294,0.8005943275456491,0.893373818109128,0.8851752481053204,,
+,normalization_macenko,8000,2000,macenko,True,efficientnet_b4_custom,,0.7971082902839898,0.6626600581295705,0.802301064438111,0.8242851580675756,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU
+,normalization_vahadane,8000,2000,vahadane,True,efficientnet_b4_custom,,0.7977878909090996,0.663599946196165,0.8376659781611676,0.8134399122091359,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU

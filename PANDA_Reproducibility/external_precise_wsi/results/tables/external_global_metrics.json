@@ -1,0 +1,59 @@
+{
+  "subset": "fusion",
+  "tp": 1158342,
+  "fp": 667797,
+  "tn": 13730139,
+  "fn": 773929,
+  "dice": 0.6164000202213168,
+  "iou": 0.4455045021899426,
+  "precision": 0.6343120649632911,
+  "recall": 0.599471813218746,
+  "specificity": 0.9536185603269801,
+  "accuracy": 0.9117141625945095,
+  "n_wsi": 28,
+  "threshold": 0.43,
+  "bootstrap_iterations": 1000,
+  "bootstrap_95CI": {
+    "dice": {
+      "low": 0.5148652217630841,
+      "high": 0.6983430772394129
+    },
+    "iou": {
+      "low": 0.3466791253477337,
+      "high": 0.5365031876925932
+    },
+    "precision": {
+      "low": 0.5144737709863423,
+      "high": 0.7336250582848044
+    },
+    "recall": {
+      "low": 0.46944222274320485,
+      "high": 0.7149217161482802
+    },
+    "specificity": {
+      "low": 0.9240471911254379,
+      "high": 0.971068643941843
+    },
+    "accuracy": {
+      "low": 0.8767583310789862,
+      "high": 0.9426590050820354
+    }
+  },
+  "dataset": "PRECISE H&E external center",
+  "label_mapping": {
+    "tumor_positive": [
+      1
+    ],
+    "negative_benign_stroma": [
+      2,
+      7
+    ],
+    "ignored_non_equivalent_or_unknown": [
+      0,
+      3,
+      4,
+      5,
+      6
+    ]
+  }
+}

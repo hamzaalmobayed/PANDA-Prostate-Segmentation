@@ -1,0 +1,19 @@
+{
+  "image_id": "ac6ac43819c3e01b53b7c63fc4c4c24e",
+  "provider": "karolinska",
+  "split": "train",
+  "level": 1,
+  "target_downsample": 4.0,
+  "patch_size": 512,
+  "stride": 128,
+  "grid_positions_total": 2072,
+  "grid_positions_processed": 2072,
+  "rejected_low_tissue": 1715,
+  "rejected_low_valid_annotation": 0,
+  "rejected_mixed_borderline": 0,
+  "eligible_normal_before_cap": 357,
+  "eligible_tumor_before_cap": 0,
+  "normal_candidates_after_cap": 32,
+  "tumor_candidates_after_cap": 0,
+  "candidate_cap_per_class_slide_level": 32
+}

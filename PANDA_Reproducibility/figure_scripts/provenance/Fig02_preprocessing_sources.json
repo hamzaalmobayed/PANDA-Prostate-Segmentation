@@ -1,0 +1,123 @@
+{
+  "script": "make_figures_1_2_4_7.py",
+  "slide_id": "362d30ace92ce17128d176137362b8c2",
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "vahadane_source_L0": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "b66a2f0fbbe2169b3f24766683b8b3a8bf68764c4dc409958864cab253b431a8"
+    },
+    "vahadane_target": {
+      "path": "stain_target_train.png",
+      "sha256": "abc22d00215f6d65f39bcf313f9006adca2d8bac54b33220fe1793e26a4dd689"
+    },
+    "selected_manifest": {
+      "path": "selected/train_selected.csv",
+      "sha256": "e5d9e41659dcc3b0222100c0960da4579bbc8badda2dbecba26d764c7e04fe7f"
+    },
+    "l2_patch_00": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-24576__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "5867cce18e9391d7165ffa21878577852400311d9eac140ea284fe72a1e63317"
+    },
+    "l2_patch_01": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-10240__y0-10240__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "056b79fe5975175686598d8cff0d993e7704b953fa81d6df3740a5c3218d880c"
+    },
+    "l2_patch_02": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-10240__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "9097cabc411158d37790f86113009730cd3dd4314492b03cc251c5df2efc8685"
+    },
+    "l2_patch_03": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-12288__y0-10240__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "3aef14a711168eca2f1e4c16ba0c386b2fb0c115d5390a6b878c7eb73742f0d2"
+    },
+    "l2_patch_04": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-12288__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "3283882ced8f65944fcf17844fef5932bff98a5d109000833e67b328e3f30f44"
+    },
+    "l2_patch_05": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-14336__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "0d75b7e87c07a3ea4123e3d04c982b21822ee4ebefa78404d6ec627303b6ac96"
+    },
+    "l2_patch_06": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-8192__y0-10240__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "fe0826d724e5dc44d9dd44da33d39833a191161f0ce3499fafb9fd5c59f6b146"
+    },
+    "l2_patch_07": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-8192__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "52d4333fab4e176ca354419474cff9f2c4be060fee41d48873379f2aa6fdbe69"
+    },
+    "l2_patch_08": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-18432__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "47b7e2fe5b989a78e208458bf3d4700220ffa1008bb3a8ba41cec772b3574a4d"
+    },
+    "l2_patch_09": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-20480__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "eec13c20fa03a6728d9c8b938f4343fc91bb85650420587e98ad6e30ee2d903d"
+    },
+    "l2_patch_10": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-14336__y0-2048__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "10503b30024781a323552c966fcfba0314d0383912627d1bf04c914440e044f4"
+    },
+    "l2_patch_11": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-2048__y0-18432__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "46ab257a46f817b96df6f41d458e7c3d9c5cf49a95fc4b9fcc6f03738bd3dca1"
+    },
+    "l2_patch_12": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-2048__y0-20480__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "1677d778a80ff0b430801dac9d8c1f97d56f5bf25c5ea1608f4105b65ee036d3"
+    },
+    "l2_patch_13": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-4096__y0-16384__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "6039c34badcc14f46a58e624fe89656378e56c35a7876747bd40eb3259c5857c"
+    },
+    "l2_patch_14": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-4096__y0-18432__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "e6375ec4853091e1881022068af7a0f28ae46cb85cd8f16dcf55e7c3ecada425"
+    },
+    "l2_patch_15": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-4096__y0-20480__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "ff692e18e3e5aec5a1a7567c628798178f888f4805fdee6ecc715a697b3c202f"
+    },
+    "stats_L0": {
+      "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json",
+      "sha256": "63a2c1ca830d5abc6b36fae01f6919acda20ed03bd5281b3ed2ed05e8ff97099"
+    },
+    "stats_L1": {
+      "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json",
+      "sha256": "70c27a50b3952c552bbe9a54cbd103207b9fa57c46ad40e4c9f4359d4435c36f"
+    },
+    "stats_L2": {
+      "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json",
+      "sha256": "e9098c04357c8c6c603e4dd6a634e9b058da58011002ecab6d88dfa080927677"
+    },
+    "pool_L1": {
+      "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.csv",
+      "sha256": "214208afe26352111f66c6c04e7807027d1e860a8cb1d2daff8703260563886d"
+    },
+    "output_normal_L0": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Normal/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-12288__y0-16128__ds-1__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "4a71346621b0645546809eb16f6f7a29eacb0b44b38ec1aca159c61d7dda8a89"
+    },
+    "output_tumor_L0": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "b66a2f0fbbe2169b3f24766683b8b3a8bf68764c4dc409958864cab253b431a8"
+    },
+    "output_normal_L1": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Normal/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-14336__y0-9216__ds-4__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "0e3676a6d4ee2a7de5816085c467e61c83e6ec1d82d46b9783589e366a2f15c3"
+    },
+    "output_tumor_L1": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-5632__y0-21504__ds-4__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "ddafc5109e9e2c6281e39f3c2082d2b39d4d3638ed2c5f29b2dcaf3bb9e4b626"
+    },
+    "output_normal_L2": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Normal/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-10240__y0-8192__ds-16__ps-512__stride-128__class-Normal.jpg",
+      "sha256": "9097cabc411158d37790f86113009730cd3dd4314492b03cc251c5df2efc8685"
+    },
+    "output_tumor_L2": {
+      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L2/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L2__x0-0__y0-20480__ds-16__ps-512__stride-128__class-Tumor.jpg",
+      "sha256": "eec13c20fa03a6728d9c8b938f4343fc91bb85650420587e98ad6e30ee2d903d"
+    }
+  }
+}

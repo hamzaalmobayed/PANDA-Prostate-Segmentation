@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "experiment": "A4_plus_kmeans_selection",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "vahadane",
+  "use_coords": false,
+  "encoder": "efficientnet_b4_custom",
+  "best_epoch": 5,
+  "best_val_dice": 0.8040924198512621,
+  "best_val_iou": 0.6723700336034789,
+  "best_val_precision": 0.810268821613656,
+  "best_val_recall": 0.7980094669514208
+}

@@ -1,0 +1,19 @@
+{
+  "comparison": "fusion_vs_L1",
+  "metric": "dice",
+  "n_pairs": 1577,
+  "mean_a": 0.5373609909530256,
+  "mean_b": 0.5427930519758182,
+  "mean_difference": -0.005432061022792587,
+  "median_difference": 0.0,
+  "difference_95CI": [
+    -0.009789131280062242,
+    -0.0007313993311897018
+  ],
+  "two_sided_bootstrap_p": 0.022,
+  "cohen_dz": -0.05883514582045063,
+  "probability_superiority": 0.5745085605580216,
+  "bootstrap_iterations": 1000,
+  "p_holm": 0.022,
+  "significant_holm_0.05": true
+}

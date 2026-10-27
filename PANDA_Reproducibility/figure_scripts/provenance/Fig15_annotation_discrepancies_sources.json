@@ -1,0 +1,70 @@
+{
+  "script": "make_figures_14_15.py",
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "A_he": {
+      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_original.png",
+      "sha256": "89b72e12521233fdb081430a4fddd80d294b3949ecea2fce1c192c8f894328fd"
+    },
+    "A_gt": {
+      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_gt_mask.png",
+      "sha256": "69a0dd5779a164d3134b544b4e79dbfac36de10a44c4cb72e44f635e28e2726a"
+    },
+    "A_model": {
+      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_model_mask.png",
+      "sha256": "fb03abaf9501b0e4e2aecd3e7f222307ea7604e0b8e5def3a7a12ea35413aaad"
+    },
+    "A_error": {
+      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_error_map.png",
+      "sha256": "07e75de8a593ae25b90d87b9b1f4e35644997f5bb76b4c4cedfa198c39a19271"
+    },
+    "B_he": {
+      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_original.png",
+      "sha256": "277c418ff59dd927ab6a5f09edae3dd1d659b3351330798b8e9dd5c09a926186"
+    },
+    "B_gt": {
+      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_gt_mask.png",
+      "sha256": "bd8a4c3dd1d128ab386a113f898b2573717231bece2d53316067954b19ec636d"
+    },
+    "B_model": {
+      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_model_mask.png",
+      "sha256": "a5a4562b90ef2868837f74cc5ce74923fb2da573a777095ed401750fa1c597a2"
+    },
+    "B_error": {
+      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_error_map.png",
+      "sha256": "92806e1e95f24fd3f4235ed0ebd3de0671b42dcdf5e4a1d85837c339c8cd0eeb"
+    },
+    "C_he": {
+      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_original.png",
+      "sha256": "8a0be3b30613d65569f88ad222f99eb4913f0becaff88d61ea7887e05020f4ce"
+    },
+    "C_gt": {
+      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_gt_mask.png",
+      "sha256": "52ae9b97bf094de731dcc9f7c520707770014cc395346318b976bdc9e5d3d301"
+    },
+    "C_model": {
+      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_model_mask.png",
+      "sha256": "1e85cf6fd0950bf6b4c7a43a64416900d935b5ec0fc14dd58c7f68f0d5f92b5d"
+    },
+    "C_error": {
+      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_error_map.png",
+      "sha256": "27131d2caa48c2ea4425afe3a13bec96f385335394d387608c3de3bb4dac07be"
+    },
+    "D_he": {
+      "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/0.jpg",
+      "sha256": "e741a2de01625da644e7e03c094eeaed992f0bf5b5b4e1725af1a6703b69089c"
+    },
+    "D_gt": {
+      "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/0.jpg",
+      "sha256": "35d8632d6f78a5b4ebcf92677ad21675e6a00a788f119e95f9edd8f5300b06c7"
+    },
+    "D_model": {
+      "path": "external_sicapv2/results/pred_masks/d94a1d0d95e1a6e27b74.png",
+      "sha256": "bb64b0901b42f2eb2cd4ac9b741ba3537bdffc6a84c2a2cfdaca29cf09de73fb"
+    },
+    "D_error": {
+      "path": "external_sicapv2/results/error_maps/d94a1d0d95e1a6e27b74.png",
+      "sha256": "cf2a859d4e691fdee160b09a3efcbe351205dc72f4adbafedf5839013beff88c"
+    }
+  }
+}

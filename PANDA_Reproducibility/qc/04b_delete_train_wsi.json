@@ -1,0 +1,14 @@
+{
+  "step": "04b_delete_train_wsi",
+  "passed": true,
+  "time": "2026-08-17 13:52:50",
+  "repairs": [],
+  "details": {
+    "train_wsi_rows": 7358,
+    "deleted_count": 7358,
+    "validation_test_missing_after_delete": [],
+    "mask_missing_after_delete": [],
+    "deletion_log": "D:\\PANDA_PROSTATE\\manifests\\deleted_train_wsi.csv",
+    "note": "Only TRAIN image TIFFs are deleted. Validation/Test images and all label masks are retained."
+  }
+}

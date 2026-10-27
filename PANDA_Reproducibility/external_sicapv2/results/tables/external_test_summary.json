@@ -1,0 +1,57 @@
+{
+  "dataset": "SICAPv2",
+  "version": 2,
+  "n_test_images": 18765,
+  "n_source_wsi": 18765,
+  "metric_scope": "SICAPv2 official-test 512x512 patches; pixels pooled over valid tissue",
+  "tp": 270601902,
+  "fp": 278530344,
+  "tn": 1064646124,
+  "fn": 123625648,
+  "dice": 0.57369818630685,
+  "iou": 0.40222776189379056,
+  "precision": 0.4927809356873936,
+  "recall": 0.6864104297124846,
+  "specificity": 0.7926330972617963,
+  "accuracy": 0.7685305272501102,
+  "mean_image_dice": 0.2507665414490356,
+  "median_image_dice": 0.0,
+  "sd_image_dice": 0.34493965008980604,
+  "min_image_dice": 0.0,
+  "max_image_dice": 1.0,
+  "mean_hd95_px": 65.78439109938529,
+  "mean_assd_px": 14.52108309311991,
+  "mean_surface_dice": 0.4883641065462749,
+  "bootstrap_95CI": {
+    "dice": [
+      0.5665152315170262,
+      0.5807605949717805
+    ],
+    "iou": [
+      0.3952014324942696,
+      0.40920551735495025
+    ],
+    "precision": [
+      0.48340121968381783,
+      0.5025553038872175
+    ],
+    "recall": [
+      0.6794812545548276,
+      0.6930860170474666
+    ],
+    "specificity": [
+      0.7870729778741453,
+      0.7977688596081758
+    ],
+    "accuracy": [
+      0.7638638448537132,
+      0.7727363343982084
+    ]
+  },
+  "threshold_source": "D:\\PANDA_PROSTATE\\paper_results\\tables\\best_threshold.json",
+  "checkpoint": {
+    "run_dir": "D:\\PANDA_PROSTATE\\runs\\final_main_training",
+    "best_val_dice": 0.8331635488958118
+  },
+  "note": "No threshold/model selection was performed on SICAPv2; PANDA-trained best checkpoint and PANDA-validation threshold were frozen before external evaluation."
+}

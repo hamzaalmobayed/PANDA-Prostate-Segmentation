@@ -1,0 +1,7 @@
+status,experiment,n_train,n_val,normalization,use_coords,encoder,best_epoch,best_val_dice,best_val_iou,best_val_precision,best_val_recall
+PASS,A0_baseline_L2_random_no_norm_no_coords,8000,2000,none,False,efficientnet_b4_custom,1,0.7130591403173745,0.5540729668752791,0.6562828391528496,0.7805894472171551
+PASS,A1_plus_vahadane,8000,2000,vahadane,False,efficientnet_b4_custom,3,0.6591339335946396,0.49157328245442766,0.733710220331684,0.5983191596252776
+PASS,A2_plus_multilevel,8000,2000,vahadane,False,efficientnet_b4_custom,8,0.7999801628644253,0.6666391155449257,0.8228212475859299,0.7783729397714301
+PASS,A3_plus_class_balance,8000,2000,vahadane,False,efficientnet_b4_custom,8,0.8044471354253234,0.6728662188530735,0.7929880277996333,0.8162422796177676
+PASS,A4_plus_kmeans_selection,8000,2000,vahadane,False,efficientnet_b4_custom,5,0.8040924198512621,0.6723700336034789,0.810268821613656,0.7980094669514208
+PASS,A5_plus_coordinate_encoding_full,8000,2000,vahadane,True,efficientnet_b4_custom,7,0.804021188213299,0.6722704284469327,0.7918114014107659,0.8166134239255569

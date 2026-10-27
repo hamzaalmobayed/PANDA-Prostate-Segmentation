@@ -1,0 +1,6 @@
+experiment,n_train,n_val,normalization,use_coords,encoder,best_val_dice,best_val_iou,best_val_precision,best_val_recall,device,cuda_name
+encoder_resnet50,8000,2000,vahadane,False,resnet50,0.7112497249566833,0.5518910364017398,0.7070542640288551,0.8690655110856895,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU
+encoder_resnet101,8000,2000,vahadane,False,resnet101,0.7233174749070467,0.5665601750555668,0.7109836594845449,0.7680839792412268,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU
+encoder_efficientnet_b0,8000,2000,vahadane,False,efficientnet-b0,0.7823785688906261,0.642546647834378,0.8348523283756643,0.8609658574000703,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU
+encoder_efficientnet_b2,8000,2000,vahadane,False,efficientnet-b2,0.7787082047963013,0.6376102810601629,0.8168242923629123,0.8471021286939612,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU
+encoder_efficientnet_b4,8000,2000,vahadane,False,efficientnet-b4,0.8023910252466621,0.6699941651755943,0.8325683863217294,0.8892759944661278,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU

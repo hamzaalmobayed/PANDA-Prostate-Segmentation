@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "experiment": "A0_baseline_L2_random_no_norm_no_coords",
+  "n_train": 8000,
+  "n_val": 2000,
+  "normalization": "none",
+  "use_coords": false,
+  "encoder": "efficientnet_b4_custom",
+  "best_epoch": 1,
+  "best_val_dice": 0.7130591403173745,
+  "best_val_iou": 0.5540729668752791,
+  "best_val_precision": 0.6562828391528496,
+  "best_val_recall": 0.7805894472171551
+}

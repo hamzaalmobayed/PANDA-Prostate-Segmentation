@@ -1,0 +1,17 @@
+{
+  "provider_a": "karolinska",
+  "provider_b": "radboud",
+  "n_a": 818,
+  "n_b": 759,
+  "mean_dice_a": 0.5261571444339322,
+  "mean_dice_b": 0.5494357557127336,
+  "mean_difference_a_minus_b": -0.023278611278801375,
+  "difference_95CI": [
+    -0.0589783110753375,
+    0.013114940516715915
+  ],
+  "two_sided_bootstrap_p": 0.238,
+  "cohen_d": -0.060062286922523585,
+  "bootstrap_iterations": 1000,
+  "interpretation": "Provider comparison is an unpaired robustness analysis, not a randomized causal test."
+}

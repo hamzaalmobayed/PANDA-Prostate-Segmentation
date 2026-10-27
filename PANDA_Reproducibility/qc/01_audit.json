@@ -1,0 +1,36 @@
+{
+  "step": "01_audit",
+  "passed": true,
+  "time": "2026-08-14 18:11:47",
+  "repairs": [],
+  "details": {
+    "rows_in_train_csv": 10616,
+    "valid_image_mask_pairs": 10512,
+    "invalid_pairs": 104,
+    "providers": {
+      "karolinska": 5454,
+      "radboud": 5058
+    },
+    "sampled_raw_mask_values": {
+      "karolinska": [
+        0,
+        1,
+        2
+      ],
+      "radboud": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "virtual_scale_counts": {
+      "L0_virtual": 0,
+      "L1_virtual": 0,
+      "L2_virtual": 0
+    },
+    "audit_csv": "D:\\PANDA_PROSTATE\\manifests\\audit.csv"
+  }
+}

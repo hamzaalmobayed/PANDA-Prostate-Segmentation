@@ -1,0 +1,18 @@
+figure,source_slide_or_patch,source_mask,source_prediction,producer_script,parameters,verified
+Fig1,PANDA training WSI 362d30ace92ce17128d176137362b8c2: stored L0/L1/L2 normal and tumor patches,Tumor_Masks of the same patches,none,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,"patch choice: fewest mask seams, then most tissue",YES
+Fig2,"PANDA training WSI 362d30ace92ce17128d176137362b8c2: 16 stored L2 patches; L0 tumor patch x0=7296,y0=20864; selected patches",stitched L2 tumor and valid masks,none,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,"tissue mask: Otsu on saturation, threshold>=0.20, disk 2, min object 500",YES
+Fig3,0018ae58b01bdadc8e347995b69f99aa (printed on the figure),,,GENERATE_MULTILEVEL_PATCH_MASK_OVERLAY.py,,PARTIAL
+Fig4,"PANDA training WSI 362d30ace92ce17128d176137362b8c2: L0 tumor patch x0=7296,y0=20864",n/a,n/a,PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,Vahadane (TIAToolbox) fitted on stain_target_train.png,YES
+Fig5,,,,GENERATE_AUGMENTATION_VISUALIZATION.py,,NO
+Fig6,,,,GENERATE_STRUCTURED_SAMPLING_TREE_4_LEVELS_V3.py,,NO
+Fig7,"PANDA training WSI 362d30ace92ce17128d176137362b8c2: L1 tumor patch x0=16384,y0=6656",Tumor_Masks of the same patch,runs/final_main_training/best.pt (epoch 11),PANDA_Reproducibility/figure_scripts/make_figures_1_2_4_7.py,input Vahadane-normalized; sigmoid output,YES
+Fig8,,,,GENERATE_TRAINING_DYNAMICS_CURVES.py,,NO
+Fig9,,,,GENERATE_GROUPED_PER_SLIDE_DICE_FINAL_PLOS_V2.py,,NO
+Fig10,,,,GENERATE_PER_LEVEL_POOLED_CONFUSION.py,,NO
+Fig11,,,,,,NO
+Fig12,,,,GENERATE_FIG12_THRESHOLD_SENSITIVITY_CORRECTED.py,,NO
+Fig13,,,,GENERATE_FIG13_LITERATURE.py,,NO
+Fig14,"PANDA test WSIs 15bf6b34c8ce10b0eddf687e3a670e4d (A), 13813facc985c2ea007fdf764ef98a5a (B), b49d54b4f7e73808440c36fa240614c0 (C)",*_detail_gt_mask.png,*_detail_model_mask.png / *_detail_error_map.png,PANDA_Reproducibility/figure_scripts/make_figures_14_15.py,detail crops saved during test (3072 level-0 px),YES
+Fig15,"PANDA test WSIs 9848ee7cc45f7cd373b155191085f06a (A), cf1c7e7e632db44c5ca6de473da247e6 (B), cfbe34e8826d4e2bb02061d9ef056e83 (C); SICAPv2 image 0.jpg (D)",*_detail_gt_mask.png; SICAPv2 mask,*_detail_model_mask.png; SICAPv2 pred_masks/error_maps,PANDA_Reproducibility/figure_scripts/make_figures_14_15.py,detail crops saved during test; SICAPv2 external outputs,YES
+Fig16,,,,,,NO
+Fig17,,,,,,NO

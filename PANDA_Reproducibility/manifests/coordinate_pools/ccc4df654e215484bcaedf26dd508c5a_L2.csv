@@ -1,0 +1,17 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,4096,6144,0.07912445068359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,8192,4096,0.10207366943359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,8192,6144,0.07912445068359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,4096,4096,0.10207366943359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,6144,6144,0.07912445068359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,8192,2048,0.10009384155273438,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,2048,6144,0.041103363037109375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,4096,0,0.058643341064453125,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,2048,0,0.0366973876953125,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,2048,4096,0.052890777587890625,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,6144,4096,0.10207366943359375,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,4096,2048,0.10009384155273438,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,8192,0,0.058643341064453125,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,6144,2048,0.10009384155273438,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,6144,0,0.058643341064453125,0.0,normal
+ccc4df654e215484bcaedf26dd508c5a,karolinska,train,2,2048,2048,0.052890777587890625,0.0,normal

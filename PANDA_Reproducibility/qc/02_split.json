@@ -1,0 +1,31 @@
+{
+  "step": "02_split",
+  "passed": true,
+  "time": "2026-08-14 18:11:48",
+  "repairs": [],
+  "details": {
+    "counts": {
+      "train": 7358,
+      "val": 1577,
+      "test": 1577
+    },
+    "providers_by_split": {
+      "karolinska": {
+        "test": 818,
+        "train": 3818,
+        "val": 818
+      },
+      "radboud": {
+        "test": 759,
+        "train": 3540,
+        "val": 759
+      }
+    },
+    "overlaps": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "split_csv": "D:\\PANDA_PROSTATE\\splits\\slides.csv"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "step": "04_extract_final",
+  "passed": true,
+  "time": "2026-08-17 13:51:28",
+  "repairs": [],
+  "details": {
+    "chosen_train_cap_per_class_slide_level": 4,
+    "train_bucket_counts": {
+      "(0, 'normal')": 56869,
+      "(0, 'tumor')": 41658,
+      "(1, 'normal')": 52916,
+      "(1, 'tumor')": 40448,
+      "(2, 'normal')": 29255,
+      "(2, 'tumor')": 21081
+    },
+    "val_bucket_counts": {
+      "(0, 'normal')": 3027,
+      "(0, 'tumor')": 2224,
+      "(1, 'normal')": 2877,
+      "(1, 'tumor')": 2156,
+      "(2, 'normal')": 1800,
+      "(2, 'tumor')": 1426
+    },
+    "test_bucket_counts": {
+      "(0, 'normal')": 3053,
+      "(0, 'tumor')": 2229,
+      "(1, 'normal')": 2914,
+      "(1, 'tumor')": 2182,
+      "(2, 'normal')": 1820,
+      "(2, 'tumor')": 1419
+    },
+    "final_train_bucket_targets": {
+      "(0, 'normal')": 13334,
+      "(1, 'normal')": 13333,
+      "(2, 'normal')": 13333,
+      "(0, 'tumor')": 13334,
+      "(1, 'tumor')": 13333,
+      "(2, 'tumor')": 13333
+    },
+    "deficient_train_buckets": {},
+    "saved_train_patches": 242227,
+    "saved_val_patches": 13510,
+    "saved_test_patches": 13617,
+    "candidate_manifest": "D:\\PANDA_PROSTATE\\manifests\\candidate_patches_train_val.csv",
+    "folder_layout": "patches/<train|val|test>/<image_id>/L0|L1|L2/{Normal,Normal_Masks,Normal_Valid_Masks,Tumor,Tumor_Masks,Tumor_Valid_Masks}/",
+    "note": "Saved Test patches are a bounded classified subset. Full WSI Test reconstruction streams densely from the retained original Test WSI.",
+    "sample_errors": []
+  }
+}

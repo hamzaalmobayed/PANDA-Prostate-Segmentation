@@ -1,0 +1,5 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+ce5e7a97342ec550c5e0d6212ce3c374,karolinska,train,2,6144,0,0.0512237548828125,0.0,normal
+ce5e7a97342ec550c5e0d6212ce3c374,karolinska,train,2,8192,2048,0.05344390869140625,0.0,normal
+ce5e7a97342ec550c5e0d6212ce3c374,karolinska,train,2,6144,2048,0.0512237548828125,0.0,normal
+ce5e7a97342ec550c5e0d6212ce3c374,karolinska,train,2,8192,0,0.05344390869140625,0.0,normal

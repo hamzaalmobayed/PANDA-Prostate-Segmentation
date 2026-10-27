@@ -1,0 +1,2 @@
+image_id,provider,split,level,x0,y0,tissue_fraction_lr,tumor_fraction_lr,category_lr
+3ad48056423f5a0710d13d943f112fe1,radboud,train,2,4096,0,0.2575830078125,0.0692578125,tumor
