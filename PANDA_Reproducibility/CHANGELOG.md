@@ -1,5 +1,37 @@
 # PANDA Reproducibility Changelog
 
+## 28 October 2026
+
+### Figures
+- All 17 manuscript figures are now drawn by `figure_scripts/` from the study
+  data. `run_all_figures.py` rebuilds them with S1 Table, writes one JSON log
+  per figure to `figure_scripts/provenance/` and checks every hash
+  (`provenance_index.py --verify`).
+- Case identifiers, patch coordinates and file names were removed from the
+  figures and captions. They are kept in the logs, together with the level-0
+  field of each review crop, located exactly in its WSI cache.
+- New scripts:
+  - `make_figure_5.py`: Fig 5, the source patch identified, using the
+    training-time Vahadane copy and the pipeline's transforms.
+  - `make_figures_6_8_9_10_12.py`: Figs 6, 8, 9, 10 and 12, read from the
+    exports. The earlier Fig 8 curves were typed in and did not match
+    `runs/final_main_training/history.csv`. The undefined 0.40–0.45 band of
+    Fig 12 is no longer drawn.
+  - `make_figures_11_16_17.py`: Fig 11 (source case identified in the
+    pathologist review, now marked in S1 Table) and Figs 16 and 17.
+  - `GENERATE_FIG13_LITERATURE.py`: Fig 13.
+  - `provenance_log.py`, `provenance_index.py`, `run_all_figures.py`.
+- Figs 14 and 15: the legend now uses the error-map colours.
+- Fig 13: the Damkliang et al. test Dice is 63.7% (0.637 in the paper's
+  Results; 0.64 in its abstract).
+- `PANDA_Pipeline/figures/`: replaced by the current figures; Figs 5 and 12 added.
+- `FIGURE_PROVENANCE_AUDIT.csv` and `FIGURE_PROVENANCE_DETAILED.csv` are
+  rebuilt from the logs. All 17 figures are verified.
+
+### Added
+- `analysis_scripts/make_cache_archives.py`: builds the archives of release
+  `panda-wsi-cache-complement-20261027`.
+
 ## 27 October 2026 (second update)
 
 ### Added

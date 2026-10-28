@@ -4,13 +4,13 @@ The three columns are stored PANDA training patches of the same WSI whose
 level-0 fields are nested (L0 inside L1 inside L2). Rows show the patch, its
 stored reference tumor mask and the overlay. A box in the L1 and L2 panels
 marks the field of the next finer level. The L2 patch lies on the slide edge;
-image, mask and overlay are cropped to the same in-slide columns.
+image, mask and overlay are cropped to the same in-slide columns. The slide,
+the patch coordinates and the files used are written to the JSON log, not to
+the figure (provenance_log.py).
 
 Usage:
     python make_figure_3.py <output_dir> [work_root]
 """
-import hashlib
-import json
 import os
 import sys
 from pathlib import Path
@@ -24,6 +24,8 @@ import pandas as pd
 from matplotlib.patches import Rectangle
 from PIL import Image
 
+from provenance_log import patch_record, save_figure
+
 OUT = Path(sys.argv[1])
 if len(sys.argv) < 3 and "PANDA_DATA_ROOT" not in os.environ:
     sys.exit("give work_root as the second argument or set PANDA_DATA_ROOT")
@@ -33,10 +35,6 @@ DS = {0: 1, 1: 4, 2: 16}
 FIELD = {l: 512 * DS[l] for l in DS}          # level-0 extent of a 512-px patch
 BOX = "#ffd400"
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7})
-
-
-def sha(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
 def rgb(path):
@@ -92,9 +90,9 @@ for l in (0, 1, 2):
     fig_cols.append((img[:, sl], msk[:, sl], ov.astype(np.uint8)[:, sl]))
 
 widths = [c[0].shape[1] for c in fig_cols]
-fig = plt.figure(figsize=(7.5, 6.9))
+fig = plt.figure(figsize=(7.5, 6.75))
 gs = fig.add_gridspec(3, 4, width_ratios=widths + [70], wspace=0.06, hspace=0.06,
-                      left=0.02, right=0.99, top=0.93, bottom=0.08)
+                      left=0.02, right=0.99, top=0.93, bottom=0.06)
 titles = {0: "L0 (1×)", 1: "L1 (4× downsample)", 2: "L2 (16× downsample)"}
 for j, l in enumerate((0, 1, 2)):
     for i, im in enumerate(fig_cols[j]):
@@ -112,24 +110,17 @@ for j, l in enumerate((0, 1, 2)):
 for i, lab in enumerate(("Image", "Reference mask", "Overlay")):
     ax = fig.add_subplot(gs[i, 3]); ax.axis("off")
     ax.text(0.35, 0.5, lab, rotation=-90, fontsize=9, fontweight="bold", ha="center", va="center", transform=ax.transAxes)
-fig.text(0.5, 0.045, f"PANDA training WSI {SLIDE} ({provider.capitalize()}); stored 512×512 tumor patches at level-0 "
-         f"x, y = {int(p0.x0):,}, {int(p0.y0):,} (L0), {int(p1.x0):,}, {int(p1.y0):,} (L1), {int(p2.x0):,}, {int(p2.y0):,} (L2)",
-         ha="center", fontsize=6.2, color="#333333")
-fig.text(0.5, 0.02, "Yellow box: field of the next finer level. White = tumor. L2 cropped at the slide edge.",
+fig.text(0.5, 0.03, "Yellow box: field of the next finer level. White = tumor. L2 cropped at the slide edge.",
          ha="center", fontsize=6.2, color="#333333")
 
-OUT.mkdir(parents=True, exist_ok=True)
-png = OUT / "Fig03_multiresolution.png"
-fig.savefig(png, dpi=300, facecolor="white")
-plt.close(fig)
-im = Image.open(png).convert("RGB")
-if im.width > 2250:
-    im = im.resize((2250, round(im.height * 2250 / im.width)), Image.LANCZOS)
-    im.save(png, dpi=(300, 300))
-im.save(OUT / "Fig3.tif", compression="tiff_lzw", dpi=(300, 300))
-sources = {f"L{l}_{k}": pick[l][k] for l in (0, 1, 2) for k in ("img", "mask")}
-rec = {"script": Path(__file__).name, "slide_id": SLIDE, "paths_relative_to": "PANDA_DATA_ROOT",
-       "sources": {k: {"path": Path(v).resolve().relative_to(WORK.resolve()).as_posix(), "sha256": sha(v)}
-                   for k, v in sources.items()}}
-(OUT / "Fig03_multiresolution_sources.json").write_text(json.dumps(rec, indent=2), encoding="utf-8")
-print("saved", png.name, im.size, "| patches:", [(l, int(pick[l].x0), int(pick[l].y0)) for l in (0, 1, 2)])
+boxes = {f"L{l}": {"box_px_in_panel": [round((pick[l - 1].x0 - pick[l].x0) / DS[l], 2), round((pick[l - 1].y0 - pick[l].y0) / DS[l], 2),
+                                       FIELD[l - 1] / DS[l], FIELD[l - 1] / DS[l]], "marks_field_of": f"L{l - 1}"} for l in (1, 2)}
+save_figure(fig, OUT, "Fig03_multiresolution.png", "Fig3.tif", {
+    "figure": "Fig 3",
+    "slide": {"slide_id": SLIDE, "provider": provider, "split": "train"},
+    "panels": {f"column_L{l}": patch_record(pick[l], WORK, shown="image, reference tumor mask, overlay",
+                                            in_slide_columns=int(fig_cols[j][0].shape[1]), **boxes.get(f"L{l}", {}))
+               for j, l in enumerate((0, 1, 2))},
+    "parameters": {"patch_choice": "nested L0 in L1 in L2 tumor patches; boxes farthest from the panel edges, then fewest mask seams",
+                   "overlay": "0.55 x image + 0.45 x (230, 30, 50) on tumor pixels"}}, WORK, __file__)
+print("patches:", [(l, int(pick[l].x0), int(pick[l].y0)) for l in (0, 1, 2)])

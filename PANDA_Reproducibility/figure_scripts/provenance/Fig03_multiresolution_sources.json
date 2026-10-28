@@ -1,31 +1,144 @@
 {
-  "script": "make_figure_3.py",
-  "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
-  "paths_relative_to": "PANDA_DATA_ROOT",
-  "sources": {
-    "L0_img": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1152__y0-6656__ds-1__ps-512__stride-128__class-Tumor.jpg",
-      "sha256": "9612054bc2e3494b429b9a949fff2f90d92422e1d3f8d8da98ffc48c41606d42"
+  "figure": "Fig 3",
+  "outputs": {
+    "png": {
+      "file": "Fig03_multiresolution.png",
+      "sha256": "ac34ca617a6aa63820dc0348a863c6015cb4cff73e45f1d8cc73d0e62c5a6d4f",
+      "size_px": [
+        2250,
+        2025
+      ]
     },
-    "L0_mask": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1152__y0-6656__ds-1__ps-512__stride-128__class-Tumor__tumor_mask.png",
-      "sha256": "5878fde6de59ac666a10091e488c7bebcd4951b7290a85d1b3eda0567037ca4a"
-    },
-    "L1_img": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L1/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L1__x0-512__y0-6144__ds-4__ps-512__stride-128__class-Tumor.jpg",
-      "sha256": "c6c5e366dc5c06fb4e7a8bde34b7ae543fe2760ecc1cb4851e0d31ecfc138156"
-    },
-    "L1_mask": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L1/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L1__x0-512__y0-6144__ds-4__ps-512__stride-128__class-Tumor__tumor_mask.png",
-      "sha256": "2522c92f3a10df127697b2cc4511cf6065b35d686af8ca2627e17e3261737cd3"
-    },
-    "L2_img": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L2/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L2__x0-0__y0-2048__ds-16__ps-512__stride-128__class-Tumor.jpg",
-      "sha256": "106a546e31bc0bbbde4f95b70006ae765828cbd8c42ff302f18024a71f82d423"
-    },
-    "L2_mask": {
-      "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L2/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L2__x0-0__y0-2048__ds-16__ps-512__stride-128__class-Tumor__tumor_mask.png",
-      "sha256": "62fa651feee312438d523f1d799709461960b4e566926ccce550a95343e40cc0"
+    "tif": {
+      "file": "Fig3.tif",
+      "sha256": "b58e8a80b4bf6e4f2bca72aaba9e22f2e95372bd7ce2c84d3d7ea8b27b886175",
+      "size_px": [
+        2250,
+        2025
+      ]
     }
+  },
+  "script": {
+    "file": "make_figure_3.py",
+    "sha256": "351613ff526057f5a5c522e54ee18ff5c8aceb291a6879dd9de08f954eadbf87",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figure_3.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:21Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "cv2": "4.9.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "slide": {
+    "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
+    "provider": "radboud",
+    "split": "train"
+  },
+  "panels": {
+    "column_L0": {
+      "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
+      "provider": "radboud",
+      "split": "train",
+      "level": 0,
+      "category": "tumor",
+      "x0_level0": 1152,
+      "y0_level0": 6656,
+      "field_level0_px": 512,
+      "tissue_fraction": 0.998047,
+      "tumor_fraction_of_valid": 0.572922,
+      "image": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1152__y0-6656__ds-1__ps-512__stride-128__class-Tumor.jpg",
+        "sha256": "9612054bc2e3494b429b9a949fff2f90d92422e1d3f8d8da98ffc48c41606d42"
+      },
+      "tumor_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1152__y0-6656__ds-1__ps-512__stride-128__class-Tumor__tumor_mask.png",
+        "sha256": "5878fde6de59ac666a10091e488c7bebcd4951b7290a85d1b3eda0567037ca4a"
+      },
+      "valid_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor_Valid_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1152__y0-6656__ds-1__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "0fd4bb820e9fdc4df60e1a4d0156feaf348fc1a4910c6ea25241afcbe16a7ffb"
+      },
+      "shown": "image, reference tumor mask, overlay",
+      "in_slide_columns": 512
+    },
+    "column_L1": {
+      "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
+      "provider": "radboud",
+      "split": "train",
+      "level": 1,
+      "category": "tumor",
+      "x0_level0": 512,
+      "y0_level0": 6144,
+      "field_level0_px": 2048,
+      "tissue_fraction": 0.558899,
+      "tumor_fraction_of_valid": 0.379246,
+      "image": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L1/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L1__x0-512__y0-6144__ds-4__ps-512__stride-128__class-Tumor.jpg",
+        "sha256": "c6c5e366dc5c06fb4e7a8bde34b7ae543fe2760ecc1cb4851e0d31ecfc138156"
+      },
+      "tumor_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L1/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L1__x0-512__y0-6144__ds-4__ps-512__stride-128__class-Tumor__tumor_mask.png",
+        "sha256": "2522c92f3a10df127697b2cc4511cf6065b35d686af8ca2627e17e3261737cd3"
+      },
+      "valid_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L1/Tumor_Valid_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L1__x0-512__y0-6144__ds-4__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "df69cc42812d05e9beee2198163b326e4087a10b9e6120b8a6c73a6859c2ecdb"
+      },
+      "shown": "image, reference tumor mask, overlay",
+      "in_slide_columns": 512,
+      "box_px_in_panel": [
+        160.0,
+        128.0,
+        128.0,
+        128.0
+      ],
+      "marks_field_of": "L0"
+    },
+    "column_L2": {
+      "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
+      "provider": "radboud",
+      "split": "train",
+      "level": 2,
+      "category": "tumor",
+      "x0_level0": 0,
+      "y0_level0": 2048,
+      "field_level0_px": 8192,
+      "tissue_fraction": 0.190101,
+      "tumor_fraction_of_valid": 0.316087,
+      "image": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L2/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L2__x0-0__y0-2048__ds-16__ps-512__stride-128__class-Tumor.jpg",
+        "sha256": "106a546e31bc0bbbde4f95b70006ae765828cbd8c42ff302f18024a71f82d423"
+      },
+      "tumor_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L2/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L2__x0-0__y0-2048__ds-16__ps-512__stride-128__class-Tumor__tumor_mask.png",
+        "sha256": "62fa651feee312438d523f1d799709461960b4e566926ccce550a95343e40cc0"
+      },
+      "valid_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L2/Tumor_Valid_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L2__x0-0__y0-2048__ds-16__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "658551fd42edd8f205a1cf217381e3596f0412986377cf81e9da786615fd26cb"
+      },
+      "shown": "image, reference tumor mask, overlay",
+      "in_slide_columns": 368,
+      "box_px_in_panel": [
+        32.0,
+        256.0,
+        128.0,
+        128.0
+      ],
+      "marks_field_of": "L1"
+    }
+  },
+  "parameters": {
+    "patch_choice": "nested L0 in L1 in L2 tumor patches; boxes farthest from the panel edges, then fewest mask seams",
+    "overlay": "0.55 x image + 0.45 x (230, 30, 50) on tumor pixels"
   }
 }

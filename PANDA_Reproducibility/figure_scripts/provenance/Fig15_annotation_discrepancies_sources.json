@@ -1,70 +1,230 @@
 {
-  "script": "make_figures_14_15.py",
-  "paths_relative_to": "PANDA_DATA_ROOT",
-  "sources": {
-    "A_he": {
-      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_original.png",
-      "sha256": "89b72e12521233fdb081430a4fddd80d294b3949ecea2fce1c192c8f894328fd"
+  "figure": "Fig 15",
+  "outputs": {
+    "png": {
+      "file": "Fig15_annotation_discrepancies.png",
+      "sha256": "993f03b76b51fa0580d103164e53a3e7363109b3b79cf6451abe33528af68510",
+      "size_px": [
+        2250,
+        1245
+      ]
     },
-    "A_gt": {
-      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_gt_mask.png",
-      "sha256": "69a0dd5779a164d3134b544b4e79dbfac36de10a44c4cb72e44f635e28e2726a"
-    },
-    "A_model": {
-      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_model_mask.png",
-      "sha256": "fb03abaf9501b0e4e2aecd3e7f222307ea7604e0b8e5def3a7a12ea35413aaad"
-    },
-    "A_error": {
-      "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_error_map.png",
-      "sha256": "07e75de8a593ae25b90d87b9b1f4e35644997f5bb76b4c4cedfa198c39a19271"
-    },
-    "B_he": {
-      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_original.png",
-      "sha256": "277c418ff59dd927ab6a5f09edae3dd1d659b3351330798b8e9dd5c09a926186"
-    },
-    "B_gt": {
-      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_gt_mask.png",
-      "sha256": "bd8a4c3dd1d128ab386a113f898b2573717231bece2d53316067954b19ec636d"
-    },
-    "B_model": {
-      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_model_mask.png",
-      "sha256": "a5a4562b90ef2868837f74cc5ce74923fb2da573a777095ed401750fa1c597a2"
-    },
-    "B_error": {
-      "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_error_map.png",
-      "sha256": "92806e1e95f24fd3f4235ed0ebd3de0671b42dcdf5e4a1d85837c339c8cd0eeb"
-    },
-    "C_he": {
-      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_original.png",
-      "sha256": "8a0be3b30613d65569f88ad222f99eb4913f0becaff88d61ea7887e05020f4ce"
-    },
-    "C_gt": {
-      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_gt_mask.png",
-      "sha256": "52ae9b97bf094de731dcc9f7c520707770014cc395346318b976bdc9e5d3d301"
-    },
-    "C_model": {
-      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_model_mask.png",
-      "sha256": "1e85cf6fd0950bf6b4c7a43a64416900d935b5ec0fc14dd58c7f68f0d5f92b5d"
-    },
-    "C_error": {
-      "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_error_map.png",
-      "sha256": "27131d2caa48c2ea4425afe3a13bec96f385335394d387608c3de3bb4dac07be"
-    },
-    "D_he": {
-      "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/0.jpg",
-      "sha256": "e741a2de01625da644e7e03c094eeaed992f0bf5b5b4e1725af1a6703b69089c"
-    },
-    "D_gt": {
-      "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/0.jpg",
-      "sha256": "35d8632d6f78a5b4ebcf92677ad21675e6a00a788f119e95f9edd8f5300b06c7"
-    },
-    "D_model": {
-      "path": "external_sicapv2/results/pred_masks/d94a1d0d95e1a6e27b74.png",
-      "sha256": "bb64b0901b42f2eb2cd4ac9b741ba3537bdffc6a84c2a2cfdaca29cf09de73fb"
-    },
-    "D_error": {
-      "path": "external_sicapv2/results/error_maps/d94a1d0d95e1a6e27b74.png",
-      "sha256": "cf2a859d4e691fdee160b09a3efcbe351205dc72f4adbafedf5839013beff88c"
+    "tif": {
+      "file": "Fig15.tif",
+      "sha256": "846422ff027874d995e7ac277ab00e80f822a03956d1d209da56ca88d928bbf2",
+      "size_px": [
+        2250,
+        1245
+      ]
     }
+  },
+  "script": {
+    "file": "make_figures_14_15.py",
+    "sha256": "e13e3503dc5c44300f7eaee7dbe5ede59854e686573120cc0037956b8c0762f0",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_14_15.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:23:20Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "cv2": "4.9.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "A": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "9848ee7cc45f7cd373b155191085f06a",
+      "provider": "karolinska",
+      "stored_fused_dice": 0.5485,
+      "screening_order": 25,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_9848ee7cc45f7cd373b155191085f06a_ds16_validsupport_v2.npz",
+          "sha256": "b299ff5fd4e6d8713ef180985594e525c8131c80ab13c4df6eeaa6533cc88a29"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          67,
+          259,
+          306,
+          498
+        ],
+        "x0_level0": 4896,
+        "y0_level0": 1072,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_original.png",
+          "sha256": "89b72e12521233fdb081430a4fddd80d294b3949ecea2fce1c192c8f894328fd"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_gt_mask.png",
+          "sha256": "69a0dd5779a164d3134b544b4e79dbfac36de10a44c4cb72e44f635e28e2726a"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_model_mask.png",
+          "sha256": "fb03abaf9501b0e4e2aecd3e7f222307ea7604e0b8e5def3a7a12ea35413aaad"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_9848ee7cc45f7cd373b155191085f06a/bad_9848ee7cc45f7cd373b155191085f06a_dice_0.5485_detail_error_map.png",
+          "sha256": "07e75de8a593ae25b90d87b9b1f4e35644997f5bb76b4c4cedfa198c39a19271"
+        }
+      },
+      "category": "Broader GT than prediction",
+      "pathologist_finding": "GT includes additional benign tissue."
+    },
+    "B": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "cf1c7e7e632db44c5ca6de473da247e6",
+      "provider": "radboud",
+      "stored_fused_dice": 0.7538,
+      "screening_order": 13,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_cf1c7e7e632db44c5ca6de473da247e6_ds16_validsupport_v2.npz",
+          "sha256": "b2934eb762049019a8a8ce28193cb261d53c83b36cde5a205056b259a5f4c72c"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          12,
+          204,
+          120,
+          312
+        ],
+        "x0_level0": 1920,
+        "y0_level0": 192,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_original.png",
+          "sha256": "277c418ff59dd927ab6a5f09edae3dd1d659b3351330798b8e9dd5c09a926186"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_gt_mask.png",
+          "sha256": "bd8a4c3dd1d128ab386a113f898b2573717231bece2d53316067954b19ec636d"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_model_mask.png",
+          "sha256": "a5a4562b90ef2868837f74cc5ce74923fb2da573a777095ed401750fa1c597a2"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_cf1c7e7e632db44c5ca6de473da247e6/bad_cf1c7e7e632db44c5ca6de473da247e6_dice_0.7538_detail_error_map.png",
+          "sha256": "92806e1e95f24fd3f4235ed0ebd3de0671b42dcdf5e4a1d85837c339c8cd0eeb"
+        }
+      },
+      "category": "Possible stain-associated discrepancy",
+      "pathologist_finding": "Annotation may extend into non-tumorous tissue."
+    },
+    "C": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "cfbe34e8826d4e2bb02061d9ef056e83",
+      "provider": "karolinska",
+      "stored_fused_dice": 0.7155,
+      "screening_order": 17,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_cfbe34e8826d4e2bb02061d9ef056e83_ds16_validsupport_v2.npz",
+          "sha256": "bd6039217fb7c47ad4152e458fb2ffe1ad6a82269bf1198c41f6c1d82739e5fe"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          451,
+          643,
+          967,
+          1159
+        ],
+        "x0_level0": 15472,
+        "y0_level0": 7216,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_original.png",
+          "sha256": "8a0be3b30613d65569f88ad222f99eb4913f0becaff88d61ea7887e05020f4ce"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_gt_mask.png",
+          "sha256": "52ae9b97bf094de731dcc9f7c520707770014cc395346318b976bdc9e5d3d301"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_model_mask.png",
+          "sha256": "1e85cf6fd0950bf6b4c7a43a64416900d935b5ec0fc14dd58c7f68f0d5f92b5d"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_cfbe34e8826d4e2bb02061d9ef056e83/bad_cfbe34e8826d4e2bb02061d9ef056e83_dice_0.7155_detail_error_map.png",
+          "sha256": "27131d2caa48c2ea4425afe3a13bec96f385335394d387608c3de3bb4dac07be"
+        }
+      },
+      "category": "Connected-foci convention",
+      "pathologist_finding": "GT joins separate tumor foci."
+    },
+    "D": {
+      "dataset": "SICAPv2",
+      "image_name": "0.jpg",
+      "source_wsi": "0",
+      "stored_dice": 0.7443,
+      "index": "all-images fallback index of the external evaluation",
+      "metrics_table": {
+        "path": "external_sicapv2/results/tables/per_external_image_metrics.csv",
+        "sha256": "6c80b7cd3ade99b8f79f43f85f567b0d0c101aab4d4e85ef616d2b09bfd83601"
+      },
+      "files": {
+        "he": {
+          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/0.jpg",
+          "sha256": "e741a2de01625da644e7e03c094eeaed992f0bf5b5b4e1725af1a6703b69089c"
+        },
+        "gt": {
+          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/0.jpg",
+          "sha256": "35d8632d6f78a5b4ebcf92677ad21675e6a00a788f119e95f9edd8f5300b06c7"
+        },
+        "model": {
+          "path": "external_sicapv2/results/pred_masks/d94a1d0d95e1a6e27b74.png",
+          "sha256": "bb64b0901b42f2eb2cd4ac9b741ba3537bdffc6a84c2a2cfdaca29cf09de73fb"
+        },
+        "error": {
+          "path": "external_sicapv2/results/error_maps/d94a1d0d95e1a6e27b74.png",
+          "sha256": "cf2a859d4e691fdee160b09a3efcbe351205dc72f4adbafedf5839013beff88c"
+        }
+      },
+      "category": "Luminal spaces",
+      "pathologist_finding": "GT includes internal luminal spaces."
+    }
+  },
+  "parameters": {
+    "panel_size_px": 520,
+    "masks": "binary (> 0), nearest-neighbour resize",
+    "error_map": "saved evaluation error map, colours as in the legend",
+    "labels": "case categories and findings from the pathologist review, unchanged"
   }
 }

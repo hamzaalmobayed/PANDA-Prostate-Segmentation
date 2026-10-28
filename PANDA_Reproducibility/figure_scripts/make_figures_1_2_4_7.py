@@ -3,8 +3,16 @@
 Every image panel is read from the stored PANDA training patches, their
 reference masks, the training-derived Vahadane target, or the final model
 checkpoint. Nothing is drawn by hand or by an image generator. Each figure
-is written as PNG and as PLOS TIFF (RGB, LZW, 300 dpi, 7.5 in wide) together
-with a JSON file that lists every source file with its SHA-256.
+is written as PNG and as PLOS TIFF (RGB, LZW, 300 dpi, 7.5 in wide). Case
+identifiers, patch coordinates and file names are kept out of the figures;
+they are written, with the SHA-256 of every source file, to the JSON log of
+each figure (provenance_log.py).
+
+The normalized L0 patch of Figs 2E and 4B is the copy the training pipeline
+wrote to its persistent Vahadane cache (cache/stain_v10/vahadane/), i.e. the
+image the model was trained on. The Fig 7 input patch is not in that cache; it
+is normalized here with the same target and a fixed NumPy seed, because the
+TIAToolbox dictionary learning draws from NumPy's global random state.
 
 Usage:
     python make_figures_1_2_4_7.py <output_dir> [work_root]
@@ -12,7 +20,6 @@ Usage:
 work_root is the pipeline work directory (patches/, selected/, manifests/,
 runs/, stain_target_train.png). If omitted, PANDA_DATA_ROOT is used.
 """
-import hashlib
 import json
 import os
 import sys
@@ -32,6 +39,8 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 from PIL import Image
 from tiatoolbox.tools.stainnorm import VahadaneNormalizer
 
+from provenance_log import patch_record, prov_dir, save_figure, source, stain_cache_file
+
 OUT = Path(sys.argv[1])
 if len(sys.argv) < 3 and "PANDA_DATA_ROOT" not in os.environ:
     sys.exit("give work_root as the second argument or set PANDA_DATA_ROOT")
@@ -44,11 +53,10 @@ GREEN, ORANGE = "#10a64a", "#f07f0c"
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7})
 
 
+VAHADANE_SEED = 42
+
+
 # ---------------------------------------------------------------- helpers
-def sha(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-
-
 def rgb(path):
     return np.asarray(Image.open(path).convert("RGB"))
 
@@ -57,21 +65,12 @@ def binary(path):
     return np.asarray(Image.open(path).convert("L")) > 127
 
 
-def save(fig, png_name, tif_name, sources):
-    OUT.mkdir(parents=True, exist_ok=True)
-    png = OUT / png_name
-    fig.savefig(png, dpi=300, facecolor="white")
-    plt.close(fig)
-    im = Image.open(png).convert("RGB")
-    if im.width > 2250:
-        im = im.resize((2250, round(im.height * 2250 / im.width)), Image.LANCZOS)
-        im.save(png, dpi=(300, 300))
-    im.save(OUT / tif_name, compression="tiff_lzw", dpi=(300, 300))
-    rec = {"script": Path(__file__).name, "slide_id": SLIDE, "paths_relative_to": "PANDA_DATA_ROOT",
-           "sources": {k: {"path": Path(v).resolve().relative_to(WORK.resolve()).as_posix(), "sha256": sha(v)}
-                       for k, v in sources.items()}}
-    (OUT / (Path(png_name).stem + "_sources.json")).write_text(json.dumps(rec, indent=2), encoding="utf-8")
-    print("saved", png_name, im.size)
+def save(fig, png_name, tif_name, record, extra_files=()):
+    return save_figure(fig, OUT, png_name, tif_name, record, WORK, __file__, extra_files)
+
+
+def prec(row, **extra):
+    return patch_record(row, WORK, **extra)
 
 
 def tissue_mask(img, thr=0.20, disk=2, min_obj=500):
@@ -93,9 +92,11 @@ class Vahadane:
     """Same wrapper as VahadaneProcessor in the pipeline (writable C copies)."""
     def __init__(self, target_path):
         self.norm = VahadaneNormalizer()
+        np.random.seed(VAHADANE_SEED)
         self.norm.fit(np.array(rgb(target_path), dtype=np.uint8, copy=True, order="C"))
 
     def __call__(self, img):
+        np.random.seed(VAHADANE_SEED)
         return np.array(self.norm.transform(np.array(img, dtype=np.uint8, copy=True, order="C")), dtype=np.uint8)
 
 
@@ -211,26 +212,35 @@ tis = tissue_mask(mos) & mos_cov
 # ---------------------------------------------------------------- Fig 4
 src4 = pick(0, "tumor")
 raw4 = rgb(src4.img)
-norm4 = vahadane(raw4)
-fig, axs = plt.subplots(1, 3, figsize=(7.5, 2.85), gridspec_kw={"width_ratios": [1, 1, 1]})
+cache4 = stain_cache_file(WORK, src4.img)
+assert cache4 is not None, "training-time Vahadane copy of the Fig 4 patch not found"
+norm4 = rgb(cache4)
+fresh4 = vahadane(raw4)  # check only: the cached copy is what the model was trained on
+fresh_diff4 = float(np.abs(fresh4.astype(int) - norm4.astype(int)).mean())
+fig, axs = plt.subplots(1, 3, figsize=(7.5, 2.55), gridspec_kw={"width_ratios": [1, 1, 1]})
 show(axs[0], raw4, "Source patch (before normalization)")
 show(axs[1], norm4, "After Vahadane normalization")
 tgt = rgb(target_path)
 show(axs[2], tgt, "Training-derived target")
 for ax, l in zip(axs, "ABC"):
     panel_letter(ax, l)
-fig.text(0.5, 0.075, f"PANDA training WSI {SLIDE} ({provider.capitalize()}), L0 patch at level-0 x = {int(src4.x0):,}, y = {int(src4.y0):,}",
-         ha="center", fontsize=6.2, color="#333333")
-fig.text(0.5, 0.03, "Target: stain_target_train.png, selected from training patches only and reused unchanged for all inference",
-         ha="center", fontsize=6.2, color="#333333")
-fig.subplots_adjust(left=0.03, right=0.98, top=0.9, bottom=0.14, wspace=0.08)
-save(fig, "Fig04_vahadane.png", "Fig4.tif", {"source_patch": src4.img, "vahadane_target": target_path})
-Image.fromarray(norm4).save(OUT / "Fig04_normalized_patch.png")
+fig.subplots_adjust(left=0.03, right=0.98, top=0.89, bottom=0.03, wspace=0.08)
+save(fig, "Fig04_vahadane.png", "Fig4.tif", {
+    "figure": "Fig 4",
+    "panels": {"A": prec(src4, shown="stored patch before normalization"),
+               "B": {"shown": "same patch after Vahadane normalization (training-time cached copy)",
+                     "normalized_image": source(cache4, WORK),
+                     "check_mean_abs_diff_vs_renormalization_8bit": round(fresh_diff4, 3)},
+               "C": {"shown": "training-derived Vahadane target", "image": source(target_path, WORK)}},
+    "parameters": {"patch_choice": "selected L0 tumor patch of the slide; fewest mask seams, then most tissue",
+                   "normalizer": "TIAToolbox VahadaneNormalizer fitted on the target"}})
 
 # ---------------------------------------------------------------- Fig 7
 src7 = pick(1, "tumor", src=all_rows)
 x7 = vahadane(rgb(src7.img))
 gt7 = binary(src7["mask"])
+PROV = prov_dir(OUT)
+Image.fromarray(x7).save(PROV / "Fig07_input_normalized.png")
 model = UNetEfficientNetB4()
 ck = torch.load(WORK / "runs" / "final_main_training" / "best.pt", map_location="cpu", weights_only=False)
 model.load_state_dict(ck["model"])
@@ -255,7 +265,7 @@ def arr(a, b, color=ARROW, lw=1.1, style="-|>", ls="-"):
     ax.add_patch(FancyArrowPatch(a, b, arrowstyle=style, mutation_scale=7, color=color, lw=lw, linestyle=ls, shrinkA=0, shrinkB=0))
 
 
-ax.text(50, 53.3, "EfficientNet-B4 U-Net with coordinate embedding (executed architecture)", ha="center", fontsize=8.5, fontweight="bold", color=NAVY)
+ax.text(50, 53.3, "EfficientNet-B4 U-Net with coordinate embedding", ha="center", fontsize=8.5, fontweight="bold", color=NAVY)
 ax.imshow(x7, extent=(1, 12, 33, 44), zorder=2); ax.add_patch(Rectangle((1, 33), 11, 11, fill=False, ec="#555", lw=0.6))
 ax.text(6.5, 45.2, "Input patch", ha="center", fontsize=6.3, fontweight="bold", color=NAVY)
 ax.text(6.5, 31.8, "3 @ 512×512\n(Vahadane-normalized)", ha="center", va="top", fontsize=5.6)
@@ -300,11 +310,22 @@ ax.imshow(gt7, extent=(87.3, 97.3, 16, 26), cmap="gray", vmin=0, vmax=1, interpo
 ax.add_patch(Rectangle((87.3, 16), 10, 10, fill=False, ec="#555", lw=0.6))
 ax.text(92.3, 27.2, "Reference mask", ha="center", fontsize=6.3, fontweight="bold", color=NAVY)
 ax.text(92.3, 14.8, "PANDA label, same patch", ha="center", va="top", fontsize=5.6)
-ax.text(1, 7.2, "DoubleConv = 2 × (3×3 conv, batch norm, ReLU)\n+ dropout 0.1. Probability map: selected checkpoint\n"
-        "(epoch 11) applied to the L1 training patch shown.", fontsize=5.6, va="top", color="#333333")
-save(fig, "Fig07_architecture.png", "Fig7.tif", {"input_patch": src7.img, "reference_mask": src7["mask"],
-                                                 "checkpoint": WORK / "runs" / "final_main_training" / "best.pt",
-                                                 "vahadane_target": target_path})
+ax.text(1, 7.2, "DoubleConv = 2 × (3×3 conv, batch norm, ReLU)\n+ dropout 0.1", fontsize=5.6, va="top", color="#333333")
+np.save(PROV / "Fig07_probability.npy", prob7.astype(np.float32))
+save(fig, "Fig07_architecture.png", "Fig7.tif", {
+    "figure": "Fig 7",
+    "panels": {"input_patch": prec(src7, shown="Vahadane-normalized model input",
+                                   normalized_input="Fig07_input_normalized.png (this folder)"),
+               "tumor_probability": {"shown": "sigmoid output of the selected checkpoint for the input patch",
+                                     "checkpoint": source(WORK / "runs" / "final_main_training" / "best.pt", WORK,
+                                                          epoch=ck.get("epoch") if isinstance(ck, dict) else None),
+                                     "coords_input": [float(src7.coord_x), float(src7.coord_y)],
+                                     "probability_range": [round(float(prob7.min()), 6), round(float(prob7.max()), 6)]},
+               "reference_mask": {"tumor_mask": source(src7["mask"], WORK)}},
+    "parameters": {"patch_choice": "stored L1 tumor patch of the slide (any stored patch); fewest mask seams, then most tissue",
+                   "vahadane_target": source(target_path, WORK), "vahadane_numpy_seed": VAHADANE_SEED,
+                   "encoder_channels": list(ch)}},
+    extra_files=(PROV / "Fig07_input_normalized.png", PROV / "Fig07_probability.npy"))
 
 # ---------------------------------------------------------------- Fig 1
 NAME_L = {0: "L0 (1×)", 1: "L1 (4× downsample)", 2: "L2 (16× downsample)"}
@@ -377,10 +398,13 @@ bigarrow((rx - 0.06, cy[1]), (mx + mw + 0.05, cy[1]))
 bigarrow((mx + mw + 0.05, cy[3]), (rx - 0.06, cy[3]))
 ax.plot([mx + mw / 2, mx + mw / 2, 2.65, 2.65], [0.6, 0.32, 0.32, 0.62], color=ARROW, lw=1.5)
 bigarrow((2.65, 0.6), (2.65, 0.74))
-src1 = {f"pyramid_L{l}": pyr[l].img for l in LEVELS}
-src1.update({f"{c}_L{l}_image": right[(l, c)].img for l in LEVELS for c in ("normal", "tumor")})
-src1.update({f"{c}_L{l}_mask": right[(l, c)]["mask"] for l in LEVELS for c in ("normal", "tumor")})
-save(fig, "Fig01_pipeline.png", "Fig1.tif", src1)
+panels1 = {f"left_L{l}": prec(pyr[l], shown=f"multiresolution view {NAME_L[l]}") for l in LEVELS}
+panels1.update({f"right_{c}_L{l}": prec(right[(l, c)], shown=f"representative {c} input at L{l} and its reference mask")
+                for l in LEVELS for c in ("normal", "tumor")})
+save(fig, "Fig01_pipeline.png", "Fig1.tif", {
+    "figure": "Fig 1", "panels": panels1,
+    "parameters": {"patch_choice": "stored patches of the slide; right column: fewest mask seams, then most tissue; "
+                                   "left column: second-ranked tumor patch per level"}})
 
 # ---------------------------------------------------------------- Fig 2
 pool_dir = WORK / "manifests" / "coordinate_pools"
@@ -391,7 +415,7 @@ buckets = sel.groupby(["level", "category", "provider"]).size()
 fig = plt.figure(figsize=(7.5, 7.3))
 gs = fig.add_gridspec(3, 4, height_ratios=[2.75, 1.75, 1.25], hspace=0.2, wspace=0.12,
                       left=0.02, right=0.985, top=0.95, bottom=0.015)
-fig.suptitle(f"PANDA patch preparation on training WSI {SLIDE[:12]}… ({provider.capitalize()})", fontsize=9, fontweight="bold", color=NAVY)
+fig.suptitle("PANDA patch preparation on one training WSI", fontsize=9, fontweight="bold", color=NAVY)
 
 
 def ltitle(ax, s):
@@ -442,12 +466,33 @@ for i, (l, c) in enumerate([(0, "normal"), (1, "normal"), (2, "normal"), (0, "tu
     a = fig.add_subplot(sub[0, i])
     show(a, rgb(sel_right[(l, c)].img), edge=GREEN if c == "normal" else ORANGE)
     ltitle(a, ("H  " if i == 0 else "") + f"L{l} {c}")
-src2 = {"vahadane_source_L0": src4.img, "vahadane_target": target_path, "selected_manifest": WORK / "selected" / "train_selected.csv"}
-src2.update({f"l2_patch_{i:02d}": f for i, f in enumerate(l2_imgs)})
-src2.update({f"stats_L{l}": pool_dir / f"{SLIDE}_L{l}.stats.json" for l in LEVELS})
-src2["pool_L1"] = pool_dir / f"{SLIDE}_L1.csv"
-src2.update({f"output_{c}_L{l}": sel_right[(l, c)].img for l in LEVELS for c in ("normal", "tumor")})
-save(fig, "Fig02_preprocessing.png", "Fig2.tif", src2)
+l2_files = []
+for f, (x, y) in zip(l2_imgs, coords):
+    cls = f.parent.name
+    l2_files.append({"x0_level0": x, "y0_level0": y, "class": cls, "image": source(f, WORK),
+                     "tumor_mask": source(f.parent.parent / f"{cls}_Masks" / f"{f.stem}__tumor_mask.png", WORK),
+                     "valid_mask": source(f.parent.parent / f"{cls}_Valid_Masks" / f"{f.stem}__valid_mask.png", WORK)})
+save(fig, "Fig02_preprocessing.png", "Fig2.tif", {
+    "figure": "Fig 2",
+    "slide": {"slide_id": SLIDE, "provider": provider, "split": "train"},
+    "panels": {"A_B_C": {"shown": "L2 mosaic of every stored L2 patch of the slide, its tissue mask and reference mask",
+                         "mosaic_crop_px_on_16x_grid": {"rows": [int(y0), int(y1)], "cols": [int(x0), int(x1)]},
+                         "l2_patches": l2_files},
+               "D": {"shown": "L1 candidates of the coordinate pool outlined by class",
+                     "coordinate_pool": source(pool_dir / f"{SLIDE}_L1.csv", WORK), "n_candidates": int(len(pool1))},
+               "E": {"shown": "Fig 4 patch before and after Vahadane normalization", "same_as": "Fig 4 A and B",
+                     "before": prec(src4), "after": source(cache4, WORK)},
+               "F": {"shown": "candidate-grid counts of this WSI",
+                     "stats_files": {f"L{l}": source(pool_dir / f"{SLIDE}_L{l}.stats.json", WORK) for l in LEVELS},
+                     "values": {f"L{l}": stats[l] for l in LEVELS}},
+               "G": {"shown": "provider counts of the six selected training buckets",
+                     "selected_manifest": source(WORK / "selected" / "train_selected.csv", WORK),
+                     "values": {f"L{l}_{c}_{p}": int(buckets.get((l, c, p), 0)) for l in LEVELS
+                                for c in ("normal", "tumor") for p in ("karolinska", "radboud")}},
+               "H": {f"{c}_L{l}": prec(sel_right[(l, c)], shown="selected training patch")
+                     for l in LEVELS for c in ("normal", "tumor")}},
+    "parameters": {"tissue_mask": "Otsu on HSV saturation, threshold >= 0.20, disk 2, min object 500 (pipeline rule)",
+                   "patch_choice": "selected patches; fewest mask seams, then most tissue"}})
 
 print("bucket counts:\n", buckets.unstack("provider"))
 print("Fig4 patch:", src4.img, "| Fig7 patch:", src7.img, "| prob range", float(prob7.min()), float(prob7.max()))
