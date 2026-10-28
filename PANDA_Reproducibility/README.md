@@ -45,29 +45,55 @@ command-line option; see `HARDCODED_PATHS_SUMMARY.csv`. In the SICAPv2 script,
 
 ## Manuscript figures
 
+All 17 figures and S1 Table are drawn by `figure_scripts/` from the study data;
+nothing is typed in or drawn by hand. The figures and captions carry no case
+identifiers, patch coordinates or file names; these are kept in the logs
+described below.
+
+```bash
+python figure_scripts/run_all_figures.py <PANDA_DATA_ROOT>   # all figures, S1 Table, logs, hash check
+python figure_scripts/provenance_index.py figure_scripts/provenance <figures_dir> <PANDA_DATA_ROOT> --verify
+```
+
 | Figure | Produced by | Source data |
 |---|---|---|
-| Fig 1 | `figure_scripts/make_figures_1_2_4_7.py` | stored training patches and masks of WSI `362d30ace92ce17128d176137362b8c2` |
-| Fig 2 | `figure_scripts/make_figures_1_2_4_7.py` | same WSI: stored L2 patches, masks, coordinate pools; `selected/train_selected.csv` |
-| Fig 3 | `figure_scripts/make_figure_3.py` | nested stored L0/L1/L2 tumor patches and masks of training WSI `0018ae58b01bdadc8e347995b69f99aa` |
-| Fig 4 | `figure_scripts/make_figures_1_2_4_7.py` | L0 training patch of WSI `362d30ac…`; `stain_target_train.png` |
-| Fig 5 | `PANDA_Pipeline/GENERATE_AUGMENTATION_VISUALIZATION.py` | a stored PANDA patch |
-| Fig 6 | `PANDA_Pipeline/GENERATE_STRUCTURED_SAMPLING_TREE_4_LEVELS_V3.py` | schematic |
-| Fig 7 | `figure_scripts/make_figures_1_2_4_7.py` | L1 training patch of WSI `362d30ac…`; `runs/final_main_training/best.pt` |
-| Fig 8 | `PANDA_Pipeline/GENERATE_TRAINING_DYNAMICS_CURVES.py` | values entered in the script; source export `runs/final_main_training/history.csv` |
-| Fig 9 | `PANDA_Pipeline/GENERATE_GROUPED_PER_SLIDE_DICE_FINAL_PLOS_V2.py` | reads `paper_results/tables/per_slide_wsi_metrics.csv` |
-| Fig 10 | `PANDA_Pipeline/GENERATE_PER_LEVEL_POOLED_CONFUSION.py` | counts entered in the script; source export `paper_results/tables/patch_metrics_per_level_and_pooled.csv` |
-| Fig 11 | assembled from `paper_results/test_visuals_good_live/` | source WSI not recorded |
-| Fig 12 | `PANDA_Pipeline/GENERATE_FIG12_THRESHOLD_SENSITIVITY_CORRECTED.py` | values entered in the script; validation sweep in `paper_results/tables/threshold_sensitivity_validation.csv` |
-| Fig 13 | `PANDA_Pipeline/GENERATE_FIG13_LITERATURE.py` | values from the cited studies |
-| Fig 14 | `figure_scripts/make_figures_14_15.py` | `paper_results/test_visuals_bad_review/` (WSIs listed in S1 Table) |
-| Fig 15 | `figure_scripts/make_figures_14_15.py` | same, plus SICAPv2 image `0.jpg` from the external evaluation |
-| Fig 16 | assembled from SICAPv2 evaluation visuals | source images not recorded |
-| Fig 17 | assembled from PRECISE evaluation visuals | source WSIs not recorded |
+| Fig 1, 2 | `figure_scripts/make_figures_1_2_4_7.py` | stored training patches, masks and coordinate pools of one training WSI; `selected/train_selected.csv` |
+| Fig 3 | `figure_scripts/make_figure_3.py` | nested stored L0/L1/L2 tumor patches and masks of one training WSI |
+| Fig 4 | `figure_scripts/make_figures_1_2_4_7.py` | one L0 training patch and its training-time Vahadane copy (`cache/stain_v10/vahadane/`); `stain_target_train.png` |
+| Fig 5 | `figure_scripts/make_figure_5.py` | one selected L0 training patch (training-time Vahadane copy) and the transforms of `PairAugStainHeavy` |
+| Fig 6 | `figure_scripts/make_figures_6_8_9_10_12.py` | `selected/train_selected.csv` |
+| Fig 7 | `figure_scripts/make_figures_1_2_4_7.py` | one L1 training patch; `runs/final_main_training/best.pt` |
+| Fig 8 | `figure_scripts/make_figures_6_8_9_10_12.py` | `runs/final_main_training/history.csv` |
+| Fig 9 | `figure_scripts/make_figures_6_8_9_10_12.py` | `paper_results/tables/per_slide_wsi_metrics.csv` |
+| Fig 10 | `figure_scripts/make_figures_6_8_9_10_12.py` | `paper_results/tables/patch_metrics_per_level_and_pooled.csv` |
+| Fig 11 | `figure_scripts/make_figures_11_16_17.py` | `paper_results/test_visuals_bad_review/` (one reviewed test WSI, S1 Table) and its WSI cache |
+| Fig 12 | `figure_scripts/make_figures_6_8_9_10_12.py` | `paper_results/tables/threshold_sensitivity_validation.csv`, `best_threshold.json` |
+| Fig 13 | `figure_scripts/GENERATE_FIG13_LITERATURE.py` | values of the cited studies; `paper_results/tables/global_wsi_metrics_95CI.csv` |
+| Fig 14, 15 | `figure_scripts/make_figures_14_15.py` | `paper_results/test_visuals_bad_review/` (WSIs in S1 Table) and their WSI caches; one SICAPv2 image |
+| Fig 16 | `figure_scripts/make_figures_11_16_17.py` | SICAPv2 images, masks, predictions and error maps of the external evaluation |
+| Fig 17 | `figure_scripts/make_figures_11_16_17.py` | PRECISE WSI caches and saved visuals |
 
-`figure_scripts/provenance/` holds, for each figure drawn by `figure_scripts`, every
-source file (relative to `PANDA_DATA_ROOT`) with its SHA-256. The status of every
-figure is in `FIGURE_PROVENANCE_AUDIT.csv`.
+`figure_scripts/provenance/` holds one JSON log per figure. Each log records:
+
+- the output files and the script, each with its SHA-256;
+- the command and the software versions;
+- per panel: the case (slide ID, provider, split), the level and level-0
+  coordinates of each patch, and the image, tumor-mask and valid-mask files;
+- for review crops, their level-0 field, located exactly in the WSI cache;
+- every source file, relative to `PANDA_DATA_ROOT`, with its SHA-256;
+- the parameters and the values printed in the figure.
+
+`FIGURE_PROVENANCE_AUDIT.csv` (one row per figure) and
+`FIGURE_PROVENANCE_DETAILED.csv` (one row per source file) are built from these
+logs and are also copied to this folder. `FIGURE_PROVENANCE.md` is a readable
+index.
+
+Figs 6, 8, 9, 10, 12 and 13 run from the files in this repository. The image
+figures also need the pipeline work folder, which holds the stored patches,
+the training-time stain cache and the full WSI caches.
+
+The `PANDA_Pipeline/GENERATE_*.py` figure scripts are superseded. The Fig 8, 10
+and 12 versions there use typed-in values.
 
 ## Manuscript tables
 
@@ -101,12 +127,16 @@ S1 Table (the 30 WSIs of the pathologist-guided review) is in
 | `rebuild_level_thresholds.py` | Table 9: validation sweep 0.30–0.70 for L0, L1, L2 and fusion; validation-selected thresholds applied to test | fused sweep identical to `threshold_sensitivity_validation.csv`; test counts at 0.43 identical to `per_slide_wsi_metrics.csv` for all 1,577 WSIs and all four maps |
 | `coverage_from_caches.py` | `coverage_analysis/` | identical files |
 | `provider_tumor_definition.py` | `paper_results/tables/provider_tumor_definition_test_patches.csv` (share of test tumor patches labeled tumor over all annotated-valid pixels; third limitation) | |
+| `make_cache_archives.py` | the two cache archives of the release above, with their SHA-256 manifest | |
 
 ## Known gaps
 
 - **WSI caches.** `paper_results/wsi_cache/` here is partial (951 validation and
-  1,564 test caches of 1,577 each), and the PRECISE caches are not included.
-  B4 and the first two analysis scripts need the full cache sets.
+  1,564 test caches of 1,577 each). The missing PANDA caches and all 27 PRECISE
+  caches are in the release `panda-wsi-cache-complement-20261027`
+  (`panda_wsi_cache_complement.zip`, `precise_wsi_cache.zip`, SHA-256 manifest);
+  several exceed GitHub's 100 MB file limit. Extract both archives here to get
+  the full cache sets that B4 and the first two analysis scripts need.
 - **B4 precision.** The caches store probabilities as float16. The original
   evaluation (`panda_stream_paper.py`) cast them to float32 before applying
   0.43, so float16(0.43) = 0.4299316 scored negative. B4 compared the float16

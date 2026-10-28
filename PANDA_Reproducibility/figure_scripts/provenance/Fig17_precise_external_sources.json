@@ -1,0 +1,103 @@
+{
+  "figure": "Fig 17",
+  "outputs": {
+    "png": {
+      "file": "Fig17_precise_external.png",
+      "sha256": "11d0d6b17663be1d14bb21679bea1ef561eae014544b03eb4ce45336bda72700",
+      "size_px": [
+        2250,
+        2062
+      ]
+    },
+    "tif": {
+      "file": "Fig17.tif",
+      "sha256": "c4cbd751d5259dc94b65abd2b410845f5916952cd1926456f864573c71d79430",
+      "size_px": [
+        2250,
+        2062
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_11_16_17.py",
+    "sha256": "3c88a5e8eeee90225035520531d639853d469e6a25b7905302570ff813d08724",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_11_16_17.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:58Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "cv2": "4.9.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "A": {
+      "dataset": "PRECISE",
+      "wsi": "sub-07_ses-01",
+      "fusion_dice": 0.7209,
+      "fusion_precision": 0.6365,
+      "fusion_recall": 0.8311,
+      "crop_rows_cols_on_16x_grid": [
+        134,
+        4232,
+        62,
+        1307
+      ],
+      "files": {
+        "wsi_cache": {
+          "path": "external_precise_wsi/wsi_cache/sub-07_ses-01_ds16_precise_v1.npz",
+          "sha256": "6c1554d88bfa734fa3ea87bd2b75273020215b5e3e9b4386585638184fe4e70e"
+        },
+        "combined_visual_for_he": {
+          "path": "external_precise_wsi/results/visuals_all_wsi/sub-07_ses-01/combined_original_gt_model_error.png",
+          "sha256": "7994383d44a2a3bb7bec28e8e5235772d60b26bd5f195ed6ece5f21e0bb8bdf4"
+        },
+        "metrics": {
+          "path": "external_precise_wsi/results/visuals_all_wsi/sub-07_ses-01/metrics.json",
+          "sha256": "33097382a042f296f6931ed8c2dcb77625a68a46a321085dae5975d4fc0b1d48"
+        }
+      }
+    },
+    "B": {
+      "dataset": "PRECISE",
+      "wsi": "sub-09_ses-01",
+      "fusion_dice": 0.6043,
+      "fusion_precision": 0.6021,
+      "fusion_recall": 0.6065,
+      "crop_rows_cols_on_16x_grid": [
+        123,
+        2251,
+        0,
+        2303
+      ],
+      "files": {
+        "wsi_cache": {
+          "path": "external_precise_wsi/wsi_cache/sub-09_ses-01_ds16_precise_v1.npz",
+          "sha256": "bc5f239dc37757928d65a38a766bcba54e4ce2adc7d6c0c3e8b4f6b27839ce74"
+        },
+        "combined_visual_for_he": {
+          "path": "external_precise_wsi/results/visuals_all_wsi/sub-09_ses-01/combined_original_gt_model_error.png",
+          "sha256": "c49a5a7015ce306d4c1b0c5b006af96f2ca1f8ad7315646ceb50c22a098959c1"
+        },
+        "metrics": {
+          "path": "external_precise_wsi/results/visuals_all_wsi/sub-09_ses-01/metrics.json",
+          "sha256": "a0da21b681676fa2b3f01ab3ea1b20693b52a31f2c157ec8b735c998e031b5a6"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "prediction": "fused probability >= 0.43 inside the evaluation tissue mask",
+    "grid": "16x",
+    "he_thumbnail": "H&E panel of the saved combined visual, resized to the cache grid",
+    "crop": "bounding box of valid or tissue pixels plus a 3% margin"
+  }
+}

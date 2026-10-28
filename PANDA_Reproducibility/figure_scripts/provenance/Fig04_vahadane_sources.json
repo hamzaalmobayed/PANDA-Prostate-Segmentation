@@ -1,15 +1,91 @@
 {
-  "script": "make_figures_1_2_4_7.py",
-  "slide_id": "362d30ace92ce17128d176137362b8c2",
-  "paths_relative_to": "PANDA_DATA_ROOT",
-  "sources": {
-    "source_patch": {
-      "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor.jpg",
-      "sha256": "b66a2f0fbbe2169b3f24766683b8b3a8bf68764c4dc409958864cab253b431a8"
+  "figure": "Fig 4",
+  "outputs": {
+    "png": {
+      "file": "Fig04_vahadane.png",
+      "sha256": "96b6cf49ff0ef3cd53a3115c007c877f63df496c70862050c98f19c742cfe8e7",
+      "size_px": [
+        2250,
+        765
+      ]
     },
-    "vahadane_target": {
-      "path": "stain_target_train.png",
-      "sha256": "abc22d00215f6d65f39bcf313f9006adca2d8bac54b33220fe1793e26a4dd689"
+    "tif": {
+      "file": "Fig4.tif",
+      "sha256": "eb5a34748ebb0d07e0620d724ebf77bd0ed857faee2c8cf9695fd621c651962b",
+      "size_px": [
+        2250,
+        765
+      ]
     }
+  },
+  "script": {
+    "file": "make_figures_1_2_4_7.py",
+    "sha256": "dcf758bff495a8a21738bc004b81c2a76d0e4810d749f6e62f826d525cd4d9e6",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_1_2_4_7.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:00Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "torch": "2.5.1+cu118",
+    "torchvision": "0.20.1+cpu",
+    "timm": "1.0.12",
+    "cv2": "4.9.0",
+    "tiatoolbox": "1.6.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "A": {
+      "slide_id": "362d30ace92ce17128d176137362b8c2",
+      "provider": "karolinska",
+      "split": "train",
+      "level": 0,
+      "category": "tumor",
+      "x0_level0": 7296,
+      "y0_level0": 20864,
+      "field_level0_px": 512,
+      "tissue_fraction": 0.921875,
+      "tumor_fraction_of_valid": 1.0,
+      "image": {
+        "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor.jpg",
+        "sha256": "b66a2f0fbbe2169b3f24766683b8b3a8bf68764c4dc409958864cab253b431a8"
+      },
+      "tumor_mask": {
+        "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor_Masks/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor__tumor_mask.png",
+        "sha256": "2b5dc9448a098cc5de46bef8ed9c2c4dccdbefef3a3c794285b782d2c784bccb"
+      },
+      "valid_mask": {
+        "path": "patches/train/362d30ace92ce17128d176137362b8c2/L0/Tumor_Valid_Masks/362d30ace92ce17128d176137362b8c2__split-train__L0__x0-7296__y0-20864__ds-1__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "2b5dc9448a098cc5de46bef8ed9c2c4dccdbefef3a3c794285b782d2c784bccb"
+      },
+      "shown": "stored patch before normalization"
+    },
+    "B": {
+      "shown": "same patch after Vahadane normalization (training-time cached copy)",
+      "normalized_image": {
+        "path": "cache/stain_v10/vahadane/0d8bb5c2d902/434b9fd23b77.png",
+        "sha256": "b265d10d20d4ed51a1cc3ab55c2842bc81854965ddd4e66800fbc84528286206"
+      },
+      "check_mean_abs_diff_vs_renormalization_8bit": 0.0
+    },
+    "C": {
+      "shown": "training-derived Vahadane target",
+      "image": {
+        "path": "stain_target_train.png",
+        "sha256": "abc22d00215f6d65f39bcf313f9006adca2d8bac54b33220fe1793e26a4dd689"
+      }
+    }
+  },
+  "parameters": {
+    "patch_choice": "selected L0 tumor patch of the slide; fewest mask seams, then most tissue",
+    "normalizer": "TIAToolbox VahadaneNormalizer fitted on the target"
   }
 }

@@ -1,0 +1,101 @@
+{
+  "figure": "Fig 11",
+  "outputs": {
+    "png": {
+      "file": "Fig11_qualitative_good.png",
+      "sha256": "c909c9f87e381cb53ffcf7fbffc43b908fb84becd045a32e2eab17ead2376eb9",
+      "size_px": [
+        2250,
+        1545
+      ]
+    },
+    "tif": {
+      "file": "Fig11.tif",
+      "sha256": "988b84940048b6c6a664c4c5cb1810d2201e59ee8b3c9c7c865fc49c84663b6e",
+      "size_px": [
+        2250,
+        1545
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_11_16_17.py",
+    "sha256": "3c88a5e8eeee90225035520531d639853d469e6a25b7905302570ff813d08724",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_11_16_17.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:50Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "cv2": "4.9.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "A-F": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "66cad79a848b2b9476a2517a80314327",
+      "provider": "radboud",
+      "stored_fused_dice": 0.7164,
+      "screening_order": 11,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "per_slide_metrics": {
+        "path": "paper_results/tables/per_slide_wsi_metrics.csv",
+        "sha256": "80476b8242259193ec4a867c9b463ca38518ec4f85f12dcaccc6f62edbe43599"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_66cad79a848b2b9476a2517a80314327_ds16_validsupport_v2.npz",
+          "sha256": "d406e297df0b14c01ad5a3eb2a607fbaa5e1ee573a9d04d15029ad613124f0d6"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          0,
+          192,
+          335,
+          527
+        ],
+        "x0_level0": 5360,
+        "y0_level0": 0,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "original": {
+          "path": "paper_results/test_visuals_bad_review/bad_66cad79a848b2b9476a2517a80314327/bad_66cad79a848b2b9476a2517a80314327_dice_0.7164_detail_original.png",
+          "sha256": "77155a3f9f2da4827eac6070cd9b557d7d9e4d978910ad850d684b6929604fc1"
+        },
+        "gt_mask": {
+          "path": "paper_results/test_visuals_bad_review/bad_66cad79a848b2b9476a2517a80314327/bad_66cad79a848b2b9476a2517a80314327_dice_0.7164_detail_gt_mask.png",
+          "sha256": "911da373ecc9de37c18433bcdf6c55bf15a7c47a43f3aeaa89d897ae965096af"
+        },
+        "model_mask": {
+          "path": "paper_results/test_visuals_bad_review/bad_66cad79a848b2b9476a2517a80314327/bad_66cad79a848b2b9476a2517a80314327_dice_0.7164_detail_model_mask.png",
+          "sha256": "22189b4515bd4226ea8ae24eddf1bf826d11239e245ebc56568640a6c5fbe253"
+        },
+        "error_map": {
+          "path": "paper_results/test_visuals_bad_review/bad_66cad79a848b2b9476a2517a80314327/bad_66cad79a848b2b9476a2517a80314327_dice_0.7164_detail_error_map.png",
+          "sha256": "aad885a1bba2c39dcd07defd45b95ceaab339ab801877c8f7f81618a2e21cc3e"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "overlay": "green (95, 205, 95), alpha 0.55 on mask pixels (GENERATE_BAD_REVIEW_COMPOSITE.py)",
+    "error_map": "saved review error map (evaluation palette; the earlier composite recoloured it)",
+    "display_size_px": 1024,
+    "identification": "earlier Fig 11 = composite_figure.png of this case; panel A correlation 0.9987, next case 0.6868"
+  }
+}

@@ -2,7 +2,7 @@
 
 Sources: bad_case_manifest_live.csv (screening order, written during the test
 run) and per_slide_wsi_metrics.csv (fused evaluation). Figure panels were
-identified by matching each Fig 14/15 panel to the saved review images.
+identified by matching each Fig 11/14/15 panel to the saved review images.
 """
 import os
 import sys
@@ -14,6 +14,7 @@ if len(sys.argv) < 3 and "PANDA_DATA_ROOT" not in os.environ:
 WORK = Path(sys.argv[2] if len(sys.argv) > 2 else os.environ["PANDA_DATA_ROOT"])
 OUT = Path(sys.argv[1])
 FIGURE_PANEL = {
+    "66cad79a848b2b9476a2517a80314327": "Fig 11",
     "15bf6b34c8ce10b0eddf687e3a670e4d": "Fig 14A",
     "13813facc985c2ea007fdf764ef98a5a": "Fig 14B",
     "b49d54b4f7e73808440c36fa240614c0": "Fig 14C",

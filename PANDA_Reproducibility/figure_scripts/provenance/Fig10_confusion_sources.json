@@ -1,0 +1,76 @@
+{
+  "figure": "Fig 10",
+  "outputs": {
+    "png": {
+      "file": "Fig10_confusion.png",
+      "sha256": "38cd7823cc1d71b6f95bc92c69e7e02f84d1e3b72629ffa11b04b3ad03084a17",
+      "size_px": [
+        2250,
+        1680
+      ]
+    },
+    "tif": {
+      "file": "Fig10.tif",
+      "sha256": "78d1a0b37d7a0894c5ea0707fc452f42278de8125d39937356c6f6d0f28e2c47",
+      "size_px": [
+        2250,
+        1680
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_6_8_9_10_12.py",
+    "sha256": "02fe904c9eee26621fbf2777ab6cab963acaa5e0bef0338b259621c0e3136808",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_6_8_9_10_12.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:35Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "patch_metrics": {
+      "path": "paper_results/tables/patch_metrics_per_level_and_pooled.csv",
+      "sha256": "1efacb71edcb2ec279f8cbb15d580c47f726ef161c574987f1ddd5fe3605bca2"
+    }
+  },
+  "values_shown": {
+    "all_levels_pooled": {
+      "tn": 503020235601,
+      "fp": 20205561962,
+      "fn": 36123100491,
+      "tp": 101707213750
+    },
+    "L0": {
+      "tn": 471812503864,
+      "fp": 18942328574,
+      "fn": 34515344694,
+      "tp": 94705676421
+    },
+    "L1": {
+      "tn": 30334204818,
+      "fp": 1199788826,
+      "fn": 1547608230,
+      "tp": 6748586091
+    },
+    "L2": {
+      "tn": 873526919,
+      "fp": 63444562,
+      "fn": 60147567,
+      "tp": 252951238
+    }
+  },
+  "parameters": {
+    "cell_percent": "share of the panel's four counts; 2 decimals for L2, 1 elsewhere",
+    "pooled": "sum of the L0, L1 and L2 counts (checked)"
+  }
+}

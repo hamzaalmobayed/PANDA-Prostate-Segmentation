@@ -1,0 +1,118 @@
+{
+  "figure": "Fig 9",
+  "outputs": {
+    "png": {
+      "file": "Fig09_per_slide_dice.png",
+      "sha256": "1d481462dce2f4ba1b22899e1df0570215f7628c6bed31404ffcc0c54aba4a2e",
+      "size_px": [
+        2250,
+        1350
+      ]
+    },
+    "tif": {
+      "file": "Fig9.tif",
+      "sha256": "046979d020310892fc6255d3fb8080dbecaf2544d2759ebb7886436f5a23d417",
+      "size_px": [
+        2250,
+        1350
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_6_8_9_10_12.py",
+    "sha256": "02fe904c9eee26621fbf2777ab6cab963acaa5e0bef0338b259621c0e3136808",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+    },
+    "command": "python make_figures_6_8_9_10_12.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-28T09:21:34Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "per_slide_metrics": {
+      "path": "paper_results/tables/per_slide_wsi_metrics.csv",
+      "sha256": "80476b8242259193ec4a867c9b463ca38518ec4f85f12dcaccc6f62edbe43599"
+    }
+  },
+  "values_shown": {
+    "L0": {
+      "n": 1122,
+      "mean_dice": 0.721177,
+      "median_dice": 0.75888,
+      "group_sizes": [
+        141,
+        141,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "excluded_reference_empty_at_level": 4
+    },
+    "L1": {
+      "n": 1125,
+      "mean_dice": 0.760875,
+      "median_dice": 0.798931,
+      "group_sizes": [
+        141,
+        141,
+        141,
+        141,
+        141,
+        140,
+        140,
+        140
+      ],
+      "excluded_reference_empty_at_level": 1
+    },
+    "L2": {
+      "n": 1102,
+      "mean_dice": 0.590427,
+      "median_dice": 0.625675,
+      "group_sizes": [
+        138,
+        138,
+        138,
+        138,
+        138,
+        138,
+        137,
+        137
+      ],
+      "excluded_reference_empty_at_level": 24
+    },
+    "fusion": {
+      "n": 1126,
+      "mean_dice": 0.752592,
+      "median_dice": 0.793801,
+      "group_sizes": [
+        141,
+        141,
+        141,
+        141,
+        141,
+        141,
+        140,
+        140
+      ],
+      "excluded_reference_empty_at_level": 0
+    }
+  },
+  "parameters": {
+    "wsis": "fused-reference-tumor WSIs with reference tumor at the level (TP + FN > 0); no zero-coded Dice",
+    "grouping": "8 consecutive groups in the order of the test CSV (np.array_split)",
+    "boxplot": "box Q1-Q3, line median, whiskers 1.5 x IQR, points beyond the whiskers",
+    "threshold": 0.43
+  }
+}
