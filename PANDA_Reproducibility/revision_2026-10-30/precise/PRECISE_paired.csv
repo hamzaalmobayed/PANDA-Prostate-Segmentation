@@ -1,0 +1,2 @@
+contrast,difference,ci_low,ci_high,unit,resamples,seed
+fusion-L1 pooled Dice,0.024572739339410177,0.0025904748575801555,0.04422975858406931,subject,10000,42

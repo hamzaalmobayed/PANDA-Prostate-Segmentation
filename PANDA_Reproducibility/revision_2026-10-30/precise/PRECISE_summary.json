@@ -1,0 +1,10 @@
+{
+  "n_wsi": 27,
+  "n_subjects": 25,
+  "neg_n": 7,
+  "neg_fp_area_mm2_total": 1.914842861568,
+  "neg_components_total": 6225,
+  "neg_largest_component_mm2": 0.057427750656000004,
+  "neg_components_median": 306.0,
+  "um_per_eval_px": 3.888
+}

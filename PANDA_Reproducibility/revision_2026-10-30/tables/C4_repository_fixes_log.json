@@ -1,0 +1,64 @@
+{
+  "pilot_leave_one_provider_out": [
+    {
+      "experiment": "provider_holdout_karolinska",
+      "n_train": 8000,
+      "n_val": 2000,
+      "normalization": "vahadane",
+      "use_coords": true,
+      "encoder": "efficientnet_b4_custom",
+      "held_out_provider": "karolinska",
+      "selected_epoch": 2,
+      "val_dice": 0.453009523900586,
+      "val_iou": 0.2928327813903583,
+      "val_precision": 0.7670873476674044,
+      "val_recall": 0.3214105331343589,
+      "note": "target-provider patches drawn from the training partition; values at the selected epoch"
+    },
+    {
+      "experiment": "provider_holdout_radboud",
+      "n_train": 8000,
+      "n_val": 2000,
+      "normalization": "vahadane",
+      "use_coords": true,
+      "encoder": "efficientnet_b4_custom",
+      "held_out_provider": "radboud",
+      "selected_epoch": 3,
+      "val_dice": 0.4423851729032098,
+      "val_iou": 0.2840144849723622,
+      "val_precision": 0.3133542433936379,
+      "val_recall": 0.7520658576637737,
+      "note": "target-provider patches drawn from the training partition; values at the selected epoch"
+    }
+  ],
+  "excluded_pairs": [
+    {
+      "provider": "karolinska",
+      "reason": "image file missing from the local data copy; image and mask are in the PANDA release",
+      "n": 2
+    },
+    {
+      "provider": "radboud",
+      "reason": "image file missing from the local data copy; image and mask are in the PANDA release",
+      "n": 2
+    },
+    {
+      "provider": "radboud",
+      "reason": "no label mask in the PANDA release",
+      "n": 100
+    }
+  ],
+  "precise_ci": {
+    "old": {
+      "low": 0.5148652217630841,
+      "high": 0.6983430772394129
+    },
+    "new": {
+      "low": 0.5139560052064307,
+      "high": 0.7020791816277528
+    },
+    "n_wsi": 27
+  },
+  "sicap_scope_old": "SICAPv2 official-test 512x512 patches; pixels pooled over valid tissue",
+  "sicap_scope_new": "all 18,765 images of the Train folder of a renamed Kaggle copy of SICAPv2 (split_source all_images_fallback); not the official test partition; pixels pooled over valid tissue"
+}

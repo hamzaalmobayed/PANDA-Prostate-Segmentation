@@ -1,0 +1,608 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{changepage}
+\usepackage{textcomp,marvosym}
+\usepackage{cite}
+\usepackage{nameref,hyperref}
+\hypersetup{hidelinks}
+\usepackage{xurl}
+\usepackage[right]{lineno}
+\usepackage[nopatch=eqnum]{microtype}
+\usepackage{lmodern}
+\DisableLigatures[f]{encoding = *, family = * }
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{booktabs}
+\newcolumntype{+}{!{\vrule width 2pt}}
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in
+\textheight 8.75in
+
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+\bibliographystyle{plos2025}
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+\begin{document}
+\vspace*{0.2in}
+
+\begin{flushleft}
+{\Large
+\textbf{Prostate cancer segmentation in PANDA biopsy images by late fusion of three pyramid levels, with provider-specific and external evaluation
+}
+\newline
+\\
+Hamza Almobayed\textsuperscript{1*\ddag},
+Ali Yilmaz\textsuperscript{1\ddag},
+Umit Senturk\textsuperscript{1\ddag},
+Selma Erdogan Duzcu\textsuperscript{2}
+\\
+\bigskip
+\textbf{1} Department of Computer Engineering, Bolu Abant İzzet Baysal University, 14030 Bolu, Turkey
+\\
+\textbf{2} Department of Pathology, Bolu Abant İzzet Baysal University, Faculty of Medicine, Bolu, Turkey
+\\
+\bigskip
+* Corresponding author: halmbyd991@gmail.com \\
+\ddag These authors contributed equally to this work.
+}
+\end{flushleft}
+\noindent\textbf{Short title:} Late-fusion prostate tumor segmentation in biopsy images
+
+\section*{Abstract}
+Dense segmentation of prostate cancer in core-biopsy whole-slide images (WSIs) has to handle multiscale morphology, staining variation, and large images. We trained an EfficientNet-B4 U-Net on patches from three pyramid levels (L0--L2) of the Prostate cANcer graDe Assessment (PANDA) development set, reconstructed each level densely over every WSI, and averaged the three probability maps (late fusion). The 10,512 verified biopsy images were split by image into 7,358 training, 1,577 validation, and 1,577 test WSIs; patient identifiers are not released, so biopsies of one patient can fall into more than one subset. The two PANDA providers define tumor differently (Radboud: tumor epithelium; Karolinska: tumor regions including stroma), and results are reported by provider. At a threshold of 0.43 selected on validation data, fused pooled test Dice was 0.8995 (95\% confidence interval [CI] 0.8876--0.9104) on Karolinska and 0.7605 (0.7519--0.7687) on Radboud WSIs, and 0.8522 pooled. In exploratory paired bootstrap comparisons on a common scoring region, fusion exceeded the best single level, L1, in pooled Dice by 0.0106 (0.0062 to 0.0151), an advantage confined to Radboud, whereas mean per-slide Dice of tumor-bearing WSIs did not differ ($-$0.0021; $-$0.0086 to 0.0043); on validation WSIs scored on each level's own support, the pooled difference was 0.0004. Fusion and L1 therefore performed comparably. Of 451 reference-negative test WSIs, 234 (51.9\%) contained predicted tumor, mostly in components smaller than 0.01~mm$^2$. Without retraining, Dice was 0.6277 on the official patient-level SICAPv2 test partition and 0.6164 (95\% CI by subject 0.5129--0.6983) on 27 PRECISE WSIs read at about twice the PANDA magnification. In-domain results depend on the provider's tumor definition and may be optimistic because of the image-level split, and performance was lower on external data.
+
+\linenumbers
+
+\section*{Introduction}
+Prostate cancer is among the most frequently diagnosed malignancies in men worldwide and remains a major cause of cancer mortality, with GLOBOCAN 2022 estimates approaching 1.5 million new cases and approximately 397,000 deaths worldwide \cite{bib1}. Histopathologic examination of prostate needle-core biopsies remains central to diagnosis, risk stratification, and treatment planning because malignant gland architecture and Gleason growth patterns directly inform Grade Group assignment \cite{bib3,bib4,bib5}. The contemporary International Society of Urological Pathology (ISUP) system groups prostate carcinomas into five prognostic Grade Groups while retaining the morphologic concepts of Gleason patterns 3, 4, and 5 \cite{bib3,bib4}. Even with standardized criteria, interobserver variability persists, especially in small foci and borderline patterns, motivating reproducible computer-assisted analysis \cite{bib6,bib7}.
+
+Digital pathology converts glass slides into gigapixel whole-slide images (WSIs) and enables algorithmic assessment at a scale not practical with conventional image-processing pipelines \cite{bib8,bib9}. Deep convolutional networks have shown strong performance in prostate-cancer detection and Gleason grading, including large multi-institutional studies and the Prostate cANcer graDe Assessment (PANDA) challenge, which demonstrated that carefully validated systems can approach expert-level agreement on independent cohorts \cite{bib10,bib11,bib12}. However, many high-performing grading systems are optimized for slide-level classification or grade prediction, whereas dense segmentation remains important for interpretability, quantitative tumor burden estimation, region selection, and failure analysis \cite{bib13,bib14}.
+
+A practical difficulty is that a prostate core biopsy contains diagnostic information at several spatial scales. High-resolution views preserve glandular lumen, nuclear arrangement, and epithelial detail; coarser views provide contextual information about gland density, fusion, cribriform architecture, and the relationship between tumor and surrounding benign tissue \cite{bib3,bib15}. Fixed-resolution training can therefore discard information available elsewhere in the WSI pyramid. Multiresolution segmentation networks address this limitation by feeding concurrent fields of view at different magnifications into one network and combining them in feature space \cite{bibSchmitz,bib17,bib18,bibHo}. The present study uses a simpler configuration: one network is trained on patches drawn from three PANDA pyramid levels, each level is reconstructed densely over the WSI with that network, and the three probability maps are averaged where they are available (late fusion of single-level predictions). Every individual prediction therefore comes from a single field of view, and the study describes the behavior of this late-fusion configuration rather than testing multiresolution context modeling in general.
+
+Color and acquisition variation form a second source of domain shift. Hematoxylin and eosin (H\&E) appearance changes with fixation, staining chemistry, section thickness, scanner optics, and laboratory workflow, and these variations can alter learned feature distributions even when underlying morphology is unchanged \cite{bib19,bib20,bib21}. Macenko and Vahadane normalization are established decomposition-based approaches for reducing stain variability, while stain augmentation offers a complementary strategy during training \cite{bib22,bib23,bib24}. Because PANDA combines material from Radboud University Medical Center and Karolinska Institutet, provider-specific evaluation is necessary, and homogeneous acquisition conditions cannot be assumed \cite{bib11}.
+
+A third issue is methodological leakage. Patch-level random splits can place spatially correlated regions from the same WSI into both training and evaluation sets, resulting in optimistic performance estimates \cite{bib25,bib26,bib63}. Consequently, the current pipeline splits the data by biopsy image before downstream sampling, carries image identity through every derived patch, selects the operating threshold on validation only, and reserves the complete 1,577-image test set for final dense reconstruction \cite{bib25,bib27,bib28}. This controls leakage between images, not between patients: PANDA does not release patient identifiers, and its 10,616 development images come from 2,113 cases \cite{bib11}, so biopsies of one patient are expected in more than one subset.
+
+Additional prostate histopathology resources provide different evaluation settings: the Gleason 2019 challenge includes tissue-microarray images with expert pixel-level Gleason labels, whereas the Automated Gleason Grading Challenge (AGGC) 2022 includes biopsy and prostatectomy WSIs with pathologist pattern annotations and multi-scanner variation \cite{bib64,bib65}. These tasks and acquisition settings are distinct from the binary PANDA WSI benchmark.
+
+Pixel-level prostate tumor segmentation has mostly been studied with gland- or pattern-level references. Bulten et al. trained an epithelium segmentation network against an immunohistochemistry reference standard \cite{bibBulten2019} and, in a diagnostic study of Radboud biopsies, used a semi-automatic labeling technique with the pathology reports as reference instead of manual pixel annotation \cite{bib10}. On SICAPv2, Silva-Rodr\'iguez et al. trained patch-level Gleason grading with a patient-level partition \cite{bib45}, and Anklin et al. learned Gleason-pattern segmentation from slide-level and incomplete pixel labels with tissue graphs \cite{bibAnklin}. Chen et al. delineated malignant regions in prostatectomy slides \cite{bib59}, and Damkliang et al. segmented Gleason patterns in needle-core biopsies \cite{bib62}. These studies differ in the structure segmented (glands, Gleason patterns, or malignant regions), which matters for PANDA: Radboud masks label tumor epithelium, whereas Karolinska masks label cancerous regions together with their stroma \cite{bib11}.
+
+Recent advances in transformer-based segmentation and pathology foundation models provide an important complementary direction. TransUNet integrates transformer attention into the U-Net design to model long-range dependencies, while Swin-Unet uses a hierarchical shifted-window transformer in a U-shaped encoder-decoder configuration \cite{bib57,bib58}. In computational pathology, UNI was pretrained at scale to provide general-purpose histopathology representations, Virchow demonstrated clinical-grade pan-cancer and rare-cancer transfer from very large pathology pretraining, and Prov-GigaPath introduced whole-slide foundation modeling using more than a billion pathology tiles and slide-level contextual learning \cite{bib48,bib49,bib50}. These approaches are relevant to prostate histopathology because glandular arrangement, cribriform architecture, stromal context, and tumor extent can span spatial ranges that are difficult to represent using local convolutional features alone. However, the present study does not claim architectural superiority over transformer-based or foundation-model systems. Instead, it examines a complementary engineering question: what performance a conventional segmentation architecture reaches with image-level separation, patches from three pyramid levels, stain handling, level--class-balanced sampling with provider identity tracked, dense WSI reconstruction, and an evaluation that reports provider-specific, per-slide, and external results.
+
+The study describes a data-handling, training, reconstruction, and evaluation configuration built around an established segmentation architecture. A conventional U-Net decoder and EfficientNet encoder are retained so that the focus remains on the multilevel inputs and their late fusion, stain handling, structured sampling, dense WSI reconstruction, boundary analysis, and the effect of the two PANDA reference conventions and of external data \cite{bib29,bib30}. No architecture was compared with this configuration on the same split.
+
+\section*{Materials and Methods}
+The end-to-end workflow begins with verified PANDA image-mask pairing and slide-level partitioning, proceeds through tissue masking, multilevel patch extraction, quality control (QC) and stain normalization, then constructs a balanced morphology-aware training pool. The trained model is evaluated by dense streaming reconstruction of the retained original test WSIs at pyramid levels L0, L1, and L2 (1$\times$, 4$\times$, and 16$\times$ downsampling relative to level 0; about 0.5, 2, and 8~$\mu$m per pixel), after which the three level-specific probability maps are brought to a common evaluation grid and averaged where they are available (late fusion). Fig~\ref{fig:pipeline} summarizes this sequence. Its image panels are training patches and reference masks of one training WSI; its return arrow denotes evaluation of the reconstructed outputs against the WSI reference masks, not model retraining.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Overview of the PANDA segmentation pipeline.} Image panels show training patches of one WSI at L2, L1, and L0 with their reference masks (white, tumor).}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection*{Dataset and image-level data separation}
+The primary experiments use the public PANDA development set, assembled from digitized prostate needle biopsies from Radboud University Medical Center and Karolinska Institutet and released for the PANDA challenge \cite{bib11}. Its 10,616 images comprise 5,160 Radboud biopsies from 1,028 cases (patients) and 5,456 Karolinska biopsies from 1,085 cases (Table~1 of \cite{bib11}). Each Radboud image is a single biopsy cut out of a slide that held several biopsies, and a Karolinska image usually holds two sections of one biopsy \cite{bibPANDAdesign}. The unit of analysis, called a WSI below, is therefore one biopsy image. File-pair verification retained 10,512 images with a resolvable WSI and corresponding label mask and excluded 104 images that failed image-mask pair verification (102 Radboud and 2 Karolinska), before splitting. The retained cohort contains 5,454 Karolinska and 5,058 Radboud WSIs.
+
+The split was made by image before patch selection and preserved at WSI identity throughout the pipeline: 7,358 training, 1,577 validation, and 1,577 test WSIs (Karolinska 3,818/818/818; Radboud 3,540/759/759), stratified by provider and, where available, ISUP grade. Split manifests record the WSI identifiers, and an overlap audit verifies that no WSI occurs in two subsets. PANDA does not release patient identifiers, so the split could not be made by patient. With about five biopsies per case, biopsies of one patient are expected in more than one subset; the test set is held out at the image level only, and every interval below treats WSIs as independent \cite{bib25,bib26}.
+
+The reference standard is the public PANDA label-mask resource; the authors did not redraw tumor boundaries for the quantitative analysis. The two providers produced their references differently. For Radboud, case labels came from pathology reports read by trained students \cite{bibPANDAdesign}, and a diagnostic study of Radboud biopsies from the same archive period (reports 2012--2017) used a semi-automatic, gland-level labeling technique with the reports as reference instead of manual pixel annotation by pathologists \cite{bib10,bibBulten2019}. The PANDA sources do not state in more detail how the released pixel masks were drawn. For Karolinska, a single experienced pathologist assessed all development cases and marked cancer regions with a pen next to the tissue \cite{bibPANDAdesign}. The released masks follow two different conventions: Radboud masks label stroma (1), benign epithelium (2), and cancerous epithelium by Gleason pattern (3--5), whereas Karolinska masks label benign tissue (1) and cancerous tissue (2) as regions that combine epithelium and stroma \cite{bib11}. Label 0 denotes background or unknown for both. These labels were mapped to one binary target: Radboud 3--5 and Karolinska 2 to tumor, Radboud 1--2 and Karolinska 1 to non-tumor tissue, and label 0 excluded from evaluation. The binary target therefore means tumor epithelium on Radboud WSIs and tumor region including intervening stroma on Karolinska WSIs, and the model was trained on both without any provider indicator. Results are reported by provider throughout, and pooled results mix agreement with the two conventions.
+
+Level 0 of the PANDA images has a pixel size of 0.48~$\mu$m for Radboud and 0.452 or 0.503~$\mu$m for Karolinska, depending on the scanner \cite{bibPANDAdesign}; the TIFF resolution tags of the 1,577 test images give 0.486~$\mu$m for all Radboud images and 0.452~$\mu$m (493 images) or 0.503~$\mu$m (325 images) for Karolinska. L0, L1, and L2 therefore correspond to about 0.45--0.50, 1.8--2.0, and 7.2--8.0~$\mu$m per pixel (roughly 20$\times$, 5$\times$, and 1.25$\times$), and the 16$\times$ evaluation grid to 7.2--8.0~$\mu$m per pixel. On cancer-positive Karolinska slides one section carries a pen mark next to the cancer \cite{bibPANDAdesign}; the pipeline has no ink-specific step, so marks within detected tissue can enter patches. Fig~\ref{fig:prep} summarizes the patch-preparation sequence on the Karolinska training WSI of Fig~\ref{fig:pipeline}, including tissue retention, quality filtering, binary mask construction, class assignment, Vahadane normalization, and structured multilevel sampling. Its L2 view (Fig~\ref{fig:prep}A) is assembled from the slide's L2 patches, the tissue mask (B) follows the tissue-detection rule described below, and label-0 background is black in the reference mask (C). Panel D outlines the L1 candidates retained after the tissue, annotation, and class rules. Panel F lists, for this WSI and each level, the grid positions, the rejections for low tissue, low valid annotation, and tumor fraction above 0 but below 5\%, and the eligible normal and tumor candidates; panel G gives the provider counts of the six level--class buckets over all training WSIs.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Patch preparation on one training WSI.} (A) L2 view, (B) tissue mask, (C) reference mask (white, tumor; gray, labeled non-tumor tissue), (D) L1 candidates by class (green, normal; orange, tumor), (E) Vahadane normalization of an L0 tumor patch, (F) candidate-grid counts of this WSI, (G) training-bucket counts, and (H) selected patches.}
+\label{fig:prep}
+\end{figure}
+
+\subsection*{Preprocessing and multiresolution patch extraction}
+WSIs are accessed through an OpenSlide/TIAToolbox-based pipeline, which permits coordinate-consistent reading from gigapixel pathology images \cite{bib31,bib32}. Tissue is detected on a low-resolution view and small isolated components are removed before candidate generation. The configured tissue threshold is 0.20 with a minimum retained tissue fraction of 0.02; the morphological cleanup uses a disk size of 2 and a minimum object size of 500 pixels. Patch size is fixed at $512\times512$ pixels and the sliding stride is 128 pixels.
+
+Three pyramid levels are used. The target downsample factors relative to level 0 are 1, 4, and 16 for L0, L1, and L2, respectively. The 128-pixel stride is defined in pixels of the corresponding logical level and is converted to level-0 coordinates as $128\times$ the target downsample; similarly, a $512\times512$ patch covers a level-0 field of $512\times$ the target downsample. Exact native OpenSlide levels are used when their recorded downsample matches the target; otherwise the closest higher-resolution native level is read and resized to the requested scale. Image probabilities are resized bilinearly when required, whereas discrete annotation and support masks use nearest-neighbor interpolation. Candidate extraction preserves level-0 coordinates so corresponding regions remain spatially aligned. Fig~\ref{fig:levels} visualizes the same prostate region at the three study-defined scales, using tumor patches of one Radboud training WSI whose level-0 fields are nested. L0 preserves the finest morphology, while L1 and L2 progressively widen the contextual field of view; the L2 patch lies on the slide edge and is cropped to the slide area.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Three pyramid views of the same tissue region.} Nested L0, L1, and L2 tumor patches (columns) with image, reference tumor mask (white), and overlay (rows); yellow boxes mark the field of the next finer level.}
+\label{fig:levels}
+\end{figure}
+
+Class assignment uses tumor coverage within valid annotated tissue at the corresponding spatial position; the full rectangular patch area is not used as the denominator. A candidate is labeled tumor when the tumor fraction is at least 0.05 of valid annotated tissue; it is labeled normal only when the tumor fraction is exactly zero. Candidates with tumor fraction $>0$ but $<0.05$ are treated as mixed/borderline and are excluded from the balanced training buckets. Patch metadata retain WSI, provider, level, coordinate, valid-tissue fraction, and class provenance for reproducibility.
+
+\subsection*{Stain normalization and augmentation}
+Vahadane normalization is used as the principal stain-normalization strategy \cite{bib23}. A reference target is selected from training data only and is fixed for training, validation, test, and WSI inference. This avoids contaminating preprocessing with validation or test appearance. Fig~\ref{fig:prep}E shows an L0 tumor patch before normalization and the normalized copy used in training; the training-derived target is shown in S1 Appendix.
+
+Training-time augmentation includes horizontal and vertical flips, 90-degree rotations, color perturbation, gamma changes, Gaussian blur, noise, and JPEG degradation. These torchvision/custom transforms are restricted to training and are intended to improve invariance to orientation, staining variation, focus variation, and acquisition compression \cite{bib24}. The configured probabilities are 0.5 for horizontal flip, 0.2 for vertical flip, 0.5 for 90-degree rotation, 0.8 for color augmentation, 0.4 for gamma, and 0.25 each for blur, noise, and JPEG perturbation. S1 Appendix shows seven of these transforms, each at its strongest configured setting, applied to one normalized L0 training patch.
+
+\subsection*{Feature engineering and structured data construction}
+The final selected training pool contains exactly 80,000 patches allocated across six level--class buckets (13,333--13,334 per bucket), with 40,000 tumor and 40,000 normal patches overall. Provider identity is retained, but no equal provider quota was enforced. It contains 7,351 contributing training WSIs out of the 7,358 slides assigned to training. Audit of the candidate and selected-patch manifests showed that seven training WSIs did not contribute a patch to the final 80,000-patch set: four produced no eligible retained candidates under the configured filtering rules, while three produced only a small number of eligible normal candidates that were not retained by the final structured selection. The realized provider-level-class counts were: Karolinska L0 normal/tumor 6,844/6,192, L1 7,338/6,485, and L2 10,630/9,083; Radboud L0 6,490/7,142, L1 5,995/6,848, and L2 2,703/4,250. The six level--class totals were 13,334 (L0 normal), 13,334 (L0 tumor), 13,333 (L1 normal), 13,333 (L1 tumor), 13,333 (L2 normal), and 13,333 (L2 tumor). These are observed provider counts within the six balanced level--class buckets, not twelve equally allocated provider--level--class quotas.
+
+Morphological diversity selection is restricted to the training partition. Candidate patches are resized to $380\times380$ for feature extraction with an ImageNet-pretrained EfficientNet-B4 used as a fixed feature extractor; no feature-extractor fitting is performed on PANDA validation or test images. The convolutional feature tensor is globally average pooled, and K-means is fitted separately within the six training level--class sampling buckets \cite{bib34}. Features were computed for at most 25,000 randomly chosen candidates per bucket (for example, 25,000 of the 56,869 eligible L0 normal candidates). The elbow search evaluates candidate $K$ values up to 12 using at most 5,000 of these feature vectors per bucket and selects the elbow-defined cluster count for that bucket; K-means uses 10 initializations. The level--class sampling quota is distributed across its observed clusters, while undersized clusters contribute all available candidates and the remaining quota is redistributed among clusters with unused capacity. Validation and test slides are never used to fit K-means or to select cluster representatives. Provider quotas are not equalized; the realized provider allocations are those listed above. This stage is a data-construction procedure, not a new representation-learning architecture.
+
+\subsection*{Segmentation architecture and training}
+The segmentation network uses an ImageNet-pretrained EfficientNet-B4 encoder and a U-Net-style decoder with skip connections \cite{bib29,bib30}. The $512\times512$ input is encoded by five EfficientNet-B4 feature stages at 256, 128, 64, 32, and 16 pixels with 24, 32, 56, 160, and 448 channels; four decoder stages restore resolution by bilinear upsampling, concatenation with the matching encoder features, and two $3\times3$ convolutions with batch normalization and rectified linear unit (ReLU) activation. A two-dimensional normalized coordinate vector representing WSI position is passed through a multilayer perceptron to a 32-dimensional embedding; the embedding is spatially broadcast and concatenated with the 448-channel deepest image representation to form a 480-channel coordinate-aware bottleneck before decoding. Dropout is 0.1. Fig~\ref{fig:arch} summarizes the architecture with an example input, an L1 training patch of the WSI in Fig~\ref{fig:prep} after Vahadane normalization, together with the tumor probability map of the selected checkpoint and the patch's PANDA reference mask.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{EfficientNet-B4 U-Net with coordinate embedding.} Encoder (E1--E5), coordinate-aware bottleneck, and decoder (D4--D1), shown with an example L1 input patch, its tumor probability map, and its reference mask.}
+\label{fig:arch}
+\end{figure}
+
+Training uses PyTorch with automatic mixed precision, batch size 8, AdamW optimization, learning rate $2\times10^{-4}$, and weight decay $10^{-4}$ \cite{bib36,bib37}. The segmentation objective uses equal unit weights for masked binary cross-entropy (BCE) with logits and soft Dice loss ($w_{BCE}=w_{Dice}=1.0$), so $\mathcal{L}=w_{BCE}\mathcal{L}_{BCE}+w_{Dice}\mathcal{L}_{Dice}=\mathcal{L}_{BCE}+\mathcal{L}_{Dice}$. Both terms are evaluated only on valid annotated tissue; background/unknown pixels are assigned an ignore target and do not contribute to the loss. The run configuration allowed 30 epochs with early-stopping patience 5, monitoring validation Dice. Training stopped after epoch 16, five epochs after the best checkpoint at epoch 11 (patch-level validation Dice 0.8332 at threshold 0.50); the minimum validation loss occurred later, at epoch 13. Checkpoint selection used the 13,510 stored validation-partition patches (at most two per class, level, and WSI).
+
+The auxiliary configuration studies fall into two categories. The normalization, multilevel, class-balance, K-means, coordinate, and encoder runs used reduced subsets of 8,000 training patches, drawn from the training partition (or from the selected training pool), and one fixed level--class-balanced sample of 2,000 validation-partition patches; they are configuration-selection pilots, each run once, not a factorial ablation. The two provider-transfer runs trained on 8,000 training-partition patches of one provider and selected the checkpoint on 2,000 training-partition patches of the other provider. No test-partition patch or WSI was used in any of these runs.
+
+\subsection*{Dense whole-slide inference and late fusion}
+The test set is evaluated by dense streaming reconstruction from the original WSIs. For each level $l$, patches are read on a regular grid (stride 128 at that level) wherever the low-resolution tissue mask covers at least 2\% of the patch. Each retained patch is predicted once, with its normalized WSI coordinate, and its probabilities are accumulated at its level-0 position and divided by the local overlap count to obtain $p_l(x)$. Reconstruction uses the reference mask in one way only: a patch without any annotated pixel (label $>0$) is skipped, and patch probabilities are accumulated only on annotated pixels. Tumor labels play no part in patch retention or prediction, and the training rules on tumor fraction and class were not applied at inference. All primary WSI overlap metrics are computed on a common evaluation grid at 16$\times$ downsample relative to level 0 (7.2--8.0~$\mu$m per pixel). Level-specific probability maps are brought to that grid with bilinear interpolation, and reference and support masks with nearest-neighbor interpolation. The support $s_l(x)$ of level $l$ equals 1 where at least one retained patch of that level covers annotated pixel $x$ and 0 otherwise. Fusion is the mean of the available single-level probabilities,
+\begin{equation}
+ p_{\mathrm{fuse}}(x)=\frac{\sum_l s_l(x)p_l(x)}{\sum_l s_l(x)}, \qquad \sum_l s_l(x)>0,
+\end{equation}
+that is, late fusion of three single-level predictions made by the same network; no feature is shared across levels within a forward pass. Unless stated otherwise, a single level is scored on its own support and fusion on the fused support, both intersected with the annotated pixels; pixels outside the scored region are excluded, not set to zero. On the PANDA test WSIs, fused support covered all 175,470,512 annotated pixels. Because accumulation is restricted to annotated pixels by construction, this coverage figure shows only that the tissue-gated patch grid missed no annotated tissue; it is not an independent check of the reference. The single levels covered 92.7\%, 98.4\%, and 97.0\% of the annotated pixels and 94.3\%, 98.9\%, and 97.9\% of the reference tumor pixels (L0, L1, L2).
+
+The primary operating threshold was selected only on the fused reconstructed validation probability maps by sweeping candidate thresholds. The best fused validation pooled Dice occurred at 0.43 (Dice 0.84595, intersection over union [IoU] 0.73302, precision 0.84268, recall 0.84924), and this threshold was then frozen for the primary final evaluation. The same 0.43 threshold was applied unchanged to L0, L1, and L2 test maps to preserve a common operating point. After the primary common-threshold test analysis had been completed, an exploratory post-hoc sensitivity analysis applied the same sweep (0.30--0.70 in 0.01 increments) independently to each reconstructed validation level of the same 1,577 validation WSIs and applied each level's Dice-maximizing validation threshold unchanged to the 1,577 test maps. Because it was initiated after inspection of the primary test analysis, it is treated as exploratory, not confirmatory, evidence. The 0.43 fused WSI threshold is intentionally distinct from the epoch-wise validation Dice used for checkpoint selection: the latter is a patch-level training-time measure at the default 0.50 threshold, whereas 0.84595 is a reconstructed-WSI pooled metric after validation-only threshold selection. No test-set threshold optimization was performed.
+
+\subsection*{Performance metrics and statistical analysis}
+Primary overlap metrics are Dice and IoU, with precision, recall, specificity, and accuracy provided as complementary measures \cite{bib38,bib39}. For binary masks with true-positive (TP), false-positive (FP), false-negative (FN), and true-negative (TN) pixel counts,
+\begin{equation}\mathrm{Dice}=\frac{2TP}{2TP+FP+FN},\qquad \mathrm{IoU}=\frac{TP}{TP+FP+FN}.\end{equation}
+\begin{equation}\mathrm{Precision}=\frac{TP}{TP+FP},\quad \mathrm{Recall}=\frac{TP}{TP+FN},\quad \mathrm{Specificity}=\frac{TN}{TN+FP}.\end{equation}
+Pixel accuracy is reported descriptively because large amounts of benign tissue can make accuracy appear favorable even when tumor overlap is imperfect. Pooled tumor Dice is computed after summing TP, FP, and FN over the relevant slides; TN does not enter the Dice numerator or denominator. Per-slide overlap and boundary metrics are treated as undefined for WSIs without reference tumor in the scored region \cite{bib39,bibMetricsReloaded}: per-slide Dice is summarized over reference-tumor-bearing WSIs only, and reference-negative WSIs are described by the number and area of false-positive components (8-connected regions on the evaluation grid). Areas and distances are converted to square millimetres and micrometres with the level-0 pixel size of each WSI from its TIFF resolution tags, multiplied by 16 for the evaluation grid.
+
+All intervals are percentile bootstrap intervals that resample WSIs with replacement (NumPy default generator; 10,000 resamples unless stated). The primary pooled CI is not stratified; a provider-stratified version is reported for comparison, and provider-specific CIs resample within provider. Because the unit of resampling is the WSI and patients cannot be identified, these intervals do not account for correlation between biopsies of one patient. A design-effect sensitivity analysis therefore inflates the bootstrap variance of the fusion-minus-L1 contrasts by $1+(m-1)\rho$, where $m$ is the expected number of test WSIs per patient among patients with at least one test WSI (1.60, computed from the case and biopsy counts of \cite{bib11} under a random image-level split) and $\rho$ the intra-patient correlation, for $\rho$ between 0.25 and 1.
+
+\paragraph{Exploratory paired comparisons.}
+Fusion was compared with each single level by paired WSI bootstrap on frozen predictions, without retraining or test-set threshold tuning; these comparisons are exploratory. Two estimands were analyzed: pooled Dice over all 1,577 WSIs (seed 42) and the mean per-slide Dice over the 1,126 reference-tumor-bearing WSIs (seed 43). In each resample the same WSI indices are applied to all four maps. Both estimands use one scoring region, the common region of annotated pixels with fused support, in which a pixel without support at a given single level counts as predicted negative for that level; the scored area is thus identical for the four maps. The earlier analysis had scored pooled Dice on each level's own support but per-slide Dice with a different rule (a slide without reference tumor in a level's own support received Dice 0 for that level); it is reported as a sensitivity analysis. The approximate two-sided $p$ value is $\min\{1,\,2\min(\hat P(d^*\le 0),\hat P(d^*\ge 0))\}$ over the bootstrap differences $d^*$. When no replicate falls in a tail, the result is given as the bound $p<2/10{,}000=0.0002$. Holm's step-down method \cite{bib40,bib41} is applied to the three fusion-versus-level comparisons of each family, bounds included: the smallest $p$ is multiplied by 3 and the second by 2, and adjusted values are kept monotone, so two comparisons with $p<0.0002$ both have adjusted $p<0.0006$. The same analysis was repeated on the 1,577 validation WSIs, at the common threshold and at the level-specific thresholds of the post-hoc threshold analysis, and within each provider.
+
+
+\subsection*{Boundary-focused evaluation}
+Because overlap alone can conceal severe contour errors, the reconstruction pipeline computes the 95th-percentile Hausdorff distance (HD95), average symmetric surface distance (ASSD), and surface Dice \cite{bib42,bib43}. Binary boundaries are extracted on the evaluation grid and Euclidean nearest-boundary distances are used symmetrically; HD95 is the 95th percentile of the combined directed distances and ASSD is their mean. Surface Dice uses a tolerance of 2 evaluation-grid pixels (32 level-0 pixels, about 16~$\mu$m). Distances are computed in evaluation-grid pixels and converted to micrometres with each WSI's pixel size. The primary boundary summaries use the WSIs on which both the reference and the prediction contain tumor. The implementation also returns values for the other WSIs, and these are reported only for completeness: HD95 and ASSD are undefined when exactly one boundary is empty, and surface Dice is then 0; when both are empty, HD95 and ASSD are set to 0 and surface Dice to 1.
+
+\subsection*{External validation on SICAPv2}
+SICAPv2 contains 18,783 H\&E patches of $512\times512$ pixels at $10\times$, cut with 50\% overlap from 155 WSIs of 95 patients, with pixel-level Gleason-pattern masks drawn by pathologists \cite{bib44,bib45}. The evaluation used the official release, version 2 \cite{bib44}; the SHA-256 checksum of the archive matched the published value. The primary set is the official patient-level test partition (\texttt{partition/Test/Test.xlsx}), 2,122 patches from 31 WSIs of 21 patients, which the dataset authors defined to avoid overestimating performance \cite{bib45}. The partition files list non-cancerous patches only from benign slides and cancerous patches with annotated patterns; unannotated patches of cancerous biopsies are not listed \cite{bib44,bib45}. Results are therefore also given separately for the 12,081 listed patches and the 6,702 unlisted patches of the release. A first run, reported in an earlier version of this work, had used a renamed copy of the release from Kaggle, in which the file names, and with them the slide, patient, and partition information, were lost; it is replaced by this evaluation.
+
+Masks are lossless PNG files with values 0 (non-cancerous) and 3, 4, and 5 (Gleason patterns); every nonzero pixel was mapped to tumor, so no compression threshold was needed. Valid pixels are the tissue pixels detected on each H\&E patch with the PANDA tissue rule. The frozen PANDA checkpoint, training-derived Vahadane target, and threshold 0.43 were reused without retraining or tuning. SICAPv2 was evaluated as single-scale inference at $10\times$, which lies between PANDA L0 (about $20\times$) and L1 (about $5\times$); dense reconstruction at three levels and late fusion were not applicable. Every patch was given the constant coordinate (0.5, 0.5), as in the first run, in which no coordinate fields were available; predicting with coordinates derived from the patch position within its slide region is reported as a sensitivity analysis. Because neighboring patches overlap by half, each tissue location occurs in up to four patches. Pooled metrics are therefore computed in two ways: over patches, as before, and over the reconstructed slide regions, in which each $10\times$ pixel is scored once with the mean probability of the patches covering it, the reference of those patches (which agree), and the union of their valid masks. CIs resample WSIs and, separately, patients (10,000 resamples).
+
+\subsection*{PRECISE external full-WSI validation}
+PRECISE is a public prostate-biopsy resource containing paired H\&E and immunohistochemistry (IHC) serial sections with expert pixel-level annotations across diagnostically important tissue categories \cite{bib46,bibPRECISEdata}. The evaluation comprised its 27 H\&E WSIs from 25 subjects (one subject contributes three sessions), scanned on 3DHISTECH Pannoramic scanners as six-level pyramids with 0.243~$\mu$m per pixel at level 0 and a factor of two between levels. The frozen PANDA checkpoint, training-derived Vahadane target, threshold 0.43, patch size, stride, and fusion rule were reused without retraining or recalibration. L0, L1, and L2 were read from PRECISE levels 0, 2, and 4 without resampling, that is, at 0.243, 0.97, and 3.9~$\mu$m per pixel, about twice the PANDA magnification at every level; the evaluation grid was level 4 (3.9~$\mu$m per pixel). A run at the PANDA pixel size (PRECISE levels 1, 3, and 5) was not completed. Patches were retained when they contained tissue and at least one pixel of a scored label. PRECISE label 1 (tumor) was mapped to tumor and labels 2 (benign gland) and 7 (stroma) to negative tissue. Labels 3 (artifact), 4 (high-grade prostatic intraepithelial neoplasia, HGPIN), 5 (intraductal carcinoma), and 6 (atypical intraductal proliferation) are not equivalent to the binary PANDA target and were not scored; label 0 is background. How much of each unscored label the fused map predicts as tumor is reported separately, from the label masks on the evaluation grid. Cohort-level metrics were computed from pooled counts. CIs resample subjects (25), with all WSIs of a resampled subject kept together; WSI-level intervals are given for comparison.
+
+\subsection*{Coordinate input}
+The network receives the normalized position of each patch in its WSI, although the coordinate pilot showed no gain (Table~\ref{tab:pilot}). On SICAPv2, every patch was predicted both with the constant coordinate (0.5, 0.5) and with coordinates derived from its position in its slide region; the second map never enters the primary results. A test of the frozen model on PANDA and PRECISE with constant or permuted coordinates was not performed.
+
+\subsection*{Ethics statement}
+The reported analyses use publicly released, de-identified digital pathology datasets. No new patient recruitment or direct access to identifiable clinical records was performed for this computational study, and institutional ethics review was therefore not required; ethics approval and consent for the original data collection are described in the source publications \cite{bib11,bib44,bib46}. The PANDA data were obtained through the Kaggle competition page under the CC BY-SA-NC 4.0 license stated by the challenge organizers; SICAPv2 and PRECISE are distributed under CC BY 4.0. The authors had no access to these data beyond the public releases.
+
+\subsection*{Use of artificial intelligence tools}
+ChatGPT (OpenAI) was used to assist with manuscript language revision and with the development and review of Python and \LaTeX{} code, including the figure scripts. Claude (Anthropic) was used in the revision of 30 October 2026 to assist with the analysis scripts, the manuscript text, and the figure scripts. No figure content was created with a generative image model. All figures were drawn by scripts in the project repository from PANDA patches and reference masks, the training history, the final model checkpoint, the evaluation tables, and the PANDA test, pathologist-review, SICAPv2, and PRECISE evaluation outputs of this study. Each script writes a log of its source files. The authors checked all AI-assisted text, code, and figures against the original study records and take full responsibility for the content.
+
+\section*{Results}
+The primary PANDA test consists of 1,577 WSIs evaluated through dense reconstruction, not by pooling sampled patches. Results are given by provider because the two providers' references follow different tumor definitions. External SICAPv2 and PRECISE results and the provider-transfer pilots are reported separately because their evaluation units and protocols differ from the primary PANDA test.
+
+\subsection*{Dataset verification and cohort composition}
+Of the 10,616 images, 10,512 formed verified image-mask pairs. The 104 excluded images comprise 100 Radboud images without a label mask in the PANDA release and 4 images (2 Radboud, 2 Karolinska) whose image file was missing from the local copy of the data, although the release contains them. Table~\ref{tab:cohort} gives the image-level split.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Verified PANDA cohort, split by image (WSIs).}}
+\begin{tabular}{lrrrr}\toprule Provider & Train & Validation & Test & Total\\\midrule
+Karolinska & 3,818 & 818 & 818 & 5,454\\
+Radboud & 3,540 & 759 & 759 & 5,058\\
+\textbf{Total} & \textbf{7,358} & \textbf{1,577} & \textbf{1,577} & \textbf{10,512}\\\bottomrule
+\end{tabular}\label{tab:cohort}\end{adjustwidth}\end{table}
+
+\subsection*{Pilot and encoder runs}
+Table~\ref{tab:pilot} records the actual sequence of six pilot runs on the reduced patch subsets. Several design elements changed between some consecutive rows, and A0--A1 and A2--A5 also differ in evaluation configuration, so the differences are descriptive and do not estimate the effect of single components. The single-level Vahadane configuration (A1) did not improve Dice relative to A0, so stain normalization is retained as a harmonization choice, not as a demonstrated source of accuracy.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Pilot configurations used during pipeline development.}}
+\begin{tabular}{p{4.8cm}ccccr}\toprule
+Run & Normalization & Multilevel & Class balance/K-means & Coordinates & Best val. Dice\\\midrule
+A0: single-level random baseline (L2) & None & No & Random / off & Off & 0.7131\\
+A1: single-level Vahadane configuration & Vahadane & No & Random / off & Off & 0.6591\\
+A2: multilevel configuration & Vahadane & Yes & Random / off & Off & 0.8000\\
+A3: class-balanced configuration & Vahadane & Yes & Balanced / off & Off & 0.8044\\
+A4: K-means configuration & Vahadane & Yes & Balanced / on & Off & 0.8041\\
+A5: coordinate-aware configuration & Vahadane & Yes & Balanced / on & On & 0.8040\\\bottomrule
+\end{tabular}\label{tab:pilot}\end{adjustwidth}\end{table}
+
+Five encoders were compared under the same reduced protocol (Table~\ref{tab:enc}). EfficientNet-B4 had the highest validation Dice (0.7848), followed by EfficientNet-B0 (0.7824) and EfficientNet-B2 (0.7787); the ResNet encoders scored lower. Each configuration was run once, so differences of a few thousandths between the EfficientNet variants cannot be distinguished from run-to-run variation, which was not measured.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Encoder comparison on the reduced patch subsets (single runs).}}
+\begin{tabular}{lcc}\toprule Encoder & Best validation Dice & IoU\\\midrule
+ResNet-50 & 0.7112 & 0.5519\\
+ResNet-101 & 0.7233 & 0.5666\\
+EfficientNet-B0 & 0.7824 & 0.6425\\
+EfficientNet-B2 & 0.7787 & 0.6376\\
+EfficientNet-B4 & \textbf{0.7848} & \textbf{0.6458}\\\bottomrule
+\end{tabular}\label{tab:enc}\end{adjustwidth}\end{table}
+
+\subsection*{Training dynamics}
+Fig~\ref{fig:train} shows the 16 training epochs. The selected checkpoint (epoch 11) had the highest patch-level validation Dice; the minimum validation loss came two epochs later, so loss minimization and Dice-based selection did not coincide.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Training dynamics.} Training loss, validation loss, and patch-level validation Dice over 16 epochs.}
+\label{fig:train}
+\end{figure}
+
+\subsection*{Whole-slide segmentation by provider and level}
+Table~\ref{tab:wsi} gives the dense reconstructed test metrics by provider. Fused pooled Dice was 0.8995 (95\% CI 0.8876--0.9104) on the 818 Karolinska WSIs and 0.7605 (0.7519--0.7687) on the 759 Radboud WSIs. Pooled over both providers it was 0.8522 (0.8414--0.8618; provider-stratified resampling 0.8425--0.8615). The pooled value weights the two references by their tumor area: Karolinska WSIs hold 68.2\% of the reference tumor pixels. The best single level differed between providers. On Karolinska, L1 (0.9023) was at least as good as fusion, and L2 (0.8663) exceeded L0 (0.8102); on Radboud, L0 (0.7553) exceeded L1 (0.7362), L2 was far lower (0.5622), and fusion was highest. Lower precision accounts for most of the Radboud deficit (0.7101 against 0.9254 on Karolinska).
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering\caption{\textbf{Dense reconstructed WSI metrics on the 1,577 PANDA test WSIs by provider and level at threshold 0.43.} Pooled metrics on each map's own support. The last column is the mean per-slide Dice over reference-tumor-bearing WSIs on the common scoring region.}
+\begin{tabular}{llrrrrrr}\toprule Provider & Map & Dice & IoU & Precision & Recall & Specificity & Per-slide Dice\\\midrule
+Karolinska ($n=818$) & L0 & 0.8102 & 0.6810 & 0.8465 & 0.7770 & 0.9467 & 0.7278\\
+ & L1 & 0.9023 & 0.8220 & 0.9208 & 0.8846 & 0.9713 & 0.8499\\
+ & L2 & 0.8663 & 0.7642 & 0.8764 & 0.8565 & 0.9547 & 0.7195\\
+ & Fusion & 0.8995 & 0.8174 & 0.9254 & 0.8750 & 0.9736 & 0.8182\\
+\midrule
+Radboud ($n=759$) & L0 & 0.7553 & 0.6068 & 0.7203 & 0.7940 & 0.9556 & 0.6458\\
+ & L1 & 0.7362 & 0.5826 & 0.6816 & 0.8004 & 0.9457 & 0.6711\\
+ & L2 & 0.5622 & 0.3910 & 0.4540 & 0.7380 & 0.8703 & 0.4453\\
+ & Fusion & 0.7605 & 0.6135 & 0.7101 & 0.8185 & 0.9514 & 0.6950\\
+\midrule
+Pooled ($n=1577$) & L0 & 0.7928 & 0.6567 & 0.8039 & 0.7820 & 0.9514 & 0.6841\\
+ & L1 & 0.8463 & 0.7336 & 0.8349 & 0.8581 & 0.9574 & 0.7547\\
+ & L2 & 0.7524 & 0.6030 & 0.6953 & 0.8197 & 0.9094 & 0.5734\\
+ & Fusion & 0.8522 & 0.7424 & 0.8474 & 0.8570 & 0.9615 & 0.7526\\
+\bottomrule\end{tabular}\label{tab:wsi}\end{adjustwidth}\end{table}
+
+The two references define tumor differently in the test data. Among the test-patch manifest's L0 tumor patches, every annotated pixel was tumor in all 1,050 Karolinska patches and in none of the 1,179 Radboud patches (share of patches whose tumor fraction of annotated pixels equals 1). The model's output follows neither definition fully (raw mask labels on the evaluation grid, read from the 16$\times$ level of each test mask). On Radboud WSIs, the fused map predicted tumor on 23.8\% of the stroma lying within the tumor envelope (the morphological closing of the tumor epithelium with a disk of 5 grid pixels, about 38~$\mu$m), on 1.2\% of the stroma outside it, and on 15.5\% of the benign epithelium. On Karolinska WSIs, it covered 87.4\% of the cancerous regions, stroma included, and 2.4\% of the benign tissue. The output thus fills part of the stroma between Radboud tumor glands, which the Radboud reference scores as false positive, and leaves part of the Karolinska tumor regions unmarked, which that reference scores as false negative.
+
+For the pen marks described in the Dataset section, a color rule for pen ink (dark green, blue, or black pixels on the 16$\times$ image) found ink-like pixels on only 12 of the 818 Karolinska test WSIs, and no marks were seen on thumbnails checked by eye, so pen marks could not be confirmed inside the released images. Removing all evaluation pixels within 32 grid pixels (about 0.25~mm) of the flagged pixels left Karolinska pooled Dice at 0.8995.
+
+\subsection*{Paired comparisons of fusion and single levels}
+Table~\ref{tab:followup_bootstrap} gives the paired comparisons on the common scoring region. On the test WSIs, fusion exceeded L1 in pooled Dice by 0.0106 (95\% CI 0.0062 to 0.0151), while the mean per-slide Dice of the 1,126 tumor-bearing WSIs did not differ ($-$0.0021, $-$0.0086 to 0.0043). On the 1,577 validation WSIs, the corresponding differences were 0.0054 (0.0010 to 0.0098) and $-$0.0110 ($-$0.0179 to $-$0.0041). Fusion exceeded L0 and L2 on both estimands.
+
+The fusion-versus-L1 result depends on the scoring rule. The common region counts the annotated pixels outside L1's support as L1 negatives, which lowers L1's recall: L1's own support contains 98.9\% of the reference tumor pixels. When each level is scored on its own support, as in the earlier analysis, the pooled test difference is 0.0058 (0.0017 to 0.0100), and the validation difference is 0.0004 ($-$0.0039 to 0.0047) at 0.43 and $-$0.0001 ($-$0.0045 to 0.0043) at the level-specific thresholds. Under the earlier per-slide rule, in which a slide without reference tumor in L1's own support scored Dice 0 for L1, the test per-slide difference was $-$0.0076 ($-$0.0140 to $-$0.0013); dropping those slides instead gives $-$0.0083 ($-$0.0146 to $-$0.0019). Within providers, the pooled difference was $-$0.0002 ($-$0.0059 to 0.0057) on Karolinska and 0.0323 (0.0271 to 0.0382) on Radboud, and the per-slide difference $-$0.0317 ($-$0.0429 to $-$0.0208) and 0.0239 (0.0176 to 0.0307). The pooled fusion gain over L1 therefore comes from the Radboud WSIs, whose gland-level references favor the finest level, whereas on Karolinska fusion was no better than L1 and worse per slide. Taken together, fusion and L1 are comparable: depending on the estimand, the scoring rule, the split, and the provider, the difference ranges from a small advantage for fusion to a small advantage for L1. A design effect of 5.8 would be needed for the CI of the pooled common-region difference to reach zero, against at most 1.60 expected from the PANDA case structure (Methods).
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Exploratory paired WSI bootstrap comparisons of fusion and single levels at threshold 0.43.} Differences are fusion minus the named level on the common scoring region unless stated. CIs are percentile intervals from 10,000 WSI resamples; $p$ values are approximate two-sided values, Holm-adjusted within each three-comparison family.}\label{tab:followup_bootstrap}
+\footnotesize
+\begin{tabular}{llrrl}\toprule
+Split and estimand & Contrast & WSI $n$ & Difference & 95\% CI; Holm $p$ \\
+\midrule
+Test, pooled Dice & Fusion$-$L0 & 1,577 & 0.0830 & [0.0766, 0.0896]; $<$0.0006\\
+ & Fusion$-$L1 & 1,577 & 0.0106 & [0.0062, 0.0151]; $<$0.0006\\
+ & Fusion$-$L2 & 1,577 & 0.1072 & [0.0984, 0.1164]; $<$0.0006\\
+Test, per-slide Dice & Fusion$-$L0 & 1,126 & 0.0685 & [0.0600, 0.0772]; $<$0.0006\\
+ & Fusion$-$L1 & 1,126 & $-$0.0021 & [$-$0.0086, 0.0043]; 0.5486\\
+ & Fusion$-$L2 & 1,126 & 0.1792 & [0.1673, 0.1914]; $<$0.0006\\
+\midrule
+Validation, pooled Dice & Fusion$-$L1 & 1,577 & 0.0054 & [0.0010, 0.0098]; 0.0192\\
+Validation, per-slide Dice & Fusion$-$L1 & 1,128 & $-$0.0110 & [$-$0.0179, $-$0.0041]; 0.0008\\
+\midrule
+\multicolumn{5}{l}{\textit{Each level on its own support (earlier analysis)}}\\
+Test, pooled Dice & Fusion$-$L1 & 1,577 & 0.0058 & [0.0017, 0.0100]; 0.0034\\
+Test, per-slide Dice$^a$ & Fusion$-$L1 & 1,126 & $-$0.0076 & [$-$0.0140, $-$0.0013]; 0.0182\\
+Validation, pooled Dice & Fusion$-$L1 & 1,577 & 0.0004 & [$-$0.0039, 0.0047]; 0.8590\\
+Validation, pooled Dice$^b$ & Fusion$-$L1 & 1,577 & $-$0.0001 & [$-$0.0045, 0.0043]; 0.9778\\
+\midrule\multicolumn{5}{l}{\footnotesize $^a$ Slides without reference tumor in L1's own support scored Dice 0 for L1. $^b$ L1 at 0.40.}\\
+\bottomrule
+\end{tabular}\normalsize\end{adjustwidth}
+\end{table}
+
+Table~\ref{tab:followup_common_support} compares each map's pooled Dice on its own support with its Dice on the common region, together with the share of reference tumor pixels inside each support.
+
+\begin{table}[H]\centering
+\caption{\textbf{Pooled test Dice on each map's own support and on the common scoring region.} On the common region, annotated pixels without support at a single level count as negative for that level.}\label{tab:followup_common_support}
+\begin{tabular}{lrrr}\toprule
+Map & Own support & Common region & Reference tumor in support (\%)\\
+\midrule
+L0 & 0.7928 & 0.7692 & 94.3\\
+L1 & 0.8463 & 0.8416 & 98.9\\
+L2 & 0.7524 & 0.7450 & 97.9\\
+Fusion & 0.8522 & 0.8522 & 100.0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Per-slide distribution and tumor size}
+Among the 1,577 test WSIs, 451 have no reference tumor on the fused evaluation support and 1,126 are tumor-bearing. For the tumor-bearing WSIs, fused per-slide Dice had mean 0.7526 and median 0.7938. Fig~\ref{fig:slide} shows the per-slide Dice of each level and the paired per-slide difference between fusion and L1.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Per-slide Dice of reference-tumor-bearing PANDA test WSIs.} (A) Distribution by map on the common scoring region. (B) Fusion against L1 for each WSI; points above the diagonal favor fusion.}
+\label{fig:slide}
+\end{figure}
+
+Per-slide Dice increased with the area of reference tumor (Table~\ref{tab:size}). In the quarter of tumor-bearing WSIs with the least tumor (below 0.62~mm$^2$), mean fused Dice was 0.5510, and the fusion-minus-L1 difference was $-$0.0149 (95\% CI $-$0.0325 to 0.0024); in the quarter with the most tumor, fusion scored higher (0.0087, 0.0038 to 0.0137). The smallest quarter is mostly Radboud (210 of 282 WSIs). Nine tumor-bearing WSIs had an empty fused prediction, and 8 more had predicted tumor that did not overlap the reference; their reference tumor areas range from 0.0001 to 2.04~mm$^2$. Training patches with a tumor fraction above 0 and below 5\% of their annotated tissue were excluded from the sampling buckets. A fully annotated $512\times512$ patch covers $32\times32$, $128\times128$, and $512\times512$ evaluation-grid pixels at L0, L1, and L2, so 5\% of it is about 0.0031, 0.050, and 0.79~mm$^2$. The whole reference tumor of 2.0\% of the tumor-bearing test WSIs is smaller than the L1 limit, and that of 32.1\% smaller than the L2 limit. Unless a patch contains little annotated tissue, such small tumors yield tumor-class training patches mainly at L0, and patches that contain them at the coarser levels are excluded as borderline; this may contribute to the lower per-slide Dice on small tumors.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Per-slide Dice of tumor-bearing PANDA test WSIs by reference tumor area (quartiles).} Common scoring region; difference is fusion minus L1 with 95\% CI from 10,000 WSI resamples. Misses are WSIs without any true-positive pixel.}\label{tab:size}
+\begin{tabular}{lrrrrrr}\toprule
+Area quartile (mm$^2$) & WSIs (K/R) & Fusion & L1 & Fusion$-$L1 (95\% CI) & Misses (fusion/L1)\\\midrule
+Q1 (0.0001--0.62) & 282 (72/210) & 0.5510 & 0.5659 & $-$0.0149 ($-$0.0325 to 0.0024) & 15/16\\
+Q2 (0.62--1.24) & 281 (114/167) & 0.7424 & 0.7491 & $-$0.0067 ($-$0.0216 to 0.0090) & 1/3\\
+Q3 (1.24--2.41) & 281 (121/160) & 0.8068 & 0.8022 & 0.0047 ($-$0.0048 to 0.0142) & 1/1\\
+Q4 (2.41--12.45) & 282 (219/63) & 0.9103 & 0.9016 & 0.0087 (0.0038 to 0.0137) & 0/0\\
+\bottomrule
+\end{tabular}\end{adjustwidth}\end{table}
+
+\subsection*{Reference-negative WSIs}
+Of the 451 reference-negative test WSIs, 432 have ISUP grade 0 in the PANDA slide-level labels and 19 a positive grade without reference tumor on the evaluation support (3 Karolinska, 16 Radboud). Fused predictions contained at least one false-positive pixel on 234 of them (51.9\%): 120 of 292 Karolinska and 114 of 159 Radboud WSIs. Most false positives were small. Among the WSIs with any, the median total false-positive area was 0.076~mm$^2$ (90th percentile 0.67~mm$^2$, maximum 2.21~mm$^2$), and the median largest false-positive component was 0.025~mm$^2$. 149 WSIs (86 Karolinska, 63 Radboud) contained a false-positive component of at least 0.01~mm$^2$. Radboud false positives were more fragmented (median 48 components per WSI against 15 on Karolinska). Together, false positives covered 1.74\% of the valid pixels of the reference-negative WSIs. These cutoffs are descriptive and were not validated as clinically meaningful lesion sizes.
+
+\subsection*{Patch-level audit}
+A patch-level audit on the stored test patches is given in S1 Appendix. It counts overlapping patches repeatedly and follows the deliberately constructed sampling distribution, so it is not comparable with the reconstructed WSI results.
+
+\subsection*{Boundary quality}
+Table~\ref{tab:boundary} summarizes the boundary metrics of the fused map on the 1,117 test WSIs whose reference and prediction both contain tumor. Median HD95 was 144~$\mu$m, but the mean was 719~$\mu$m because a subset of WSIs has severe contour disagreement; median ASSD was 29~$\mu$m and mean surface Dice 0.7413. For completeness, the implementation also gives values for the WSIs where at least one boundary is empty: on the 217 WSIs where both are empty, HD95 and ASSD are 0 and surface Dice is 1, and on the 243 WSIs where exactly one is empty, HD95 and ASSD are undefined and surface Dice is 0. With these included, mean HD95 was 77.45 and mean ASSD 16.91 evaluation-grid pixels over 1,334 WSIs, and mean surface Dice 0.6626 over 1,577 WSIs.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Boundary metrics of the fused map on the 1,117 PANDA test WSIs with non-empty reference and prediction.}}
+\begin{tabular}{lrrrr}\toprule Metric & Mean & Median & Mean ($\mu$m) & Median ($\mu$m)\\\midrule
+HD95 (grid px) & 92.50 & 18.34 & 719 & 144\\
+ASSD (grid px) & 20.20 & 3.80 & 157 & 29\\
+Surface Dice & 0.7413 & 0.8410 & -- & --\\
+\bottomrule
+\end{tabular}\label{tab:boundary}\end{adjustwidth}\end{table}
+
+Fig~\ref{fig:good} shows one tissue region of a Radboud test WSI with the H\&E image, the reference mask, the prediction, both overlays, and the error map. The example is illustrative and is not used to estimate dataset-wide metrics.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Qualitative error visualization.} (A) H\&E image, (B) reference mask, (C) predicted mask, (D) reference overlay, (E) prediction overlay, and (F) error map of one region of a Radboud PANDA test WSI.}
+\label{fig:good}
+\end{figure}
+
+\subsection*{Validation threshold selection}
+The validation threshold sweep of the fused map (Fig~\ref{fig:thr}) peaked at 0.43 (validation Dice 0.8459, IoU 0.7330, precision 0.8427, recall 0.8492); higher thresholds traded recall for precision. In the post-hoc analysis, the validation-selected thresholds were L0 0.47, L1 0.40, L2 0.54, and fusion 0.43 (Table~\ref{tab:thr_sens}). They changed pooled test Dice by +0.0017 for L0, +0.0001 for L1, +0.0082 for L2, and 0 for fusion relative to 0.43. On the validation WSIs used to select them, L1 (0.8460) and fusion (0.8459) had the same pooled Dice.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Post-hoc level-specific operating-point sensitivity analysis.} Thresholds were selected independently by maximizing pooled Dice on the 1,577 validation WSIs, then applied unchanged to the 1,577 test WSIs.}
+\begin{tabular}{lrrrrrr}\toprule
+Map & Val. threshold & Val. Dice & Test Dice & Test IoU & Test precision & Test recall\\\midrule
+L0 & 0.47 & 0.7923 & 0.7946 & 0.6591 & 0.8325 & 0.7599\\
+L1 & 0.40 & 0.8460 & 0.8464 & 0.7338 & 0.8231 & 0.8712\\
+L2 & 0.54 & 0.7557 & 0.7606 & 0.6136 & 0.7488 & 0.7727\\
+Fusion & 0.43 & 0.8459 & \textbf{0.8522} & \textbf{0.7424} & \textbf{0.8474} & 0.8570\\\bottomrule
+\end{tabular}\label{tab:thr_sens}\end{adjustwidth}\end{table}
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Validation threshold sensitivity.} Dice, precision, and recall of the fused validation reconstruction; the dashed line marks the selected threshold 0.43.}
+\label{fig:thr}
+\end{figure}
+
+\subsection*{Provider-transfer pilots}
+Two provider-transfer pilots trained on 8,000 patches of one provider and selected the checkpoint on 2,000 training-partition patches of the other (Table~\ref{tab:holdout}); the target provider thus guided checkpoint selection, and the runs are not provider-holdout tests. With Radboud as target, the selected checkpoint (epoch 3) had Dice 0.4424, precision 0.3134, and recall 0.7521; with Karolinska as target (epoch 2), Dice 0.4530, precision 0.7671, and recall 0.3214. This pattern is what the difference in tumor definition alone would produce: a model trained on Karolinska region masks marks the stroma between tumor glands, which Radboud scores as false positive, and a model trained on Radboud epithelium masks leaves that stroma unmarked, which Karolinska scores as false negative. The pilots therefore cannot separate acquisition shift from the change of reference convention.
+
+\begin{table}[H]\centering
+\caption{\textbf{Provider-transfer pilots with target-provider checkpoint selection.}}
+\begin{tabular}{lrrrr}\toprule Target provider & Dice & IoU & Precision & Recall\\\midrule
+Radboud & 0.4424 & 0.2840 & 0.3134 & 0.7521\\
+Karolinska & 0.4530 & 0.2928 & 0.7671 & 0.3214\\\bottomrule
+\end{tabular}\label{tab:holdout}\end{table}
+
+\subsection*{Reported Dice of prostate tumor segmentation studies}
+For descriptive context, Table~\ref{tab:literature} lists test-set Dice reported by prostate tumor and Gleason-pattern segmentation studies. Chen et al. reported an average Dice of 0.726 for malignant-region delineation on test images derived from prostatectomy slides \cite{bib59}, and Damkliang et al. a mean Dice of 0.637 on an independent test set of 20 biopsy WSIs for Gleason-pattern segmentation, distinct from their 0.87 cross-validation result \cite{bib62}. The values are not comparable with each other or with the present results: the targets (malignant regions, Gleason patterns, or the two PANDA conventions), datasets, magnifications, evaluation grids, and evaluation units differ.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{Reported test-set Dice of prostate tumor segmentation studies.} Values from each study's own test data and protocol; not a ranking.}
+\begin{tabular}{p{3.0cm}p{4.5cm}p{4.6cm}r}\toprule
+Study & Histopathology context & Segmentation target & Dice\\\midrule
+Chen et al. (2020) \cite{bib59} & Prostatectomy histopathology test images & Malignant regions & 0.726\\
+Damkliang et al. (2025) \cite{bib62} & Needle-core biopsy WSIs & Gleason patterns 3 and 4 & 0.637 (independent test)\\
+Present study & PANDA biopsy WSIs, Karolinska & Tumor regions including stroma & 0.8995\\
+Present study & PANDA biopsy WSIs, Radboud & Tumor epithelium & 0.7605\\\bottomrule
+\end{tabular}\label{tab:literature}\end{adjustwidth}\end{table}
+
+\subsection*{Pathologist-guided qualitative error analysis}
+A targeted, failure-enriched qualitative review was performed with a pathologist (S.E.D., a co-author; \textcolor{red}{[S.E.D. to state training and years of experience]}) to characterize recurrent sources of disagreement between model predictions and reference masks. The review included 30 PANDA test WSIs with fused per-slide Dice $<0.80$ and 100 SICAPv2 images with Dice $<0.80$ from the first SICAPv2 run (renamed copy; \textcolor{red}{[selection rule of the 100 images to be stated; list to be given as S2 Table]}). The PANDA cases were the first 30 test WSIs with Dice $<0.80$ in screening order (S1 Table), not a random sample. Because the earlier per-slide convention assigned Dice 0 to every reference-negative WSI, 14 of the 30 were reference-negative, and seven of these contained no predicted tumor pixel; 23 PANDA WSIs were therefore informative. Each case was reviewed by inspecting the H\&E image, reference mask, prediction, and error map, with access to the case's performance metrics, so the review was not blinded. Observations were recorded per case, without a scoring rubric, and grouped into two categories: possible model-related errors and possible differences of reference convention or extent. \textcolor{red}{[Table of case counts per category for the 23 informative PANDA WSIs and the 100 SICAPv2 images, including indeterminate cases, to be supplied by S.E.D.]} The cases were selected to investigate failures; they do not estimate how often each pattern occurs.
+
+\paragraph{Possible model-related errors.}
+The patterns that the pathologist associated with benign tissue predicted as tumor included dilated or hyperplastic benign glands, atrophic glands, basal-cell hyperplasia, lymphocytic aggregates, vascular profiles, \textcolor{red}{[``crowded cells'': standard entity name to be given by S.E.D., e.g. inflammation, adenosis, partial atrophy, or HGPIN]}, neural tissue, and sectioning or crush artifacts. Fig~\ref{fig:model_errors} shows three PANDA test WSIs. In Fig~\ref{fig:model_errors}A (Karolinska, reference-negative), benign glands resembling carcinoma were predicted as tumor. In Fig~\ref{fig:model_errors}B (Radboud), densely packed small cells in benign-appearing tissue resemble carcinoma; reference and prediction agree over much of the region, and neither is assumed correct in the disputed parts, so the case is shown as a possible benign mimic and remains indeterminate. In Fig~\ref{fig:model_errors}C (Karolinska, reference-negative), \textcolor{red}{[entity name]} was predicted as a localized tumor region. These interpretations are qualitative and do not establish the frequency or contribution of each mechanism.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Possible model-related errors.} (A--C) Three PANDA test WSIs (A and C Karolinska, B Radboud), each with the H\&E image, reference mask, prediction, and error map.}
+\label{fig:model_errors}
+\end{figure}
+
+\paragraph{Possible differences of reference convention or extent.}
+Fig~\ref{fig:annotation_discrepancies} shows three PANDA test WSIs and one SICAPv2 image in which prediction and reference disagree in extent. In Fig~\ref{fig:annotation_discrepancies}A and C, both Karolinska WSIs, the reference covers a broad region that includes tissue between tumor glands or joins separate foci, whereas the prediction is confined to glandular areas. This is the documented Karolinska convention, which labels cancerous regions together with their stroma (Dataset section), not an annotation error; on these WSIs the model followed a gland-level extent closer to the Radboud convention. In Fig~\ref{fig:annotation_discrepancies}B (Radboud), the reference extends into tissue that the pathologist considered possibly non-tumorous; the review does not establish the cause. In Fig~\ref{fig:annotation_discrepancies}D (SICAPv2), the reference includes luminal spaces that the prediction largely excludes, which also lowers overlap metrics. These interpretations remain hypotheses for the selected cases and do not show that the references are incorrect. All quantitative evaluations used the original masks; no reference was corrected and no model was retrained on the basis of the review.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{Possible differences of reference convention or extent.} (A--C) Three PANDA test WSIs (A and C Karolinska, B Radboud) and (D) one SICAPv2 image, each with the H\&E image, reference mask, prediction, and error map.}
+\label{fig:annotation_discrepancies}
+\end{figure}
+
+
+\subsection*{External evaluation on SICAPv2}
+SICAPv2 masks mark Gleason-pattern regions and have no separate stroma class, whereas the PANDA model learned from two conventions. On the official patient-level test partition (2,122 patches, 31 WSIs, 21 patients), pooled Dice over patches was 0.6535 (95\% CI by patient 0.5574--0.7170), with precision 0.5844 and recall 0.7412 (Table~\ref{tab:sicap}). Scoring each tissue location once in the reconstructed slide regions gave Dice 0.6277 (by patient 0.5500--0.6852; by WSI 0.5563--0.6841). Over all 18,783 patches of the release, Dice was 0.5713, close to the first run's 0.5737 on 18,765 patches of the renamed copy. Patches listed in the partition files had Dice 0.6525 and precision 0.6162; the unlisted patches, which come from cancerous biopsies but carry no annotated pattern in the partition, had precision 0.0012, and they contributed 41.2\% of all false-positive pixels. Part of the lower precision of the all-patch evaluation thus reflects unannotated tissue scored as negative. Deriving coordinates from the patch position instead of using the constant coordinate changed test-partition Dice by 0.0012.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{SICAPv2 external results without retraining.} Official release, version 2; threshold 0.43; constant coordinate input. Deduplicated: each $10\times$ pixel of the reconstructed slide regions scored once. CIs from 10,000 resamples of patients.}
+\begin{tabular}{lrrrrrr}\toprule Patch set & Patches & WSIs & Dice (95\% CI) & Precision & Recall & Specificity\\\midrule
+Test partition & 2,122 & 31 & 0.6535 (0.5574--0.7170) & 0.5844 & 0.7412 & 0.7564\\
+Test partition, deduplicated & 2,122 & 31 & 0.6277 (0.5500--0.6852) & 0.5346 & 0.7601 & 0.7220\\
+Listed in partition files & 12,081 & 155 & 0.6525 (0.6077--0.6903) & 0.6162 & 0.6932 & 0.7881\\
+Not listed & 6,702 & 117 & 0.0023 (0.0017--0.0031) & 0.0012 & 0.4701 & 0.7953\\
+All patches & 18,783 & 155 & 0.5713 (0.5263--0.6143) & 0.4859 & 0.6931 & 0.7911\\
+All patches, deduplicated & 18,783 & 155 & 0.5882 (0.5451--0.6302) & 0.4992 & 0.7160 & 0.7806\\
+\bottomrule
+\end{tabular}\label{tab:sicap}\end{adjustwidth}\end{table}
+
+Fig~\ref{fig:sicap} shows four test-partition patches with the reference mapped to binary tumor (any Gleason-pattern label) and the per-patch Dice below each; they are illustrative only. The drop from PANDA cannot be attributed to a single cause: it combines cross-dataset shift, the difference between region-level pattern annotation and the model's mixed conventions, single-scale inference at a magnification between L0 and L1, and possible in-domain optimism on PANDA, where biopsies of one patient can fall into both training and test sets.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{SICAPv2 external examples.} (A--D) Four official test-partition patches with the H\&E image, binary reference mask, model prediction, and error map.}
+\label{fig:sicap}
+\end{figure}
+
+\subsection*{External evaluation on PRECISE}
+PRECISE labels tumor, benign glands, and stroma as separate classes, as Radboud does. Fused support covered 16,330,207 of the 16,331,663 scored pixels (99.991\%). Pooled fused Dice over the 27 WSIs was 0.6164 (95\% CI by subject 0.5129--0.6983; by WSI 0.5132--0.6964), with precision 0.6343, recall 0.5995, and specificity 0.9536 (Table~\ref{tab:precise}). L0, L1, and L2 reached 0.4760, 0.5918, and 0.4977; fusion minus L1 was 0.0246 (95\% CI by subject 0.0026 to 0.0442). Among the 20 tumor-bearing WSIs, mean and median fused per-slide Dice were 0.5934 and 0.6063 (SD 0.1330; range 0.3666--0.8096). All seven tumor-free WSIs contained predicted tumor: 1.91~mm$^2$ in total (2.14\% of their valid pixels), spread over 6,225 components (median 306 per WSI), the largest 0.057~mm$^2$. Because the slides were read at about twice the PANDA magnification, these results combine domain shift with a scale mismatch introduced by the protocol.
+
+\begin{table}[H]\centering
+\caption{\textbf{PRECISE external full-WSI results without retraining.} 27 WSIs from 25 subjects; threshold 0.43; PRECISE levels 0, 2, and 4 (0.243, 0.97, and 3.9~$\mu$m per pixel). CIs from 10,000 resamples.}
+\begin{tabular}{lr}\toprule Metric & Result\\\midrule
+WSIs / subjects & 27 / 25\\
+Tumor-bearing / reference-negative WSIs & 20 / 7\\
+Pooled Dice (95\% CI by subject) & 0.6164 (0.5129--0.6983)\\
+Pooled Dice (95\% CI by WSI) & 0.6164 (0.5132--0.6964)\\
+IoU & 0.4455\\
+Precision & 0.6343\\
+Recall & 0.5995\\
+Specificity & 0.9536\\
+Accuracy & 0.9117\\
+L0 pooled Dice & 0.4760\\
+L1 pooled Dice & 0.5918\\
+L2 pooled Dice & 0.4977\\
+Fusion minus L1 (95\% CI by subject) & 0.0246 (0.0026 to 0.0442)\\
+Mean / median Dice, tumor-bearing WSIs & 0.5934 / 0.6063\\
+\bottomrule
+\end{tabular}\label{tab:precise}\end{table}
+
+The labels that are not scored include the benign and preneoplastic mimics that PRECISE was built to provide (Table~\ref{tab:precise_labels}). They cover few pixels, but the model predicted tumor on 40.5\% of the HGPIN pixels, 50.7\% of the atypical intraductal proliferation pixels, and 61.9\% of the intraductal carcinoma pixels, compared with 15.9\% of benign glands and 2.9\% of stroma. Scoring HGPIN and atypical intraductal proliferation as negative would therefore lower external precision.
+
+\begin{table}[H]\begin{adjustwidth}{-2.25in}{0in}\centering
+\caption{\textbf{PRECISE labels, their use, and the share of each predicted as tumor by the fused map.} Pixels on the evaluation grid (3.9~$\mu$m per pixel); predicted share among pixels with fused support. Label 0 (background) is not annotated tissue.}
+\begin{tabular}{rlllrr}\toprule Label & Class & Use & Pixels & Share of annotated & Predicted tumor\\\midrule
+0 & Background & not annotated tissue & 164,271,527 & -- & 0.0\%\\
+1 & Tumor & tumor & 1,932,271 & 11.64\% & 59.9\%\\
+2 & Benign gland & negative & 1,949,658 & 11.75\% & 15.9\%\\
+3 & Artifact & not scored & 242,502 & 1.46\% & 8.7\%\\
+4 & HGPIN & not scored & 15,990 & 0.10\% & 40.5\%\\
+5 & Intraductal carcinoma & not scored & 4,494 & 0.03\% & 61.9\%\\
+6 & Atypical intraductal prolif. & not scored & 2,309 & 0.01\% & 50.7\%\\
+7 & Stroma & negative & 12,449,734 & 75.01\% & 2.9\%\\
+\bottomrule
+\end{tabular}\label{tab:precise_labels}\end{adjustwidth}\end{table}
+
+Fig~\ref{fig:precise} shows two of the 27 WSIs with the fused prediction at threshold 0.43 and the per-slide Dice, precision, and recall below each row.
+
+\begin{figure}[H]
+\centering
+\caption{\textbf{PRECISE external examples.} (A, B) Two WSIs with the H\&E thumbnail, reference tumor mask, fused prediction, and error map.}
+\label{fig:precise}
+\end{figure}
+
+\section*{Discussion}
+The pipeline reached pooled test Dice 0.8995 on Karolinska and 0.7605 on Radboud WSIs. These two numbers measure agreement with different targets: tumor regions that include intervening stroma, and tumor epithelium. The pooled 0.8522 mixes them in proportion to their tumor area and should be read with that in mind. The model, trained on both without a provider indicator, follows neither convention fully: it marked 23.8\% of the stroma between Radboud tumor glands and left 12.6\% of the Karolinska tumor regions unmarked. A highlighted area therefore has no single histological meaning, and on slides from a new laboratory it cannot be predicted in advance whether the output will include the stroma between tumor glands. This matters for the uses that dense segmentation is meant to serve, for example measuring discontinuous tumor foci, where the inclusion of intervening benign tissue is itself a reporting question \cite{bibKarram}. Harmonizing the references to one convention before training would remove this ambiguity.
+
+Late fusion of the three levels and the best single level, L1, performed comparably. Fusion was ahead in pooled Dice on the test WSIs, by an amount that depended on the scoring rule, and was not ahead on the validation WSIs when each level was scored on its own support. The per-slide estimand, which weights each tumor-bearing WSI equally and is more sensitive to small foci, favored L1 on validation and, under the earlier scoring rule, on test, and showed no difference on test when both maps were scored on the same region. The pooled advantage came from Radboud, where the finest level matches the gland-level references best; on Karolinska, fusion was not better than L1. Per-slide differences also depended on tumor size: fusion scored higher on the largest tumors, whereas on the smallest the point estimate favored L1 with a CI that included zero. These analyses are exploratory, and they compare one jointly trained network applied at different levels; no model trained on a single level was evaluated, so the study does not show whether training on several levels helps, and averaging predictions of one network could reduce variance whatever the scale.
+
+The boundary metrics show that a subset of WSIs has severe contour disagreement even when the median distances are small, and about half of the reference-negative WSIs carry small false-positive components. Most of these are below 0.01~mm$^2$, but some reach the size of a small focus, so false positives on benign biopsies would need a size or confidence rule before any use that highlights regions for review.
+
+Performance fell on both external sets, a shift that evaluation within a single development resource cannot reveal \cite{bib27,bib28,bib47}. On SICAPv2, Dice on the official patient-level test partition was higher than over all patches, mainly because the unlisted patches of cancerous biopsies, which carry no annotated pattern, are scored as negative and add false positives; scoring each tissue location once lowered the test-partition estimate slightly. PRECISE was read at about twice the PANDA magnification, so its result combines domain shift with a scale mismatch introduced by the protocol, and a run at the matched pixel size is still needed. The external decrease has several possible sources that this study cannot separate: acquisition and staining shift, differences in reference convention, single-scale inference for SICAPv2, and in-domain optimism on PANDA, where the image-level split leaves biopsies of one patient in both training and test sets. PRECISE also shows how the model treats lesions that PANDA does not label: it predicted tumor on a large share of the HGPIN and atypical intraductal proliferation pixels, which are benign or preneoplastic mimics, as well as on intraductal carcinoma.
+
+The provider-transfer pilots produced the precision and recall pattern that the change of reference definition alone would produce, so they do not measure robustness to acquisition shift. The coordinate input showed no gain in the pilot runs, and whether the frozen model relies on it was tested only on SICAPv2, where coordinates refer to a slide region rather than a whole WSI.
+
+\subsection*{Limitations}
+First, the binary target simplifies prostate pathology: Gleason pattern 3, pattern 4 subtypes such as cribriform architecture, pattern 5, intraductal carcinoma, and benign mimics have different clinical meanings that are collapsed into one mask \cite{bib3,bib4,bib5}, and the target itself mixes two reference conventions. Second, the unit of independence is the biopsy image: patients cannot be identified in PANDA, about five biopsies per case are expected to spread across the subsets, and all intervals treat WSIs as independent. Third, the primary metrics are computed on a 16$\times$ grid (7.2--8.0~$\mu$m per pixel), which blurs gland-level detail in the Radboud references; a finer grid was not evaluated. Fourth, the threshold analysis by level was post hoc, every comparison between fusion and single levels is exploratory, and the pilot and encoder runs were single runs. Fifth, the pathologist review was failure-enriched, unblinded, by one reader who is a co-author, and without a rubric; its observations generate hypotheses and do not relabel the references. Sixth, no transformer-based or foundation-model segmentation was compared on the same split \cite{bib48,bib49,bib50,bib57,bib58}. Finally, the model is not validated as diagnostic software. Its intended role is research use, for example highlighting candidate tumor regions for review; tumor-extent measurement was not evaluated, and any deployment would require multi-institutional validation, locked preprocessing, scanner-specific quality assurance, predefined operating thresholds, and prospective studies \cite{bib51,bib52}.
+
+\section*{Conclusion}
+A conventional EfficientNet-B4 U-Net trained on patches from three PANDA pyramid levels, applied to each level and fused by averaging, reached pooled test Dice 0.8995 on Karolinska and 0.7605 on Radboud biopsy images (0.8522 pooled), with the threshold chosen on validation data. The two values refer to different tumor definitions, and the image-level split may make them optimistic. Late fusion and the L1 level performed comparably, with the direction of small differences depending on the estimand, scoring rule, split, and provider. On external data without retraining, Dice was 0.6277 on the official SICAPv2 test partition and 0.6164 on PRECISE, which was read at twice the PANDA magnification. Dense biopsy segmentation results should be reported by reference convention and per slide, with benign-slide false positives and external data, as here.
+
+\section*{Future work}
+The most direct next step is to harmonize the PANDA references to one tumor definition, for example by converting Radboud epithelium labels to regions with a documented rule, and to train and evaluate against it. A model trained on a single level under the same protocol would show whether training on several levels contributes beyond late fusion. Strict provider-holdout testing, with all development decisions restricted to the source provider, and a patient-level split where identifiers are available would separate acquisition shift and in-domain optimism from the effects reported here. Agreement of predicted and reference tumor extent per core, and lesion-level detection with a stated minimum focus size, would be needed before tumor mapping can be claimed as a use. Transformer-based and pathology foundation-model baselines should be compared under identical partitions, input levels, reconstruction, and threshold-selection rules, with pooled and per-slide metrics, paired CIs, and computational cost. Multiclass Gleason-pattern segmentation and prospective external validation are further priorities.
+
+\section*{Acknowledgments}
+The authors thank the PANDA, SICAPv2, and PRECISE contributors for making prostate histopathology resources available for computational research.
+
+\begin{thebibliography}{63}
+\bibitem{bib1} Bray F, Laversanne M, Sung H, Ferlay J, Siegel RL, Soerjomataram I, et al. Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. CA Cancer J Clin. 2024;74:229--263. doi:10.3322/caac.21834
+\bibitem{bib3} Epstein JI, Egevad L, Amin MB, Delahunt B, Srigley JR, Humphrey PA. The 2014 International Society of Urological Pathology (ISUP) consensus conference on Gleason grading of prostatic carcinoma: definition of grading patterns and proposal for a new grading system. Am J Surg Pathol. 2016;40:244--252. doi:10.1097/PAS.0000000000000530
+\bibitem{bib4} Epstein JI, Amin MB, Reuter VE, Humphrey PA. Contemporary Gleason grading of prostatic carcinoma: an update with discussion on practical issues to implement the 2014 International Society of Urological Pathology (ISUP) consensus conference on Gleason grading of prostatic carcinoma. Am J Surg Pathol. 2017;41:e1--e7. doi:10.1097/PAS.0000000000000820
+\bibitem{bib5} Humphrey PA. Gleason grading and prognostic factors in carcinoma of the prostate. Mod Pathol. 2004;17:292--306. doi:10.1038/modpathol.3800054
+\bibitem{bib6} Ozkan TA, Eruyar AT, Cebeci OO, Memik O, Ozcan L, Kuskonmaz I. Interobserver variability in Gleason histological grading of prostate cancer. Scand J Urol. 2016;50:420--424. doi:10.1080/21681805.2016.1206619
+\bibitem{bib7} Egevad L, Ahmad AS, Algaba F, Berney DM, Boccon-Gibod L, Comp\'erat E, et al. Standardization of Gleason grading among 337 European pathologists. Histopathology. 2013;62:247--256. doi:10.1111/his.12008
+\bibitem{bib8} Pantanowitz L, Valenstein PN, Evans AJ, Kaplan KJ, Pfeifer JD, Wilbur DC, et al. Review of the current state of whole slide imaging in pathology. J Pathol Inform. 2011;2:36. doi:10.4103/2153-3539.83746
+\bibitem{bib9} Madabhushi A, Lee G. Image analysis and machine learning in digital pathology: challenges and opportunities. Med Image Anal. 2016;33:170--175. doi:10.1016/j.media.2016.06.037
+\bibitem{bib10} Bulten W, Pinckaers H, van Boven H, Vink R, de Bel T, van Ginneken B, et al. Automated deep-learning system for Gleason grading of prostate cancer using biopsies: a diagnostic study. Lancet Oncol. 2020;21:233--241. doi:10.1016/S1470-2045(19)30739-9
+\bibitem{bib11} Bulten W, Kartasalo K, Chen PHC, Str\"om P, Pinckaers H, Nagpal K, et al. Artificial intelligence for diagnosis and Gleason grading of prostate cancer: the PANDA challenge. Nat Med. 2022;28:154--163. doi:10.1038/s41591-021-01620-2
+\bibitem{bib12} Nagpal K, Foote D, Liu Y, Chen PHC, Wulczyn E, Tan F, et al. Development and validation of a deep learning algorithm for improving Gleason scoring of prostate cancer. NPJ Digit Med. 2019;2:48. doi:10.1038/s41746-019-0112-2
+\bibitem{bib13} Str\"om P, Kartasalo K, Olsson H, Solorzano L, Delahunt B, Berney DM, et al. Artificial intelligence for diagnosis and grading of prostate cancer in biopsies: a population-based, diagnostic study. Lancet Oncol. 2020;21:222--232. doi:10.1016/S1470-2045(19)30738-7
+\bibitem{bib14} Tolkach Y, Dohmg\"orgen T, Toma M, Kristiansen G. High-accuracy prostate cancer pathology using deep learning. Nat Mach Intell. 2020;2:411--418. doi:10.1038/s42256-020-0200-7
+\bibitem{bib15} Gleason DF, Mellinger GT. Prediction of prognosis for prostatic adenocarcinoma by combined histological grading and clinical staging. J Urol. 1974;111:58--64. doi:10.1016/S0022-5347(17)59889-4
+\bibitem{bibSchmitz} Schmitz R, Madesta F, Nielsen M, Krause J, Steurer S, Werner R, et al. Multi-scale fully convolutional neural networks for histopathology image segmentation: from nuclear aberrations to the global tissue architecture. Med Image Anal. 2021;70:101996. doi:10.1016/j.media.2021.101996
+\bibitem{bib17} van Rijthoven M, Balkenhol M, Sili\c{n}a K, van der Laak J, Ciompi F. HookNet: multi-resolution convolutional neural networks for semantic segmentation in histopathology whole-slide images. Med Image Anal. 2021;68:101890. doi:10.1016/j.media.2020.101890
+\bibitem{bib18} Tokunaga H, Teramoto Y, Yoshizawa A, Bise R. Adaptive weighting multi-field-of-view CNN for semantic segmentation in pathology. In: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). IEEE; 2019. p. 12589--12598. doi:10.1109/CVPR.2019.01288
+\bibitem{bibHo} Ho DJ, Yarlagadda DVK, D'Alfonso TM, Hanna MG, Grabenstetter A, Ntiamoah P, et al. Deep multi-magnification networks for multi-class breast cancer image segmentation. Comput Med Imaging Graph. 2021;88:101866. doi:10.1016/j.compmedimag.2021.101866
+\bibitem{bib19} Janowczyk A, Madabhushi A. Deep learning for digital pathology image analysis: a comprehensive tutorial with selected use cases. J Pathol Inform. 2016;7:29. doi:10.4103/2153-3539.186902
+\bibitem{bib20} Tellez D, Litjens G, B\'andi P, Bulten W, Bokhorst JM, Ciompi F, et al. Quantifying the effects of data augmentation and stain color normalization in convolutional neural networks for computational pathology. Med Image Anal. 2019;58:101544. doi:10.1016/j.media.2019.101544
+\bibitem{bib21} Ciompi F, Geessink O, Bejnordi BE, Silva de Souza G, Baidoshvili A, Litjens G, et al. The importance of stain normalization in colorectal tissue classification with convolutional networks. In: 2017 IEEE 14th International Symposium on Biomedical Imaging (ISBI 2017). IEEE; 2017. p. 160--163. doi:10.1109/ISBI.2017.7950492
+\bibitem{bib22} Macenko M, Niethammer M, Marron JS, Borland D, Woosley JT, Guan X, et al. A method for normalizing histology slides for quantitative analysis. In: 2009 IEEE International Symposium on Biomedical Imaging: From Nano to Macro. IEEE; 2009. p. 1107--1110. doi:10.1109/ISBI.2009.5193250
+\bibitem{bib23} Vahadane A, Peng T, Sethi A, Albarqouni S, Wang L, Baust M, et al. Structure-preserving color normalization and sparse stain separation for histological images. IEEE Trans Med Imaging. 2016;35:1962--1971. doi:10.1109/TMI.2016.2529665
+\bibitem{bib24} Shorten C, Khoshgoftaar TM. A survey on image data augmentation for deep learning. J Big Data. 2019;6:60. doi:10.1186/s40537-019-0197-0
+\bibitem{bib25} Ciga O, Xu T, Nofech-Mozes S, Noy S, Lu FI, Martel AL. Overcoming the limitations of patch-based learning to detect cancer in whole slide images. Sci Rep. 2021;11:8894. doi:10.1038/s41598-021-88494-z
+\bibitem{bib26} Srinidhi CL, Ciga O, Martel AL. Deep neural network models for computational histopathology: a survey. Med Image Anal. 2021;67:101813. doi:10.1016/j.media.2020.101813
+\bibitem{bib63} Bussola N, Marcolini A, Maggio V, Jurman G, Furlanello C. AI slipping on tiles: data leakage in digital pathology. In: Pattern Recognition. ICPR International Workshops and Challenges. Lecture Notes in Computer Science. Springer; 2021. p. 167--182. doi:10.1007/978-3-030-68763-2\_13
+\bibitem{bib27} Roberts M, Driggs D, Thorpe M, Gilbey J, Yeung M, Ursprung S, et al. Common pitfalls and recommendations for using machine learning to detect and prognosticate for COVID-19 using chest radiographs and CT scans. Nat Mach Intell. 2021;3:199--217. doi:10.1038/s42256-021-00307-0
+\bibitem{bib28} Maier-Hein L, Eisenmann M, Reinke A, Onogur S, Stankovic M, Scholz P, et al. Why rankings of biomedical image analysis competitions should be interpreted with care. Nat Commun. 2018;9:5217. doi:10.1038/s41467-018-07619-7
+\bibitem{bib64} Nir G, Hor S, Karimi D, Fazli L, Skinnider BF, Tavassoli P, et al. Automatic grading of prostate cancer in digitized histopathology images: learning from multiple experts. Med Image Anal. 2018;50:167--180. doi:10.1016/j.media.2018.09.005
+\bibitem{bib65} Automated Gleason Grading Challenge 2022 (AGGC22): challenge dataset and annotation protocol. Grand Challenge; 2022. Available from: \url{https://aggc22.grand-challenge.org/Data/}.
+\bibitem{bibBulten2019} Bulten W, B\'andi P, Hoven J, van de Loo R, Lotz J, Weiss N, et al. Epithelium segmentation using deep learning in H\&E-stained prostate specimens with immunohistochemistry as reference standard. Sci Rep. 2019;9:864. doi:10.1038/s41598-018-37257-4
+\bibitem{bib45} Silva-Rodr\'iguez J, Colomer A, Sales MA, Molina R, Naranjo V. Going deeper through the Gleason scoring scale: an automatic end-to-end system for histology prostate grading and cribriform pattern detection. Comput Methods Programs Biomed. 2020;195:105637. doi:10.1016/j.cmpb.2020.105637
+\bibitem{bibAnklin} Anklin V, Pati P, Jaume G, Bozorgtabar B, Foncubierta-Rodriguez A, Thiran JP, et al. Learning whole-slide segmentation from inexact and incomplete labels using tissue graphs. In: Medical Image Computing and Computer Assisted Intervention -- MICCAI 2021. Lecture Notes in Computer Science. Springer; 2021. p. 636--646. doi:10.1007/978-3-030-87196-3\_59
+\bibitem{bib59} Chen CM, Huang YS, Fang PW, Liang CW, Chang RF. A computer-aided diagnosis system for differentiation and delineation of malignant regions on whole-slide prostate histopathology image using spatial statistics and multidimensional DenseNet. Med Phys. 2020;47:1021--1033. doi:10.1002/mp.13964
+\bibitem{bib62} Damkliang K, Thongsuksai P, Wongsirichot T, Kayasut K. Detection and score grading for prostate adenocarcinoma using semantic segmentation. PLoS One. 2025;20:e0331613. doi:10.1371/journal.pone.0331613
+\bibitem{bib57} Chen J, Mei J, Li X, Lu Y, Yu Q, Wei Q, et al. TransUNet: rethinking the U-Net architecture design for medical image segmentation through the lens of transformers. Med Image Anal. 2024;97:103280. doi:10.1016/j.media.2024.103280
+\bibitem{bib58} Cao H, Wang Y, Chen J, Jiang D, Zhang X, Tian Q, et al. Swin-Unet: Unet-like pure transformer for medical image segmentation. In: Computer Vision -- ECCV 2022 Workshops. Lecture Notes in Computer Science. Springer; 2023. p. 205--218. doi:10.1007/978-3-031-25066-8\_9
+\bibitem{bib48} Chen RJ, Ding T, Lu MY, Williamson DFK, Jaume G, Song AH, et al. Towards a general-purpose foundation model for computational pathology. Nat Med. 2024;30:850--862. doi:10.1038/s41591-024-02857-3
+\bibitem{bib49} Vorontsov E, Bozkurt A, Casson A, Shaikovski G, Zelechowski M, Severson K, et al. A foundation model for clinical-grade computational pathology and rare cancers detection. Nat Med. 2024;30:2924--2935. doi:10.1038/s41591-024-03141-0
+\bibitem{bib50} Xu H, Usuyama N, Bagga J, Zhang S, Rao R, Naumann T, et al. A whole-slide foundation model for digital pathology from real-world data. Nature. 2024;630:181--188. doi:10.1038/s41586-024-07441-w
+\bibitem{bib29} Ronneberger O, Fischer P, Brox T. U-Net: convolutional networks for biomedical image segmentation. In: Medical Image Computing and Computer-Assisted Intervention -- MICCAI 2015. Lecture Notes in Computer Science. Springer; 2015. p. 234--241. doi:10.1007/978-3-319-24574-4\_28
+\bibitem{bib30} Tan M, Le Q. EfficientNet: rethinking model scaling for convolutional neural networks. In: Proceedings of the 36th International Conference on Machine Learning (PMLR 97). PMLR; 2019. p. 6105--6114.
+\bibitem{bibPANDAdesign} Bulten W, Litjens G, Pinckaers H, Str\"om P, Eklund M, Kartasalo K, et al. The PANDA challenge: Prostate cANcer graDe Assessment using the Gleason grading system [challenge design document]. Zenodo; 2020. doi:10.5281/zenodo.3715938
+\bibitem{bib31} Goode A, Gilbert B, Harkes J, Jukic D, Satyanarayanan M. OpenSlide: a vendor-neutral software foundation for digital pathology. J Pathol Inform. 2013;4:27. doi:10.4103/2153-3539.119005
+\bibitem{bib32} Pocock J, Graham S, Vu QD, Jahanifar M, Deshpande S, Hadjigeorghiou G, et al. TIAToolbox as an end-to-end library for advanced tissue image analytics. Commun Med (Lond). 2022;2:120. doi:10.1038/s43856-022-00186-5
+\bibitem{bib34} Lloyd SP. Least squares quantization in PCM. IEEE Trans Inf Theory. 1982;28:129--137. doi:10.1109/TIT.1982.1056489
+\bibitem{bib36} Loshchilov I, Hutter F. Decoupled weight decay regularization. In: 7th International Conference on Learning Representations (ICLR 2019). OpenReview.net; 2019.
+\bibitem{bib37} Micikevicius P, Narang S, Alben J, Diamos G, Elsen E, Garcia D, et al. Mixed precision training. In: 6th International Conference on Learning Representations (ICLR 2018). OpenReview.net; 2018.
+\bibitem{bib38} Dice LR. Measures of the amount of ecologic association between species. Ecology. 1945;26:297--302. doi:10.2307/1932409
+\bibitem{bib39} Reinke A, Tizabi MD, Baumgartner M, Eisenmann M, Heckmann-N\"otzel D, Kavur AE, et al. Understanding metric-related pitfalls in image analysis validation. Nat Methods. 2024;21:182--194. doi:10.1038/s41592-023-02150-0
+\bibitem{bibMetricsReloaded} Maier-Hein L, Reinke A, Godau P, Tizabi MD, Buettner F, Christodoulou E, et al. Metrics reloaded: recommendations for image analysis validation. Nat Methods. 2024;21:195--212. doi:10.1038/s41592-023-02151-z
+\bibitem{bib40} Efron B, Tibshirani RJ. An introduction to the bootstrap. Chapman \& Hall/CRC; 1993. doi:10.1007/978-1-4899-4541-9
+\bibitem{bib41} Holm S. A simple sequentially rejective multiple test procedure. Scand J Stat. 1979;6:65--70.
+\bibitem{bib42} Taha AA, Hanbury A. Metrics for evaluating 3D medical image segmentation: analysis, selection, and tool. BMC Med Imaging. 2015;15:29. doi:10.1186/s12880-015-0068-x
+\bibitem{bib43} Nikolov S, Blackwell S, Zverovitch A, Mendes R, Livne M, De Fauw J, et al. Clinically applicable segmentation of head and neck anatomy for radiotherapy: deep learning algorithm development and validation study. J Med Internet Res. 2021;23:e26151. doi:10.2196/26151
+\bibitem{bib44} Silva-Rodr\'iguez J. SICAPv2 -- prostate whole slide images with Gleason grades annotations [dataset]. Version 2. Mendeley Data; 2020. doi:10.17632/9xxm58dvs3.2
+\bibitem{bib46} Calapaqu\'i Ter\'an AK, Gonz\'alez Bernad AA, Cobo Cano M, S\'anchez Magdaleno L, Marcos Gonz\'alez S, Delgado Bolton RC, et al. PRECISE: benchmarking digital pathology with expert-annotated contiguous IHC--H\&E serial prostate sections. Mach Learn Biomed Imaging. 2026;2026:825--833. doi:10.59275/j.melba.2026-g657
+\bibitem{bibPRECISEdata} Calapaqu\'i Ter\'an AK, Gonz\'alez Bernad AA, S\'anchez Magdaleno L, Marcos Gonz\'alez S, Delgado Bolton RC, Cobo Cano M, et al. PRECISE -- PRostate Expert-annotated Contiguous IHC--H\&E Serial sEctions [dataset]. Zenodo; 2026. doi:10.5281/zenodo.20721779
+\bibitem{bibKarram} Karram S, Trock BJ, Netto GJ, Epstein JI. Should intervening benign tissue be included in the measurement of discontinuous foci of cancer on prostate needle biopsy? Correlation with radical prostatectomy findings. Am J Surg Pathol. 2011;35:1351--1355. doi:10.1097/PAS.0b013e3182217b79
+\bibitem{bib47} Tolkach Y, Ovtcharov V, Pryalukhin A, Eich ML, Gaisa NT, Braun M, et al. An international multi-institutional validation study of the algorithm for prostate cancer detection and Gleason grading. NPJ Precis Oncol. 2023;7:77. doi:10.1038/s41698-023-00424-6
+\bibitem{bib51} Topol EJ. High-performance medicine: the convergence of human and artificial intelligence. Nat Med. 2019;25:44--56. doi:10.1038/s41591-018-0300-7
+\bibitem{bib52} Nagendran M, Chen Y, Lovejoy CA, Gordon AC, Komorowski M, Harvey H, et al. Artificial intelligence versus clinicians: systematic review of design, reporting standards, and claims of deep learning studies. BMJ. 2020;368:m689. doi:10.1136/bmj.m689
+\end{thebibliography}
+
+\section*{Supporting information}
+
+\paragraph*{S1 Table.}
+\label{S1_Table}
+{\bf PANDA test WSIs included in the pathologist-guided qualitative review.} The 30 PANDA test WSIs with fused per-slide Dice $<0.80$, in screening order, with provider, fused per-slide Dice, reference-tumor status on the fused evaluation support, and the figure panel in which a case is shown. For reference-negative WSIs the Dice of 0 reflects the zero-coding convention of the first analysis, not a measured tumor overlap.
+
+\paragraph*{S1 Appendix.}
+\label{S1_Appendix}
+{\bf Implementation details, patch-level audit, and supporting analyses.} Implementation and audit details, the training-derived stain target, the training augmentations, the patch-level audit with its confusion matrices, paired comparisons within each provider, the design-effect sensitivity analysis, detection of reference tumor components by size, the tumor-bearing WSIs without true-positive pixels, reference-negative WSIs by slide-level grade, boundary metrics under the implementation's empty-boundary convention, and the first SICAPv2 run.
+
+\end{document}

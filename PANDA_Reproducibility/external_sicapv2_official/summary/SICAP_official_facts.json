@@ -1,0 +1,21 @@
+{
+  "tiles_all": 18783,
+  "slides_all": 155,
+  "patients_all": 95,
+  "tiles_test": 2122,
+  "slides_test": 31,
+  "patients_test": 21,
+  "tiles_listed": 12081,
+  "tiles_unlisted": 6702,
+  "listed_noncancerous_from_slides_with_cancer_grade": 0,
+  "unlisted_from_slides_with_cancer_grade": 6702,
+  "unlisted_total": 6702,
+  "unlisted_share_of_fp_pixels": 0.4116818063087257,
+  "unlisted_share_of_valid_pixels": 0.3271563965937971,
+  "boundary_test_partition": {
+    "hd95_eval_px": 118.36077062391102,
+    "assd_eval_px": 24.371637601381437,
+    "surface_dice": 0.4712167108204464
+  },
+  "resamples": 10000
+}

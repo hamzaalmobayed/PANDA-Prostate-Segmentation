@@ -1,0 +1,5 @@
+provider,grade_group,n,any_fp,fp_area_mm2_median
+karolinska,ISUP 0 (benign),289,119,0.0
+karolinska,ISUP >= 1,3,1,0.0
+radboud,ISUP 0 (benign),143,104,0.019848223031010356
+radboud,ISUP >= 1,16,10,0.0036610289432198982
