@@ -292,13 +292,44 @@ def build(reg: Registry):
     for lv in ("L0", "L1", "L2"):
         rows.append(f"{lv} pooled Dice & {f4(first.loc[lv, 'dice'])}\\\\")
     rows.append(f"Fusion minus L1 (95\% CI by subject) & {sgn(pp.difference)} ({sgn(pp.ci_low)} to {sgn(pp.ci_high)})\\\\")
-    rows.append("Mean / median Dice, tumor-bearing WSIs & 0.5934 / 0.6063\\\\")
-    reg.put("TABLE_PRECISE", "\n".join(rows) + "\n", f"{sfirst}; {spci}; {spp}", "Table: PRECISE")
+    pw = pd.read_csv(reg.rev / "external_precise_wsi/results/tables/per_slide_wsi_metrics.csv")
+    pw = pw[(pw.fusion_tp + pw.fusion_fn) > 0]
+    rows.append(f"Mean / median Dice, tumor-bearing WSIs & {f4(pw.fusion_dice.mean())} / {f4(pw.fusion_dice.median())}\\\\")
+    spw = "PANDA_Reproducibility/external_precise_wsi/results/tables/per_slide_wsi_metrics.csv"
+    reg.put("TABLE_PRECISE", "\n".join(rows) + "\n", f"{sfirst}; {spci}; {spp}; {spw}", "Table: PRECISE")
 
-    # ---- Fig 11 provider (S1 Table)
-    s1 = pd.read_csv(reg.rev / "figure_scripts" / "S1_Table.csv") if (reg.rev / "figure_scripts" / "S1_Table.csv").exists() else None
-    if s1 is not None:
-        reg.put("F11_provider", s1[s1["Shown in"] == "Fig 11"].Provider.iloc[0], "PANDA_Reproducibility/figure_scripts/S1_Table.csv", "provider of the Fig 11 case")
+    # ---- patch preparation (former Fig 2F-G): candidate grid of the Fig 2 WSI and selected training buckets
+    pools = reg.rev / "manifests" / "coordinate_pools"
+    fig2_wsi = "362d30ace92ce17128d176137362b8c2"  # the WSI of Fig 2 (figure_scripts/provenance/Fig02_preprocessing_sources.json)
+    stats = {lv: json.loads((pools / f"{fig2_wsi}_L{lv}.stats.json").read_text()) for lv in (0, 1, 2)}
+    sstats = "; ".join(rel(pools / f"{fig2_wsi}_L{lv}.stats.json") for lv in (0, 1, 2))
+    rows = ["\\multicolumn{4}{l}{\\textit{Candidate grid of the training WSI in Fig~\\ref{fig:prep}}}\\\\",
+            "Level & L0 & L1 & L2\\\\\\midrule"]
+    for key, lab in (("grid_positions_total", "Grid positions"), ("rejected_low_tissue", "Rejected: tissue fraction below threshold"),
+                     ("rejected_low_valid_annotation", "Rejected: little annotated tissue"),
+                     ("rejected_mixed_borderline", "Rejected: tumor fraction $>0$ and $<0.05$"),
+                     ("eligible_normal_before_cap", "Eligible normal (tumor fraction 0)"),
+                     ("eligible_tumor_before_cap", "Eligible tumor (tumor fraction $\\geq0.05$)")):
+        rows.append(f"{lab} & " + " & ".join(thousands(stats[lv][key]) for lv in (0, 1, 2)) + "\\\\")
+    sel_p = reg.rev / "selected" / "train_selected.csv"
+    sel = pd.read_csv(sel_p, usecols=["image_id", "level", "category", "provider"])
+    b = sel.groupby(["level", "category", "provider"]).size()
+    rows += ["\\midrule", "\\multicolumn{4}{l}{\\textit{Selected training patches, all training WSIs}}\\\\",
+             "Bucket & Karolinska & Radboud & Total\\\\\\midrule"]
+    for lv in (0, 1, 2):
+        for cat in ("normal", "tumor"):
+            k_, r_ = int(b.get((lv, cat, "karolinska"), 0)), int(b.get((lv, cat, "radboud"), 0))
+            rows.append(f"L{lv} {cat} & {thousands(k_)} & {thousands(r_)} & {thousands(k_ + r_)}\\\\")
+    kt, rt = int(b.xs("karolinska", level="provider").sum()), int(b.xs("radboud", level="provider").sum())
+    rows.append(f"Total & {thousands(kt)} & {thousands(rt)} & {thousands(kt + rt)}\\\\")
+    reg.put("TABLE_PREP", "\n".join(rows) + "\n", f"{sstats}; {rel(sel_p)}", "Table: candidate grid of the Fig 2 WSI and selected buckets")
+    lvl = sel.groupby(["level", "category"]).size()
+    reg.put("PREP_n_sel", thousands(len(sel)), rel(sel_p), "rows of the selected training manifest")
+    reg.put("PREP_bucket_min", thousands(lvl.min()), rel(sel_p), "smallest level-class bucket")
+    reg.put("PREP_bucket_max", thousands(lvl.max()), rel(sel_p), "largest level-class bucket")
+    reg.put("PREP_n_tumor", thousands((sel.category == "tumor").sum()), rel(sel_p), "selected tumor patches")
+    reg.put("PREP_n_normal", thousands((sel.category == "normal").sum()), rel(sel_p), "selected normal patches")
+    reg.put("PREP_n_wsi", thousands(sel.image_id.nunique()), rel(sel_p), "training WSIs with at least one selected patch")
 
 
 def main():

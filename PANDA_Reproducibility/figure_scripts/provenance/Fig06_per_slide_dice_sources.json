@@ -1,0 +1,57 @@
+{
+  "figure": "Fig 6",
+  "outputs": {
+    "png": {
+      "file": "Fig06_per_slide_dice.png",
+      "sha256": "7a465f280fcab9d24a71e5c6563744e7a0020e1687a44e1c48deabf5a56d87fd",
+      "size_px": [
+        2250,
+        960
+      ]
+    },
+    "tif": {
+      "file": "Fig6.tif",
+      "sha256": "d00238f8beb4e7460f81209433dabfd1e96c68e9b966db2bb7b2f8a944d62e1d",
+      "size_px": [
+        2250,
+        960
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figure_6.py",
+    "sha256": "70b5d8e8855b859300ba3e43ebeae75949373fbc45fabe6fef4bc9af2d5b227c",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
+    },
+    "command": "python make_figure_6.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-30T15:52:43Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": [
+    {
+      "path": "revision_2026-10-30/tables/cache_per_slide_stats_test.csv",
+      "sha256": "10a37e4aef7e8fb6d9899057634868cd80313f92d70df8d8fccfa419159e0feb"
+    }
+  ],
+  "parameters": {
+    "threshold": 0.43,
+    "scoring_region": "annotated & fused support; unsupported single-level pixels negative"
+  },
+  "values": {
+    "median_L0": 0.7325048699778804,
+    "median_L1": 0.7913260715260191,
+    "median_L2": 0.6068285704537921,
+    "median_fusion": 0.7938013441301703,
+    "n_wsi": 1126
+  }
+}

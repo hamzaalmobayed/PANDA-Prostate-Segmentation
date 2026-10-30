@@ -3,31 +3,31 @@
   "outputs": {
     "png": {
       "file": "Fig03_multiresolution.png",
-      "sha256": "ac34ca617a6aa63820dc0348a863c6015cb4cff73e45f1d8cc73d0e62c5a6d4f",
+      "sha256": "76c35765a475ab539cb456425dc483bc65b89f9bf02ac22ebcfe2b801f296e4b",
       "size_px": [
         2250,
-        2025
+        1980
       ]
     },
     "tif": {
       "file": "Fig3.tif",
-      "sha256": "b58e8a80b4bf6e4f2bca72aaba9e22f2e95372bd7ce2c84d3d7ea8b27b886175",
+      "sha256": "633dfa859e70e57851b375e6618069a03b5ac403ea41ba36211a9715aeb4b081",
       "size_px": [
         2250,
-        2025
+        1980
       ]
     }
   },
   "script": {
     "file": "make_figure_3.py",
-    "sha256": "351613ff526057f5a5c522e54ee18ff5c8aceb291a6879dd9de08f954eadbf87",
+    "sha256": "c3648b458adbc3faf234e57b20cf92dc85045c5d4a7a84c3a7be7fb590a34092",
     "helper": {
       "file": "provenance_log.py",
-      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figure_3.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-28T09:21:21Z",
+  "generated_utc": "2026-10-30T15:45:09Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",

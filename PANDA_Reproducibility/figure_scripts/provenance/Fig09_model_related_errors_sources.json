@@ -1,0 +1,199 @@
+{
+  "figure": "Fig 9",
+  "outputs": {
+    "png": {
+      "file": "Fig09_model_related_errors.png",
+      "sha256": "5d0e1fa46e0043a2687ddfed9e4c070cbb41623128f1d85ac896f58488a99faa",
+      "size_px": [
+        2250,
+        2403
+      ]
+    },
+    "tif": {
+      "file": "Fig9.tif",
+      "sha256": "6635d0479d62ae5a63a1959a375d25be4549cfd6b3bdc23def45506c17ff64bf",
+      "size_px": [
+        2250,
+        2403
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_9_10.py",
+    "sha256": "0321c5cda59528c3660e72a65f5402202c2622991bb05a9fa0ab9d6e339d44d7",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
+    },
+    "command": "python make_figures_9_10.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-30T15:56:09Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "cv2": "4.9.0"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "A": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "15bf6b34c8ce10b0eddf687e3a670e4d",
+      "provider": "karolinska",
+      "stored_fused_dice": 0.0,
+      "screening_order": 28,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_15bf6b34c8ce10b0eddf687e3a670e4d_ds16_validsupport_v2.npz",
+          "sha256": "87dc7b16a44f95c72b5c040d44b8c8a3233872c2545d6d42b3b4942aa905a791"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          1585,
+          1777,
+          1079,
+          1271
+        ],
+        "x0_level0": 17264,
+        "y0_level0": 25360,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_15bf6b34c8ce10b0eddf687e3a670e4d/bad_15bf6b34c8ce10b0eddf687e3a670e4d_dice_0.0000_detail_original.png",
+          "sha256": "50cc55654dcb46c900bfc84e9248a62897577077087337664464bf8defe2798b"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_15bf6b34c8ce10b0eddf687e3a670e4d/bad_15bf6b34c8ce10b0eddf687e3a670e4d_dice_0.0000_detail_gt_mask.png",
+          "sha256": "924c76245b57658c54091b4fdcb519f32982e0807cda39ac68314821b559aa87"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_15bf6b34c8ce10b0eddf687e3a670e4d/bad_15bf6b34c8ce10b0eddf687e3a670e4d_dice_0.0000_detail_model_mask.png",
+          "sha256": "a92c6ee414a3ac68f3fc3ee2ff363c8470f7f753a65f00c0ef53c83883d5ff9c"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_15bf6b34c8ce10b0eddf687e3a670e4d/bad_15bf6b34c8ce10b0eddf687e3a670e4d_dice_0.0000_detail_error_map.png",
+          "sha256": "f249c7e9144e238ce500006ea678ecb58d173840a3c182ebaaa711814126dd48"
+        }
+      },
+      "category": "Benign mimic",
+      "pathologist_finding": "Benign glands mistaken as tumor."
+    },
+    "B": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "13813facc985c2ea007fdf764ef98a5a",
+      "provider": "radboud",
+      "stored_fused_dice": 0.4189,
+      "screening_order": 18,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_13813facc985c2ea007fdf764ef98a5a_ds16_validsupport_v2.npz",
+          "sha256": "19e7afc7ae731a0779dadf5008e1661801b366d070e26fff6d726d687be7d0c4"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          493,
+          685,
+          58,
+          250
+        ],
+        "x0_level0": 928,
+        "y0_level0": 7888,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_13813facc985c2ea007fdf764ef98a5a/bad_13813facc985c2ea007fdf764ef98a5a_dice_0.4189_detail_original.png",
+          "sha256": "e45ea0734ff4a69fe1283284f6c2df65afcd38ef6801ad3f9495a05cb6cba323"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_13813facc985c2ea007fdf764ef98a5a/bad_13813facc985c2ea007fdf764ef98a5a_dice_0.4189_detail_gt_mask.png",
+          "sha256": "5d7c1e0058917861d3ede1b7a27cd035a04491f09722835afed94e4652597769"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_13813facc985c2ea007fdf764ef98a5a/bad_13813facc985c2ea007fdf764ef98a5a_dice_0.4189_detail_model_mask.png",
+          "sha256": "4e4a9cac87bd5bc8fe18f4a6ad684085302378e631099a43d27b8a443f781375"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_13813facc985c2ea007fdf764ef98a5a/bad_13813facc985c2ea007fdf764ef98a5a_dice_0.4189_detail_error_map.png",
+          "sha256": "7afdc1be5c01d6e4564c5f37d64d621f9f675377caa78a8ac9f29a7903404c14"
+        }
+      },
+      "category": "Possible benign mimic",
+      "pathologist_finding": "Dense benign tissue resembles carcinoma."
+    },
+    "C": {
+      "dataset": "PANDA",
+      "split": "test",
+      "slide_id": "b49d54b4f7e73808440c36fa240614c0",
+      "provider": "karolinska",
+      "stored_fused_dice": 0.0,
+      "screening_order": 24,
+      "review_manifest": {
+        "path": "paper_results/test_visuals_bad_review/bad_case_manifest_live.csv",
+        "sha256": "239e5de24ca498678e7076a691719307585e0681a89c481d129267c0e151515b"
+      },
+      "detail_crop": {
+        "wsi_cache": {
+          "path": "paper_results/wsi_cache/test_b49d54b4f7e73808440c36fa240614c0_ds16_validsupport_v2.npz",
+          "sha256": "f38dfdd3d1805aa570dd2b158d1495f8548682c320c96932bd833bb9626fe211"
+        },
+        "grid": "16x",
+        "crop_rows_cols_on_grid": [
+          998,
+          1190,
+          1814,
+          2006
+        ],
+        "x0_level0": 29024,
+        "y0_level0": 15968,
+        "width_level0_px": 3072,
+        "height_level0_px": 3072,
+        "match": "exact (squared difference 0, unique)"
+      },
+      "files": {
+        "he": {
+          "path": "paper_results/test_visuals_bad_review/bad_b49d54b4f7e73808440c36fa240614c0/bad_b49d54b4f7e73808440c36fa240614c0_dice_0.0000_detail_original.png",
+          "sha256": "7f4822c67c87f997dfa4ae6908e4412fe557f1aa99d3498ec48b3029ddab7d2c"
+        },
+        "gt": {
+          "path": "paper_results/test_visuals_bad_review/bad_b49d54b4f7e73808440c36fa240614c0/bad_b49d54b4f7e73808440c36fa240614c0_dice_0.0000_detail_gt_mask.png",
+          "sha256": "924c76245b57658c54091b4fdcb519f32982e0807cda39ac68314821b559aa87"
+        },
+        "model": {
+          "path": "paper_results/test_visuals_bad_review/bad_b49d54b4f7e73808440c36fa240614c0/bad_b49d54b4f7e73808440c36fa240614c0_dice_0.0000_detail_model_mask.png",
+          "sha256": "80697089f496f39648ff3f21f8e8bcca7d93fa9f2fec5639b582d9efbbc0a788"
+        },
+        "error": {
+          "path": "paper_results/test_visuals_bad_review/bad_b49d54b4f7e73808440c36fa240614c0/bad_b49d54b4f7e73808440c36fa240614c0_dice_0.0000_detail_error_map.png",
+          "sha256": "05b5e61b17ef66d40fcb904ac15112e42664dfd91b99233edd16d5f7d9eca0d5"
+        }
+      },
+      "category": "Crowded cells",
+      "pathologist_finding": "Crowded cells interpreted as tumor."
+    }
+  },
+  "parameters": {
+    "panel_size_px": 520,
+    "masks": "binary (> 0), nearest-neighbour resize",
+    "error_map": "saved evaluation error map, colours as in the legend",
+    "labels": "case categories and findings from the pathologist review; GT written as Reference; 9B 'Hypercellular benign mimic' -> 'Possible benign mimic' (D4)"
+  }
+}

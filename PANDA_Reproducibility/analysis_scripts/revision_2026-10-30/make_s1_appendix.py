@@ -6,14 +6,21 @@ audit) and the supporting sensitivity tables. Every number is read from a
 repository file named next to its table.
 
 Usage: python make_s1_appendix.py <PANDA_Reproducibility> <sicap_summary_dir> <figures_dir> <out.tex>
+
+The three images in FIGURES are copied next to out.tex, so the appendix
+compiles from its own folder: the two figures from <figures_dir>
+(figure_scripts/make_S1_figures.py) and the stain target from
+<PANDA_Reproducibility>/stain_target_train.png.
 """
 import json
+import shutil
 import sys
 from pathlib import Path
 
 import pandas as pd
 
 f4 = lambda x: f"{x:.4f}"
+FIGURES = ("stain_target_train.png", "S1_augmentation.png", "S1_confusion.png")
 
 
 def sg(x):
@@ -40,12 +47,12 @@ def main():
     if h is not None:
         b = h.loc[h.val_dice.idxmax()]; l = h.loc[h.val_loss.idxmin()]
         txt += (f" The selected checkpoint had patch-level validation Dice {b.val_dice:.8f} at epoch {int(b.epoch)}; the minimum "
-                f"validation loss, {l.val_loss:.6f}, occurred at epoch {int(l.epoch)} (\\texttt{{runs/final\\_main\\_training/history.csv}}).")
+                f"validation loss, {l.val_loss:.6f}, occurred at epoch {int(l.epoch)} (\\path{{runs/final_main_training/history.csv}}).")
     body.append(txt + "\n\n")
     body.append("\\begin{figure}[H]\\centering\\includegraphics[width=0.35\\linewidth]{stain_target_train.png}\n"
                 "\\caption{\\textbf{Training-derived Vahadane target.} The fixed target image used for training, validation, test, and WSI inference.}\\end{figure}\n\n")
-    body.append("\\begin{figure}[H]\\centering\\includegraphics[width=\\linewidth]{Fig05_augmentation.png}\n"
-                "\\caption{\\textbf{Training augmentations.} Seven configured transforms, each at its strongest setting, applied to one normalized L0 training patch.}\\end{figure}\n\n")
+    body.append("\\begin{figure}[H]\\centering\\includegraphics[width=\\linewidth]{S1_augmentation.png}\n"
+                "\\caption{\\textbf{Training augmentations.} Seven configured transforms, each at its strongest setting, applied to one normalized L0 training patch: (A) normalized patch, (B) horizontal flip, (C) 90-degree rotation, (D) color jitter, (E) gamma, (F) Gaussian blur, (G) Gaussian noise, and (H) JPEG compression.}\\end{figure}\n\n")
 
     pm = pd.read_csv(R / "paper_results/tables/patch_metrics_per_level_and_pooled.csv")
     rows = [f"{r.subset.replace('_', ' ')} & {f4(r.dice)} & {f4(r.iou)} & {f4(r.precision)} & {f4(r.recall)} & {f4(r.specificity)} & {f4(r.accuracy)}"
@@ -55,7 +62,7 @@ def main():
                 "so the pooled value is dominated by L0. These values are not comparable with the reconstructed WSI results.\n\n")
     body.append(table("Patch-level audit on the stored test patches.", "lrrrrrr", "Subset & Dice & IoU & Precision & Recall & Specificity & Accuracy",
                       rows, "paper_results/tables/patch_metrics_per_level_and_pooled.csv"))
-    body.append("\\begin{figure}[H]\\centering\\includegraphics[width=\\linewidth]{Fig10_confusion.png}\n"
+    body.append("\\begin{figure}[H]\\centering\\includegraphics[width=\\linewidth]{S1_confusion.png}\n"
                 "\\caption{\\textbf{Patch-level confusion matrices.} (A) Pooled across levels, (B) L0, (C) L1, and (D) L2.}\\end{figure}\n\n")
 
     pc = pd.read_csv(T / "A1_provider_paired_contrasts.csv")
@@ -103,10 +110,14 @@ def main():
                       "lllrrr", "Patch set & Scored unit & Coordinates & Dice & Precision & Recall", rows,
                       "external_sicapv2_official/summary/SICAP_official_summary.csv"))
     doc = ("\\documentclass[10pt]{article}\n\\usepackage[utf8]{inputenc}\\usepackage[T1]{fontenc}\\usepackage{lmodern}"
-           "\\usepackage[margin=1in]{geometry}\\usepackage{graphicx}\\usepackage{booktabs}\\usepackage{float}\\usepackage{amsmath}\n"
+           "\\usepackage[margin=1in]{geometry}\\usepackage{graphicx}\\usepackage{booktabs}\\usepackage{float}\\usepackage{amsmath}\\usepackage{url}\n"
            "\\usepackage[labelfont=bf,labelsep=period]{caption}\\renewcommand{\\figurename}{S1 Appendix, Fig}\\renewcommand{\\tablename}{S1 Appendix, Table}\n"
-           "\\graphicspath{{" + F.as_posix() + "/}}\n\\begin{document}\n" + "".join(body) + "\\end{document}\n")
+           "\\begin{document}\n" + "".join(body) + "\\end{document}\n")
     out.write_text(doc, encoding="utf-8", newline="\n")
+    for name in FIGURES:
+        src = (R if name == "stain_target_train.png" else F) / name  # the target image is a data file of the repository
+        if src.resolve() != (out.parent / name).resolve():
+            shutil.copy2(src, out.parent / name)
     print("written", out)
 
 
