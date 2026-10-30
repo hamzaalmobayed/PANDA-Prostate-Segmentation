@@ -3,31 +3,31 @@
   "outputs": {
     "png": {
       "file": "Fig16_sicap_external.png",
-      "sha256": "78dfa47fa1560c8b477c6b601ae166b455e828f3cee77e33c8593bce7d88f8a7",
+      "sha256": "c61ca30a95872461c53df9be719a64d845b6530e92c10fdd414589f37259800a",
       "size_px": [
         2250,
-        1200
+        2430
       ]
     },
     "tif": {
       "file": "Fig16.tif",
-      "sha256": "49462a0cff7b3928316d1d6c8f1f3d686ac18953115d3001fda715ddabbc4aad",
+      "sha256": "49eedd4e2604ad33b6916fbcd76a7f9b36a2f70b04a3d9b3a5aa2a44b1b794fb",
       "size_px": [
         2250,
-        1200
+        2430
       ]
     }
   },
   "script": {
-    "file": "make_figures_11_16_17.py",
-    "sha256": "3c88a5e8eeee90225035520531d639853d469e6a25b7905302570ff813d08724",
+    "file": "make_figure_16_revision.py",
+    "sha256": "dfa5237e883bf460567a39f8b529590becbb514c295b7f800900e57dba2d9f4d",
     "helper": {
       "file": "provenance_log.py",
-      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
-    "command": "python make_figures_11_16_17.py <output_dir> <PANDA_DATA_ROOT>"
+    "command": "python make_figure_16_revision.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-28T09:21:51Z",
+  "generated_utc": "2026-10-30T11:46:18Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -35,122 +35,88 @@
     "matplotlib": "3.9.3",
     "pillow": "11.0.0",
     "pandas": "2.2.3",
-    "cv2": "4.9.0"
+    "torch": "2.5.1+cu118",
+    "torchvision": "0.20.1+cpu",
+    "timm": "1.0.12",
+    "cv2": "4.9.0",
+    "tiatoolbox": "1.6.0"
   },
   "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": [
+    {
+      "path": "external_sicapv2_official/results/tables/per_tile_metrics.csv",
+      "sha256": "9dc696ae8ab31f4af8df9c3fd225985de84e826c2cd4f9f0c64cb63c5e6a6760"
+    }
+  ],
   "panels": {
     "A": {
-      "dataset": "SICAPv2",
-      "image_name": "1.jpg",
-      "source_wsi": "1",
-      "stored_dice": 0.79,
-      "precision": 0.8048,
-      "recall": 0.7757,
-      "files": {
-        "he": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/1.jpg",
-          "sha256": "d0443e5bf22a7949eb108206fa07ac2a2ce84994c6e4d44bb3e644bbd220f782"
-        },
-        "gt": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/1.jpg",
-          "sha256": "821070ac8c69479e34755bb3178ce9ba33782a9326c48b95a0f9c64545bd6b92"
-        },
-        "model": {
-          "path": "external_sicapv2/results/pred_masks/accf102caaa970ce65d2.png",
-          "sha256": "ff9c0594eee7197b55f9d022f89853ea432f316786dd3dad35b54d9855c2106a"
-        },
-        "error": {
-          "path": "external_sicapv2/results/error_maps/accf102caaa970ce65d2.png",
-          "sha256": "e9325f8edfe13274281cccba4188d50362a095e2af20bd73fd60d11c12281745"
-        }
-      }
+      "dataset": "SICAPv2 official release v2",
+      "partition": "test",
+      "image": {
+        "path": "images/17B0031109_Block_Region_5_21_2_xini_18476_yini_44000.jpg",
+        "sha256": "616ed60f7f159941fdf25c6bfd6c04ac2ea3cc94da427a1fbb70f12f7466ea4d"
+      },
+      "mask": {
+        "path": "masks/17B0031109_Block_Region_5_21_2_xini_18476_yini_44000.png",
+        "sha256": "940ccdc6eeac501f80523ca19189d74ad52ea6541267a4dbb9c441479d80dd0a"
+      },
+      "stored_dice": 0.4768012491635066,
+      "redrawn_dice": 0.4767720707155206,
+      "reference_share_of_valid": 0.25284390758766273
     },
     "B": {
-      "dataset": "SICAPv2",
-      "image_name": "15.jpg",
-      "source_wsi": "15",
-      "stored_dice": 0.6631,
-      "precision": 0.7295,
-      "recall": 0.6078,
-      "files": {
-        "he": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/15.jpg",
-          "sha256": "3f1dda339d12fbbaa03eae289a68f8227a3cf73f88efd0fad4a6e1c004cf9ab0"
-        },
-        "gt": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/15.jpg",
-          "sha256": "0be7e8f5f161908c461df4005fd52ff7716c02b37e8949c2fd0787bc0597a7c1"
-        },
-        "model": {
-          "path": "external_sicapv2/results/pred_masks/b76bc71fa80c20942ed0.png",
-          "sha256": "f1732d771da29c0b8c89b0defeb99bde051dc4dae758deac8e2e958b32e295a9"
-        },
-        "error": {
-          "path": "external_sicapv2/results/error_maps/b76bc71fa80c20942ed0.png",
-          "sha256": "cae46501aba7c5c1ab3d795787d6d76eb015231a5bc8d975770003a06839942c"
-        }
-      }
+      "dataset": "SICAPv2 official release v2",
+      "partition": "test",
+      "image": {
+        "path": "images/17B0017454_Block_Region_3_23_10_xini_24212_yini_76148.jpg",
+        "sha256": "eb4954ab2c8eb6711993a6dee2002a4b53787eb10519e04ffd18e8093e2567e2"
+      },
+      "mask": {
+        "path": "masks/17B0017454_Block_Region_3_23_10_xini_24212_yini_76148.png",
+        "sha256": "e3081de412d5e8a124c0886ac22d47bb757b8562051a54f064984a2865613df0"
+      },
+      "stored_dice": 0.61498957584895,
+      "redrawn_dice": 0.6150058892815077,
+      "reference_share_of_valid": 0.923719165085389
     },
     "C": {
-      "dataset": "SICAPv2",
-      "image_name": "13221.jpg",
-      "source_wsi": "13221",
-      "stored_dice": 0.7664,
-      "precision": 0.981,
-      "recall": 0.6288,
-      "files": {
-        "he": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/13221.jpg",
-          "sha256": "d0e85faa68b4c5e4a4d3e3d077b91a8c13cd589676e173649c41338efde11d51"
-        },
-        "gt": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/13221.jpg",
-          "sha256": "9d4f0b686dda0d836f75aa639affbdad6251ad444814a4f9cb6e70da22e01cda"
-        },
-        "model": {
-          "path": "external_sicapv2/results/pred_masks/7eff736d7eacf53ef34c.png",
-          "sha256": "2fe0ab174e82fa429668771176d5f6663aefd1c0ab23f44f2c62d01050e0ebff"
-        },
-        "error": {
-          "path": "external_sicapv2/results/error_maps/7eff736d7eacf53ef34c.png",
-          "sha256": "09285dbb8ad0eb5b483306f84db39dcdcf66cdf082f53bfcea089eef74e12458"
-        }
-      }
+      "dataset": "SICAPv2 official release v2",
+      "partition": "test",
+      "image": {
+        "path": "images/18B0006170D_Block_Region_1_11_12_xini_24675_yini_98209.jpg",
+        "sha256": "42b209b638a5bf80ce8f38c1398b44ae28f0b607cb6b76e07281580b793e043e"
+      },
+      "mask": {
+        "path": "masks/18B0006170D_Block_Region_1_11_12_xini_24675_yini_98209.png",
+        "sha256": "c978ee645d402156a09d812fbbf8a75fff92a3963c4243d785d0d67ea2a0cd65"
+      },
+      "stored_dice": 0.7442031855993957,
+      "redrawn_dice": 0.7442078984459204,
+      "reference_share_of_valid": 0.647751944997286
     },
     "D": {
-      "dataset": "SICAPv2",
-      "image_name": "2.jpg",
-      "source_wsi": "2",
-      "stored_dice": 0.8051,
-      "precision": 0.9108,
-      "recall": 0.7213,
-      "files": {
-        "he": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Images/2.jpg",
-          "sha256": "07ee6cc06e6bb9ee5489c763f54eabc4524d46293a23849fc4fe0d0e7b5fed5b"
-        },
-        "gt": {
-          "path": "external_sicapv2/dataset/SICAPv2_Kaggle/Train/Masks/2.jpg",
-          "sha256": "b3363afe5a185e1b19bd60372d7a68520965381d045a27a13345c7205bfdf134"
-        },
-        "model": {
-          "path": "external_sicapv2/results/pred_masks/08fda0244b5397e030ee.png",
-          "sha256": "622b716afc2cd54136b5e320defdfa0cbe4c577ab813c8aecc915faca4242f6e"
-        },
-        "error": {
-          "path": "external_sicapv2/results/error_maps/08fda0244b5397e030ee.png",
-          "sha256": "bf5b40b815628caaaf6d252fabefcdc07ac4c67a2ebd851c3deff80134932ab9"
-        }
-      }
+      "dataset": "SICAPv2 official release v2",
+      "partition": "test",
+      "image": {
+        "path": "images/16B0026794_Block_Region_11_3_5_xini_18089_yini_138581.jpg",
+        "sha256": "199da7a1334715caf54a27e0a8f20d664e52a92955c3888b323342b4a67bb3ba"
+      },
+      "mask": {
+        "path": "masks/16B0026794_Block_Region_11_3_5_xini_18089_yini_138581.png",
+        "sha256": "ae55ded68f3d74ff1929db69723eb7a0ff303e39c7bf2fcddd68d6a40bc24312"
+      },
+      "stored_dice": 0.8734023967879364,
+      "redrawn_dice": 0.8733582627086175,
+      "reference_share_of_valid": 0.8873160195556016
     }
   },
   "parameters": {
-    "index": "all-images fallback index of the external SICAPv2 evaluation (18,765 paired files)",
-    "metrics_table": {
-      "path": "external_sicapv2/results/tables/per_external_image_metrics.csv",
-      "sha256": "6c80b7cd3ade99b8f79f43f85f567b0d0c101aab4d4e85ef616d2b09bfd83601"
-    },
-    "masks": "binary (> 0), nearest-neighbour resize to the image size",
-    "prediction_file_key": "first 20 hex digits of SHA-1 of the image name"
-  }
+    "threshold": 0.43,
+    "coordinate": [
+      0.5,
+      0.5
+    ],
+    "selection": "test partition, reference >= 10% of valid, Dice percentiles 20/40/60/80"
+  },
+  "checkpoint": "C:\\Users\\Hamza Almobayed\\PANDA_REV\\work\\runs\\final_main_training\\best.pt"
 }

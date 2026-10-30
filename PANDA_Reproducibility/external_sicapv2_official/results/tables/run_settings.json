@@ -1,0 +1,18 @@
+{
+  "dataset": "SICAPv2",
+  "version": 2,
+  "doi": "10.17632/9xxm58dvs3.2",
+  "archive_sha256": "a28aa6a0e3831217bf31575cecfc1846607ace7ff25a4392f07052bbc7355916",
+  "threshold": 0.43,
+  "checkpoint": "C:\\Users\\Hamza Almobayed\\PANDA_REV\\work\\runs\\final_main_training\\best.pt",
+  "tiles": 18783,
+  "reference": "mask value > 0 (PNG values 0, 3, 4, 5)",
+  "valid": "core.generate_tissue_mask on the H&E tile",
+  "coordinates": {
+    "const": [
+      0.5,
+      0.5
+    ],
+    "region": "tile centre relative to its slide-region bounding box"
+  }
+}

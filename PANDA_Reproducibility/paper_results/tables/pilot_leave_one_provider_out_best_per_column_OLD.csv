@@ -1,0 +1,3 @@
+experiment,n_train,n_val,normalization,use_coords,encoder,best_val_dice,best_val_iou,best_val_precision,best_val_recall,device,cuda_name,held_out_provider
+provider_holdout_karolinska,8000,2000,vahadane,True,efficientnet_b4_custom,0.453009523900586,0.2928327813903583,0.8341195186332678,0.32141053313435897,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU,karolinska
+provider_holdout_radboud,8000,2000,vahadane,True,efficientnet_b4_custom,0.44238517290320983,0.2840144849723622,0.3133542433936379,0.8846144263111997,cuda,NVIDIA GeForce RTX 3050 6GB Laptop GPU,radboud

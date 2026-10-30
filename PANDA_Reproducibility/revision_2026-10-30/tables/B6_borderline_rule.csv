@@ -1,0 +1,4 @@
+level,patch_side_eval_px,five_percent_eval_px,five_percent_mm2,share_of_foci_below,share_of_tumor_bearing_wsi_with_all_tumor_below,zero_overlap_wsi_with_all_tumor_below,empty_prediction_wsi_with_all_tumor_below
+L0,32,51.2,0.0030982592048406413,0.8204319920564186,0.003552397868561279,3,1
+L1,128,819.2,0.04957214727745026,0.9810681963643759,0.020426287744227355,7,3
+L2,512,13107.2,0.7931543564392042,0.9964588853863224,0.3206039076376554,16,8

@@ -32,6 +32,21 @@ from PIL import Image
 MAX_W = 2250
 
 
+def plos_style():
+    """SciencePlots style with the PLOS font overrides (Arial, 8 pt; checklist of 29 Oct 2026, section 3)."""
+    import scienceplots  # noqa: F401  (registers the styles)
+    plt.style.use(["science", "no-latex"])
+    plt.rcParams.update({
+        "font.family": "sans-serif", "font.sans-serif": ["Arial"],
+        "mathtext.fontset": "custom", "mathtext.rm": "Arial",
+        "mathtext.it": "Arial:italic", "mathtext.bf": "Arial:bold",
+        "font.size": 8, "axes.labelsize": 8, "axes.titlesize": 8,
+        "xtick.labelsize": 8, "ytick.labelsize": 8, "legend.fontsize": 8,
+        "savefig.dpi": 300, "savefig.bbox": "standard",
+        "figure.constrained_layout.use": True,
+    })
+
+
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 

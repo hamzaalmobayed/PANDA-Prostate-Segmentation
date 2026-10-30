@@ -1,0 +1,4 @@
+analysis,estimand,contrast,n_wsi,difference,ci_low,ci_high,boot_se,p_approx,p_holm,resamples,seed,strata
+"own support, slides without reference tumor in the level's support dropped",slide,fusion-L0,1122,0.03183446434588512,0.024562348123462842,0.039011083188972576,0.0037527881162687997,<0.0002,<0.0002,10000,43,none
+"own support, slides without reference tumor in the level's support dropped",slide,fusion-L1,1125,-0.008280281222845253,-0.014556908179855362,-0.0019187166531899414,0.00321348532395747,0.0096,0.0096,10000,43,none
+"own support, slides without reference tumor in the level's support dropped",slide,fusion-L2,1102,0.16410310034913994,0.15320464255550584,0.17562497880990094,0.005737476458531541,<0.0002,<0.0002,10000,43,none

@@ -3,7 +3,7 @@
   "version": 2,
   "n_test_images": 18765,
   "n_source_wsi": 18765,
-  "metric_scope": "SICAPv2 official-test 512x512 patches; pixels pooled over valid tissue",
+  "metric_scope": "all 18,765 images of the Train folder of a renamed Kaggle copy of SICAPv2 (split_source all_images_fallback); not the official test partition; pixels pooled over valid tissue",
   "tp": 270601902,
   "fp": 278530344,
   "tn": 1064646124,

@@ -10,33 +10,33 @@
   "recall": 0.599471813218746,
   "specificity": 0.9536185603269801,
   "accuracy": 0.9117141625945095,
-  "n_wsi": 28,
+  "n_wsi": 27,
   "threshold": 0.43,
   "bootstrap_iterations": 1000,
   "bootstrap_95CI": {
     "dice": {
-      "low": 0.5148652217630841,
-      "high": 0.6983430772394129
+      "low": 0.5139560052064307,
+      "high": 0.7020791816277528
     },
     "iou": {
-      "low": 0.3466791253477337,
-      "high": 0.5365031876925932
+      "low": 0.34585519767522116,
+      "high": 0.5409260505137893
     },
     "precision": {
-      "low": 0.5144737709863423,
-      "high": 0.7336250582848044
+      "low": 0.512553795252497,
+      "high": 0.7413189855716905
     },
     "recall": {
-      "low": 0.46944222274320485,
-      "high": 0.7149217161482802
+      "low": 0.4697028739592298,
+      "high": 0.7093420546102759
     },
     "specificity": {
-      "low": 0.9240471911254379,
-      "high": 0.971068643941843
+      "low": 0.922968962090173,
+      "high": 0.9722805461301193
     },
     "accuracy": {
-      "low": 0.8767583310789862,
-      "high": 0.9426590050820354
+      "low": 0.8786709290312565,
+      "high": 0.942883554678479
     }
   },
   "dataset": "PRECISE H&E external center",
@@ -55,5 +55,6 @@
       5,
       6
     ]
-  }
+  },
+  "bootstrap_note": "Rebuilt on 30 Oct 2026 on the 27 WSIs (the earlier file resampled 28 rows, including an empty trailing row); default_rng(42), 1,000 resamples, percentile, as in run_external_precise_wsi_test.py."
 }
