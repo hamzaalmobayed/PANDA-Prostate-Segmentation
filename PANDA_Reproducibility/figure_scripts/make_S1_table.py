@@ -2,7 +2,8 @@
 
 Sources: bad_case_manifest_live.csv (screening order, written during the test
 run) and per_slide_wsi_metrics.csv (fused evaluation). Figure panels were
-identified by matching each Fig 11/14/15 panel to the saved review images.
+identified by matching each Fig 7/9/10 panel (manuscript numbering of the
+revision of 30 October 2026) to the saved review images.
 """
 import os
 import sys
@@ -14,13 +15,13 @@ if len(sys.argv) < 3 and "PANDA_DATA_ROOT" not in os.environ:
 WORK = Path(sys.argv[2] if len(sys.argv) > 2 else os.environ["PANDA_DATA_ROOT"])
 OUT = Path(sys.argv[1])
 FIGURE_PANEL = {
-    "66cad79a848b2b9476a2517a80314327": "Fig 11",
-    "15bf6b34c8ce10b0eddf687e3a670e4d": "Fig 14A",
-    "13813facc985c2ea007fdf764ef98a5a": "Fig 14B",
-    "b49d54b4f7e73808440c36fa240614c0": "Fig 14C",
-    "9848ee7cc45f7cd373b155191085f06a": "Fig 15A",
-    "cf1c7e7e632db44c5ca6de473da247e6": "Fig 15B",
-    "cfbe34e8826d4e2bb02061d9ef056e83": "Fig 15C",
+    "66cad79a848b2b9476a2517a80314327": "Fig 7",
+    "15bf6b34c8ce10b0eddf687e3a670e4d": "Fig 9A",
+    "13813facc985c2ea007fdf764ef98a5a": "Fig 9B",
+    "b49d54b4f7e73808440c36fa240614c0": "Fig 9C",
+    "9848ee7cc45f7cd373b155191085f06a": "Fig 10A",
+    "cf1c7e7e632db44c5ca6de473da247e6": "Fig 10B",
+    "cfbe34e8826d4e2bb02061d9ef056e83": "Fig 10C",
 }
 man = pd.read_csv(WORK / "paper_results" / "test_visuals_bad_review" / "bad_case_manifest_live.csv")
 per = pd.read_csv(WORK / "paper_results" / "tables" / "per_slide_wsi_metrics.csv",

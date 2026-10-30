@@ -1,4 +1,4 @@
-"""Regenerate Fig 3 of the PANDA manuscript: nested L0/L1/L2 views of one WSI.
+"""Fig 3 of the PANDA manuscript: nested L0/L1/L2 views of one WSI.
 
 The three columns are stored PANDA training patches of the same WSI whose
 level-0 fields are nested (L0 inside L1 inside L2). Rows show the patch, its
@@ -6,7 +6,8 @@ stored reference tumor mask and the overlay. A box in the L1 and L2 panels
 marks the field of the next finer level. The L2 patch lies on the slide edge;
 image, mask and overlay are cropped to the same in-slide columns. The slide,
 the patch coordinates and the files used are written to the JSON log, not to
-the figure (provenance_log.py).
+the figure (provenance_log.py). Drawn with SciencePlots and the PLOS font
+settings (provenance_log.plos_style).
 
 Usage:
     python make_figure_3.py <output_dir> [work_root]
@@ -24,7 +25,7 @@ import pandas as pd
 from matplotlib.patches import Rectangle
 from PIL import Image
 
-from provenance_log import patch_record, save_figure
+from provenance_log import patch_record, plos_style, save_figure
 
 OUT = Path(sys.argv[1])
 if len(sys.argv) < 3 and "PANDA_DATA_ROOT" not in os.environ:
@@ -34,7 +35,7 @@ SLIDE = "0018ae58b01bdadc8e347995b69f99aa"
 DS = {0: 1, 1: 4, 2: 16}
 FIELD = {l: 512 * DS[l] for l in DS}          # level-0 extent of a 512-px patch
 BOX = "#ffd400"
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7})
+plos_style()
 
 
 def rgb(path):
@@ -90,28 +91,26 @@ for l in (0, 1, 2):
     fig_cols.append((img[:, sl], msk[:, sl], ov.astype(np.uint8)[:, sl]))
 
 widths = [c[0].shape[1] for c in fig_cols]
-fig = plt.figure(figsize=(7.5, 6.75))
+fig = plt.figure(figsize=(7.5, 6.6), layout="none")
 gs = fig.add_gridspec(3, 4, width_ratios=widths + [70], wspace=0.06, hspace=0.06,
-                      left=0.02, right=0.99, top=0.93, bottom=0.06)
+                      left=0.02, right=0.99, top=0.95, bottom=0.01)
 titles = {0: "L0 (1×)", 1: "L1 (4× downsample)", 2: "L2 (16× downsample)"}
 for j, l in enumerate((0, 1, 2)):
     for i, im in enumerate(fig_cols[j]):
         ax = fig.add_subplot(gs[i, j])
         ax.imshow(im, cmap="gray" if i == 1 else None, vmin=0, vmax=1 if i == 1 else None, interpolation="nearest" if i == 1 else "antialiased")
-        ax.set_xticks([]); ax.set_yticks([])
+        ax.set_xticks([]); ax.set_yticks([]); ax.minorticks_off()
         for s in ax.spines.values():
             s.set_linewidth(0.8)
         if i == 0:
-            ax.set_title(titles[l], fontsize=9, fontweight="bold", pad=4)
+            ax.text(0.5, 1.02, titles[l], transform=ax.transAxes, ha="center", va="bottom", fontweight="bold")
         if l > 0:  # field of the next finer level
             f = pick[l - 1]
             ax.add_patch(Rectangle(((f.x0 - pick[l].x0) / DS[l] - 0.5, (f.y0 - pick[l].y0) / DS[l] - 0.5),
                                    FIELD[l - 1] / DS[l], FIELD[l - 1] / DS[l], fill=False, ec=BOX, lw=1.4))
 for i, lab in enumerate(("Image", "Reference mask", "Overlay")):
     ax = fig.add_subplot(gs[i, 3]); ax.axis("off")
-    ax.text(0.35, 0.5, lab, rotation=-90, fontsize=9, fontweight="bold", ha="center", va="center", transform=ax.transAxes)
-fig.text(0.5, 0.03, "Yellow box: field of the next finer level. White = tumor. L2 cropped at the slide edge.",
-         ha="center", fontsize=6.2, color="#333333")
+    ax.text(0.35, 0.5, lab, rotation=-90, fontweight="bold", ha="center", va="center", transform=ax.transAxes)
 
 boxes = {f"L{l}": {"box_px_in_panel": [round((pick[l - 1].x0 - pick[l].x0) / DS[l], 2), round((pick[l - 1].y0 - pick[l].y0) / DS[l], 2),
                                        FIELD[l - 1] / DS[l], FIELD[l - 1] / DS[l]], "marks_field_of": f"L{l - 1}"} for l in (1, 2)}

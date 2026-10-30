@@ -1,0 +1,103 @@
+{
+  "figure": "Fig 8",
+  "outputs": {
+    "png": {
+      "file": "Fig08_threshold_sweep.png",
+      "sha256": "ef7fe088882af142c7b11b65f7993dace9925ffeb6f6c1c5bd77705e82278bab",
+      "size_px": [
+        2250,
+        1140
+      ]
+    },
+    "tif": {
+      "file": "Fig8.tif",
+      "sha256": "f442215046544c90cde7de29c42bb90b4f42f3148e52d97c1d7b4a7a40b52d9a",
+      "size_px": [
+        2250,
+        1140
+      ]
+    }
+  },
+  "script": {
+    "file": "make_figures_5_8.py",
+    "sha256": "63c944a237f535be35f56e8b9d0f6707d95f9f37bc51bd1cda13c818b590b678",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
+    },
+    "command": "python make_figures_5_8.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-30T15:52:33Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "threshold_sweep": {
+      "path": "paper_results/tables/threshold_sensitivity_validation.csv",
+      "sha256": "5b76d87ab68961f131fd1cec4ec84e14af1e64e689b77c972c4421cba164befa"
+    },
+    "best_threshold": {
+      "path": "paper_results/tables/best_threshold.json",
+      "sha256": "cbf5db109916aaa0daeb0880b011a2f499e18159968e068dd9ba17cded7fd2fb"
+    }
+  },
+  "values_shown": {
+    "selected_threshold": 0.43,
+    "dice": 0.845946,
+    "precision": 0.842677,
+    "recall": 0.84924,
+    "thresholds": [
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.57,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.69,
+      0.7
+    ]
+  },
+  "parameters": {
+    "map": "fused reconstruction, validation WSIs",
+    "selection": "maximum validation Dice"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "figure": "S1 Appendix, augmentation figure",
+  "outputs": {
+    "png": {
+      "file": "S1_augmentation.png",
+      "sha256": "58fe2325d0fce1a5de520bdb514e0c69858a73be9c8822e8387e5c18a06f6229",
+      "size_px": [
+        2250,
+        1290
+      ]
+    },
+    "tif": {
+      "file": "S1_augmentation.tif",
+      "sha256": "baed008cc0013c045821762bfd52dbfe3297d260c05f91825dd7a08a9448bf88",
+      "size_px": [
+        2250,
+        1290
+      ]
+    }
+  },
+  "script": {
+    "file": "make_S1_figures.py",
+    "sha256": "d81ab9a3e4c9f836f1486124aae5dd717b15ab78a0d3591c328adc23b4337edc",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
+    },
+    "command": "python make_S1_figures.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-30T16:00:18Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "torch": "2.5.1+cu118",
+    "torchvision": "0.20.1+cpu"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "panels": {
+    "all": {
+      "slide_id": "0018ae58b01bdadc8e347995b69f99aa",
+      "provider": "radboud",
+      "split": "train",
+      "level": 0,
+      "category": "tumor",
+      "x0_level0": 1024,
+      "y0_level0": 9344,
+      "field_level0_px": 512,
+      "tissue_fraction": 0.958008,
+      "tumor_fraction_of_valid": 0.648514,
+      "image": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1024__y0-9344__ds-1__ps-512__stride-128__class-Tumor.jpg",
+        "sha256": "2147703a62923213ad8e7de3ba707ec853e6c0d0ef9bab12faca12c5d6713099"
+      },
+      "tumor_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1024__y0-9344__ds-1__ps-512__stride-128__class-Tumor__tumor_mask.png",
+        "sha256": "8529d024a8d211b71005a76b96459b0b961900b29d39081727ae4656c8a806c3"
+      },
+      "valid_mask": {
+        "path": "patches/train/0018ae58b01bdadc8e347995b69f99aa/L0/Tumor_Valid_Masks/0018ae58b01bdadc8e347995b69f99aa__split-train__L0__x0-1024__y0-9344__ds-1__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "0fd4bb820e9fdc4df60e1a4d0156feaf348fc1a4910c6ea25241afcbe16a7ffb"
+      },
+      "shown": "Vahadane-normalized training input and one transform per panel",
+      "normalized_image": {
+        "path": "cache/stain_v10/vahadane/0d8bb5c2d902/19618f13fc8d.png",
+        "sha256": "80da965a9a39a4eaa77ed54d492f441e08c1253f96e2cabd122cb8bd4f9350ce"
+      }
+    }
+  },
+  "parameters": {
+    "transforms": {
+      "horizontal_flip": "TF.hflip",
+      "rotation": "PIL Image.rotate(90)",
+      "color_jitter": {
+        "brightness": 1.25,
+        "contrast": 1.25,
+        "saturation": 1.25,
+        "hue": 0.05,
+        "order": "brightness, contrast, saturation, hue"
+      },
+      "gamma": 1.5,
+      "gaussian_blur": {
+        "kernel_size": 3,
+        "sigma": 1.2
+      },
+      "gaussian_noise": {
+        "sigma": 12.0,
+        "numpy_seed": 42
+      },
+      "jpeg_quality": 35
+    },
+    "pipeline_class": "PairAugStainHeavy in panda_camelyon_style_pipeline.py",
+    "configured_ranges": {
+      "color_jitter": "brightness/contrast/saturation 0.25, hue 0.05",
+      "gamma": [
+        0.7,
+        1.5
+      ],
+      "blur_sigma": [
+        0.1,
+        1.2
+      ],
+      "noise_sigma": [
+        3,
+        12
+      ],
+      "jpeg_quality": [
+        35,
+        89
+      ]
+    },
+    "panel_values": "upper bound of each configured range",
+    "torchvision": "0.20.1+cpu",
+    "identification": "earlier Fig 5 'Original' panel matched this stored patch (correlation 0.977; next 0.20)"
+  }
+}

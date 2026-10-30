@@ -3,31 +3,31 @@
   "outputs": {
     "png": {
       "file": "Fig02_preprocessing.png",
-      "sha256": "98bd93abd3cc71c466f9bc63ddb9cf0a7dcb1d24174c0a43c383a1795725a3b4",
+      "sha256": "814cfd7f470e96f338b343a96332cd2a4d22da52a5b82e5fd138acd787562114",
       "size_px": [
         2250,
-        2190
+        2337
       ]
     },
     "tif": {
       "file": "Fig2.tif",
-      "sha256": "993649281e72d0995508c6ae7d8add8bc6566524b708bc3c0cb3ea161427160e",
+      "sha256": "fb47e61a67b9f7d0724b7e0d9b47d91a43efdb64797ca73581a0ffe058a60efb",
       "size_px": [
         2250,
-        2190
+        2337
       ]
     }
   },
   "script": {
-    "file": "make_figures_1_2_4_7.py",
-    "sha256": "dcf758bff495a8a21738bc004b81c2a76d0e4810d749f6e62f826d525cd4d9e6",
+    "file": "make_figures_1_2_4.py",
+    "sha256": "58d31824a14027210c15bab776ba0cddc752c433d62a3e22d2be8c8482e1410b",
     "helper": {
       "file": "provenance_log.py",
-      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
-    "command": "python make_figures_1_2_4_7.py <output_dir> <PANDA_DATA_ROOT>"
+    "command": "python make_figures_1_2_4.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-28T09:21:12Z",
+  "generated_utc": "2026-10-30T15:44:51Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -344,8 +344,7 @@
       "n_candidates": 64
     },
     "E": {
-      "shown": "Fig 4 patch before and after Vahadane normalization",
-      "same_as": "Fig 4 A and B",
+      "shown": "L0 tumor patch before and after Vahadane normalization",
       "before": {
         "slide_id": "362d30ace92ce17128d176137362b8c2",
         "provider": "karolinska",
@@ -373,115 +372,10 @@
       "after": {
         "path": "cache/stain_v10/vahadane/0d8bb5c2d902/434b9fd23b77.png",
         "sha256": "b265d10d20d4ed51a1cc3ab55c2842bc81854965ddd4e66800fbc84528286206"
-      }
+      },
+      "check_mean_abs_diff_vs_renormalization_8bit": 0.0
     },
     "F": {
-      "shown": "candidate-grid counts of this WSI",
-      "stats_files": {
-        "L0": {
-          "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json",
-          "sha256": "63a2c1ca830d5abc6b36fae01f6919acda20ed03bd5281b3ed2ed05e8ff97099"
-        },
-        "L1": {
-          "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json",
-          "sha256": "70c27a50b3952c552bbe9a54cbd103207b9fa57c46ad40e4c9f4359d4435c36f"
-        },
-        "L2": {
-          "path": "manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json",
-          "sha256": "e9098c04357c8c6c603e4dd6a634e9b058da58011002ecab6d88dfa080927677"
-        }
-      },
-      "values": {
-        "L0": {
-          "image_id": "362d30ace92ce17128d176137362b8c2",
-          "provider": "karolinska",
-          "split": "train",
-          "level": 0,
-          "target_downsample": 1.0,
-          "patch_size": 512,
-          "stride": 128,
-          "grid_positions_total": 62484,
-          "grid_positions_processed": 62484,
-          "rejected_low_tissue": 59672,
-          "rejected_low_valid_annotation": 277,
-          "rejected_mixed_borderline": 38,
-          "eligible_normal_before_cap": 1482,
-          "eligible_tumor_before_cap": 1015,
-          "normal_candidates_after_cap": 32,
-          "tumor_candidates_after_cap": 32,
-          "candidate_cap_per_class_slide_level": 32,
-          "scan_engine": "shared_lowres_plus_vectorized_integral_exact_grid",
-          "shared_wsi_session": true,
-          "backward_compatible_resume": true
-        },
-        "L1": {
-          "image_id": "362d30ace92ce17128d176137362b8c2",
-          "provider": "karolinska",
-          "split": "train",
-          "level": 1,
-          "target_downsample": 4.0,
-          "patch_size": 512,
-          "stride": 128,
-          "grid_positions_total": 3599,
-          "grid_positions_processed": 3599,
-          "rejected_low_tissue": 3200,
-          "rejected_low_valid_annotation": 15,
-          "rejected_mixed_borderline": 23,
-          "eligible_normal_before_cap": 205,
-          "eligible_tumor_before_cap": 156,
-          "normal_candidates_after_cap": 32,
-          "tumor_candidates_after_cap": 32,
-          "candidate_cap_per_class_slide_level": 32,
-          "scan_engine": "shared_lowres_plus_vectorized_integral_exact_grid",
-          "shared_wsi_session": true,
-          "backward_compatible_resume": true
-        },
-        "L2": {
-          "image_id": "362d30ace92ce17128d176137362b8c2",
-          "provider": "karolinska",
-          "split": "train",
-          "level": 2,
-          "target_downsample": 16.0,
-          "patch_size": 512,
-          "stride": 128,
-          "grid_positions_total": 156,
-          "grid_positions_processed": 156,
-          "rejected_low_tissue": 95,
-          "rejected_low_valid_annotation": 1,
-          "rejected_mixed_borderline": 23,
-          "eligible_normal_before_cap": 17,
-          "eligible_tumor_before_cap": 20,
-          "normal_candidates_after_cap": 17,
-          "tumor_candidates_after_cap": 20,
-          "candidate_cap_per_class_slide_level": 32,
-          "scan_engine": "shared_lowres_plus_vectorized_integral_exact_grid",
-          "shared_wsi_session": true,
-          "backward_compatible_resume": true
-        }
-      }
-    },
-    "G": {
-      "shown": "provider counts of the six selected training buckets",
-      "selected_manifest": {
-        "path": "selected/train_selected.csv",
-        "sha256": "e5d9e41659dcc3b0222100c0960da4579bbc8badda2dbecba26d764c7e04fe7f"
-      },
-      "values": {
-        "L0_normal_karolinska": 6844,
-        "L0_normal_radboud": 6490,
-        "L0_tumor_karolinska": 6192,
-        "L0_tumor_radboud": 7142,
-        "L1_normal_karolinska": 7338,
-        "L1_normal_radboud": 5995,
-        "L1_tumor_karolinska": 6485,
-        "L1_tumor_radboud": 6848,
-        "L2_normal_karolinska": 10630,
-        "L2_normal_radboud": 2703,
-        "L2_tumor_karolinska": 9083,
-        "L2_tumor_radboud": 4250
-      }
-    },
-    "H": {
       "normal_L0": {
         "slide_id": "362d30ace92ce17128d176137362b8c2",
         "provider": "karolinska",
@@ -633,6 +527,9 @@
         "shown": "selected training patch"
       }
     }
+  },
+  "moved_to_table": {
+    "former_F_G": "candidate-grid counts of this WSI and training-bucket counts: manuscript table tab:prep (fill_manuscript_numbers.py, TABLE_PREP), from manifests/coordinate_pools/<slide>_L*.stats.json and selected/train_selected.csv"
   },
   "parameters": {
     "tissue_mask": "Otsu on HSV saturation, threshold >= 0.20, disk 2, min object 500 (pipeline rule)",

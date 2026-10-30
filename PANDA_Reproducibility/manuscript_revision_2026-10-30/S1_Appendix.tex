@@ -1,17 +1,16 @@
 \documentclass[10pt]{article}
-\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage[margin=1in]{geometry}\usepackage{graphicx}\usepackage{booktabs}\usepackage{float}\usepackage{amsmath}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage[margin=1in]{geometry}\usepackage{graphicx}\usepackage{booktabs}\usepackage{float}\usepackage{amsmath}\usepackage{url}
 \usepackage[labelfont=bf,labelsep=period]{caption}\renewcommand{\figurename}{S1 Appendix, Fig}\renewcommand{\tablename}{S1 Appendix, Table}
-\graphicspath{{C:/Users/Hamza Almobayed/PANDA_REV/PANDA_FINAL_2026-10-30/s1_build/}}
 \begin{document}
 \section*{S1 Appendix. Implementation details, patch-level audit, and supporting analyses}
 \subsection*{Implementation and audit details}
-Candidate patch positions were checkpointed so that extraction could resume after storage or power interruptions. Training used channels-last memory layout and persistent data-loader workers. Epoch numbering in the training history begins at 1. The selected checkpoint had patch-level validation Dice 0.83316355 at epoch 11; the minimum validation loss, 0.622861, occurred at epoch 13 (\texttt{runs/final\_main\_training/history.csv}).
+Candidate patch positions were checkpointed so that extraction could resume after storage or power interruptions. Training used channels-last memory layout and persistent data-loader workers. Epoch numbering in the training history begins at 1. The selected checkpoint had patch-level validation Dice 0.83316355 at epoch 11; the minimum validation loss, 0.622861, occurred at epoch 13 (\path{runs/final_main_training/history.csv}).
 
 \begin{figure}[H]\centering\includegraphics[width=0.35\linewidth]{stain_target_train.png}
 \caption{\textbf{Training-derived Vahadane target.} The fixed target image used for training, validation, test, and WSI inference.}\end{figure}
 
-\begin{figure}[H]\centering\includegraphics[width=\linewidth]{Fig05_augmentation.png}
-\caption{\textbf{Training augmentations.} Seven configured transforms, each at its strongest setting, applied to one normalized L0 training patch.}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=\linewidth]{S1_augmentation.png}
+\caption{\textbf{Training augmentations.} Seven configured transforms, each at its strongest setting, applied to one normalized L0 training patch: (A) normalized patch, (B) horizontal flip, (C) 90-degree rotation, (D) color jitter, (E) gamma, (F) Gaussian blur, (G) Gaussian noise, and (H) JPEG compression.}\end{figure}
 
 \subsection*{Patch-level audit}
 The audit scores the stored test patches (at most two per class, level, and WSI). Overlapping patches count tissue locations repeatedly, and the L0 patches contribute 93.8\% of the audited pixels, so the pooled value is dominated by L0. These values are not comparable with the reconstructed WSI results.
@@ -26,7 +25,7 @@ L2 & 0.8037 & 0.6718 & 0.7995 & 0.8079 & 0.9323 & 0.9011\\
 all levels pooled & 0.7831 & 0.6436 & 0.8343 & 0.7379 & 0.9614 & 0.9148\\
 \bottomrule\end{tabular}\end{table}
 
-\begin{figure}[H]\centering\includegraphics[width=\linewidth]{Fig10_confusion.png}
+\begin{figure}[H]\centering\includegraphics[width=\linewidth]{S1_confusion.png}
 \caption{\textbf{Patch-level confusion matrices.} (A) Pooled across levels, (B) L0, (C) L1, and (D) L2.}\end{figure}
 
 \subsection*{Supporting analyses}

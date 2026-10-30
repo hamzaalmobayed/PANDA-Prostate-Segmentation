@@ -1,0 +1,79 @@
+{
+  "figure": "S1 Appendix, confusion-matrix figure",
+  "outputs": {
+    "png": {
+      "file": "S1_confusion.png",
+      "sha256": "7f75c8394eb5d1299081997317cf44d7371e640cab95e8a3b21507d9875f54f5",
+      "size_px": [
+        2250,
+        1860
+      ]
+    },
+    "tif": {
+      "file": "S1_confusion.tif",
+      "sha256": "db4a18324c13dcb90f96defa9396ddb97d2acf6ba9ab88a687aabff270caf105",
+      "size_px": [
+        2250,
+        1860
+      ]
+    }
+  },
+  "script": {
+    "file": "make_S1_figures.py",
+    "sha256": "d81ab9a3e4c9f836f1486124aae5dd717b15ab78a0d3591c328adc23b4337edc",
+    "helper": {
+      "file": "provenance_log.py",
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
+    },
+    "command": "python make_S1_figures.py <output_dir> <PANDA_DATA_ROOT>"
+  },
+  "generated_utc": "2026-10-30T16:00:20Z",
+  "environment": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.3",
+    "pillow": "11.0.0",
+    "pandas": "2.2.3",
+    "torch": "2.5.1+cu118",
+    "torchvision": "0.20.1+cpu"
+  },
+  "paths_relative_to": "PANDA_DATA_ROOT",
+  "sources": {
+    "patch_metrics": {
+      "path": "paper_results/tables/patch_metrics_per_level_and_pooled.csv",
+      "sha256": "1efacb71edcb2ec279f8cbb15d580c47f726ef161c574987f1ddd5fe3605bca2"
+    }
+  },
+  "values_shown": {
+    "all_levels_pooled": {
+      "tn": 503020235601,
+      "fp": 20205561962,
+      "fn": 36123100491,
+      "tp": 101707213750
+    },
+    "L0": {
+      "tn": 471812503864,
+      "fp": 18942328574,
+      "fn": 34515344694,
+      "tp": 94705676421
+    },
+    "L1": {
+      "tn": 30334204818,
+      "fp": 1199788826,
+      "fn": 1547608230,
+      "tp": 6748586091
+    },
+    "L2": {
+      "tn": 873526919,
+      "fp": 63444562,
+      "fn": 60147567,
+      "tp": 252951238
+    }
+  },
+  "parameters": {
+    "panels": "A pooled across levels, B L0, C L1, D L2",
+    "cell_percent": "share of the panel's four counts; 2 decimals for L2, 1 elsewhere",
+    "pooled": "sum of the L0, L1 and L2 counts (checked)"
+  }
+}

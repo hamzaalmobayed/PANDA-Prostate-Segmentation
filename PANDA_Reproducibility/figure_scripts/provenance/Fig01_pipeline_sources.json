@@ -3,31 +3,31 @@
   "outputs": {
     "png": {
       "file": "Fig01_pipeline.png",
-      "sha256": "7c6f80e32e7a3128a7bf1a3402d4f56fa667cffffcfa4fa49a42555cf3ab8957",
+      "sha256": "3920cdf1d3da10ceca9a1d819a055612f7c557cbc65527215ed557e24b461d70",
       "size_px": [
         2250,
-        1275
+        1680
       ]
     },
     "tif": {
       "file": "Fig1.tif",
-      "sha256": "fff810fbb28b26c4cba791b493ab40d0e003255298f885b86c07583456c06daa",
+      "sha256": "06b02eae4ab95daf0a665c39e9eee9a33d5805e26bcd81add7237611f93d7a77",
       "size_px": [
         2250,
-        1275
+        1680
       ]
     }
   },
   "script": {
-    "file": "make_figures_1_2_4_7.py",
-    "sha256": "dcf758bff495a8a21738bc004b81c2a76d0e4810d749f6e62f826d525cd4d9e6",
+    "file": "make_figures_1_2_4.py",
+    "sha256": "58d31824a14027210c15bab776ba0cddc752c433d62a3e22d2be8c8482e1410b",
     "helper": {
       "file": "provenance_log.py",
-      "sha256": "685f0f217704cee5dd8429efd1779c30b2df4958b715517311e4146e8714e202"
+      "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
-    "command": "python make_figures_1_2_4_7.py <output_dir> <PANDA_DATA_ROOT>"
+    "command": "python make_figures_1_2_4.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-28T09:21:10Z",
+  "generated_utc": "2026-10-30T15:44:45Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
