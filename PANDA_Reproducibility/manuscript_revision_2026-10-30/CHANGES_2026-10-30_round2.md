@@ -117,7 +117,9 @@ All edits are in `manuscript/PANDA_template.tex`. Both `.tex` files were regener
   - The PRECISE row "Mean / median Dice, tumor-bearing WSIs" (0.5934 / 0.6063) is now computed from `external_precise_wsi/results/tables/per_slide_wsi_metrics.csv`; the values are unchanged.
   - The selected-bucket counts in Methods come from Table `tab:prep` (above).
 - **Table numbers.** The new patch-preparation table comes first, so it is Table 1, and every later table moves up by one: Table 5 of the first round, the paired comparisons, is now Table 6. All table references are `\ref`, so the text follows. The Methods sentence "the realized provider allocations are those listed above" now points to the table.
-- **Repository.** `stain_target_train.png`, the training-derived Vahadane target, is now in `PANDA_Reproducibility/`. It is shown in S1 Appendix and needed to reproduce the normalization.
+- **Repository.**
+  - `stain_target_train.png`, the training-derived Vahadane target, is now in `PANDA_Reproducibility/`. It is shown in S1 Appendix and needed to reproduce the normalization.
+  - The figure and table sections of `PANDA_Reproducibility/README.md` still described the 17 figures and table numbers from before the revision. They now list the 12 figures and 15 tables with their current numbers, scripts and source files.
 - **Captions.**
   - Fig 2: panels A–F, and a pointer to Table `tab:prep`.
   - Fig 3: the L2 patch is cropped at the slide edge. This was the in-image note.
