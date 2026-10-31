@@ -20,14 +20,14 @@
   },
   "script": {
     "file": "make_figures_9_10.py",
-    "sha256": "f3ce6e3f9e6678ba10739853527aea8716cfff6023cd86dc36f203d3e4973e15",
+    "sha256": "78256ece472e0d3b901b0141faf223a9e9f3254c0b1f0d5494a13ba682ed482e",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figures_9_10.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-31T12:59:10Z",
+  "generated_utc": "2026-10-31T16:06:37Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
