@@ -1,0 +1,22 @@
+{
+ "stored_train_patches_by_bucket": {
+  "L0_normal": 56869,
+  "L0_tumor": 41658,
+  "L1_normal": 52916,
+  "L1_tumor": 40448,
+  "L2_normal": 29255,
+  "L2_tumor": 21081
+ },
+ "stored_per_wsi_level_class_max": 8,
+ "stored_per_wsi_level_class_median": 8.0,
+ "wsi_level_class_combinations": 32145,
+ "fig2_wsi_stored": {
+  "L0_normal": 8,
+  "L0_tumor": 8,
+  "L1_normal": 8,
+  "L1_tumor": 8,
+  "L2_normal": 8,
+  "L2_tumor": 8
+ },
+ "source": "manifests/patches.csv of the pipeline work folder; totals equal qc/05_select_final.json 'available'"
+}

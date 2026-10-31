@@ -1,0 +1,10 @@
+{
+ "n":100,
+ "reference_negative":27,
+ "slides":4,
+ "patients":3,
+ "in_test_partition":0,
+ "skipped_without_result_folder":[
+  "1.jpg"
+ ]
+}

@@ -3,7 +3,7 @@
   "outputs": {
     "png": {
       "file": "Fig04_architecture.png",
-      "sha256": "dc6cbbc7f6b7c772e7fc1e2f4d9c6f0d368bb494b43e9d8b67922b95b0fd898f",
+      "sha256": "5815ccbf1e492321315a862c98de2a8042fa3e08463c84b57ad1371c347a1b44",
       "size_px": [
         2250,
         1665
@@ -11,7 +11,7 @@
     },
     "tif": {
       "file": "Fig4.tif",
-      "sha256": "07b0fc9769f8dfd2f0dda24dea642a557625cad6eb7bc57bd0ef8cd961627dc3",
+      "sha256": "239d441e835c3bc595e935a404e2b97031b507c1785828f8f9639641167fd147",
       "size_px": [
         2250,
         1665
@@ -28,14 +28,14 @@
   },
   "script": {
     "file": "make_figures_1_2_4.py",
-    "sha256": "58d31824a14027210c15bab776ba0cddc752c433d62a3e22d2be8c8482e1410b",
+    "sha256": "706644da52b4847fdb0e0d040489e6864043dcfccce3a935b76ee0b636d65919",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figures_1_2_4.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-30T15:44:42Z",
+  "generated_utc": "2026-10-31T12:54:49Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -97,8 +97,14 @@
       "tumor_mask": {
         "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor_Masks/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-16384__y0-6656__ds-4__ps-512__stride-128__class-Tumor__tumor_mask.png",
         "sha256": "b152c9aeaf09d6521331772e74720540fa4d60ee74a13417dd179aec2ad71112"
-      }
-    }
+      },
+      "valid_mask": {
+        "path": "patches/train/362d30ace92ce17128d176137362b8c2/L1/Tumor_Valid_Masks/362d30ace92ce17128d176137362b8c2__split-train__L1__x0-16384__y0-6656__ds-4__ps-512__stride-128__class-Tumor__valid_mask.png",
+        "sha256": "98b34bd776c123b5f6f87b14ddacbeec64496c53eb5116e5940e20af7f8336bb"
+      },
+      "shown": "white tumor, gray annotated non-tumor tissue, black not annotated"
+    },
+    "probability_colour_scale": "magma, 0-1, colour bar below the map"
   },
   "parameters": {
     "patch_choice": "stored L1 tumor patch of the slide (any stored patch); fewest mask seams, then most tissue",

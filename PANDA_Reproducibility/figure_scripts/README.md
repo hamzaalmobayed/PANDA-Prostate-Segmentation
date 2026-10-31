@@ -30,7 +30,7 @@ SICAPV2_ROOT=<SICAPv2 folder> python provenance_index.py provenance ../figures <
 | Fig 7 | `make_figures_7_12.py` | `Fig07_qualitative_good.png`, `Fig7.tif` | review detail images of one test WSI, its WSI cache, `per_slide_wsi_metrics.csv` |
 | Fig 8 | `make_figures_5_8.py` | `Fig08_threshold_sweep.png`, `Fig8.tif` | `paper_results/tables/threshold_sensitivity_validation.csv`, `best_threshold.json` |
 | Fig 9 | `make_figures_9_10.py` | `Fig09_model_related_errors.png`, `Fig9.tif` | review detail images and WSI caches of three test WSIs |
-| Fig 10 | `make_figures_9_10.py` | `Fig10_annotation_discrepancies.png`, `Fig10.tif` | review detail images and WSI caches of three test WSIs; one SICAPv2 tile (`external_sicapv2_official/results/figure_tile/`) |
+| Fig 10 | `make_figures_9_10.py` | `Fig10_annotation_discrepancies.png`, `Fig10.tif` | review detail images and WSI caches of three test WSIs |
 | Fig 11 | `make_figure_11.py` | `Fig11_sicap_external.png`, `Fig11.tif` | `external_sicapv2_official/results/tables/per_tile_metrics.csv`, the SICAPv2 release, the checkpoint |
 | Fig 12 | `make_figures_7_12.py` | `Fig12_precise_external.png`, `Fig12.tif` | PRECISE WSI caches and saved visuals of two WSIs |
 
@@ -109,13 +109,9 @@ exits with status 1 on any difference. The SICAPv2 release images of Fig 11 are 
   pipeline wrote to `cache/stain_v10/vahadane/`, so it is the exact training input.
 - The Fig 4 input is not in that cache. It is normalized with the training target and a fixed
   NumPy seed, because TIAToolbox dictionary learning uses NumPy's global random state.
-- Fig 10D: the image of the first SICAPv2 run (`0.jpg` of the renamed Kaggle copy) is
-  byte-identical to the official release tile `16B0001851_Block_Region_1_0_0_xini_6803_yini_59786.jpg`.
-  The Kaggle copy and the first run's prediction files are not kept, so the panel shows the release
-  tile with its lossless mask and a prediction recomputed under the first-run settings
-  (`analysis_scripts/revision_2026-10-30/sicap_figure_tile.py`). Its TP/FP/TN/FN counts agree
-  with the official run's stored counts to within a few pixels (GPU rounding); both are in the
-  tile's JSON.
+- Fig 10 has three PANDA cases. Its SICAPv2 panel D (the reviewed image `0.jpg` of the first
+  run, shown from the official release) was removed on 31 October 2026: with the release's
+  lossless mask and the scored tissue region, the panel did not show the reported finding.
 - The earlier Figs 5 and 11 (now S1 augmentation figure and Fig 7) had no recorded source. Each
   was matched to stored data by image correlation, and the matches are recorded in the logs:
   - augmentation figure: 0.977, against 0.20 for the next of 109,060 L0 patches;

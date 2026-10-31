@@ -3,7 +3,7 @@
   "outputs": {
     "png": {
       "file": "S1_confusion.png",
-      "sha256": "7f75c8394eb5d1299081997317cf44d7371e640cab95e8a3b21507d9875f54f5",
+      "sha256": "83e11bd727c90d93603d7c8de4a6f405d5487787a155f29248ab9f2c7526881c",
       "size_px": [
         2250,
         1860
@@ -11,7 +11,7 @@
     },
     "tif": {
       "file": "S1_confusion.tif",
-      "sha256": "db4a18324c13dcb90f96defa9396ddb97d2acf6ba9ab88a687aabff270caf105",
+      "sha256": "5b899fa3b3670fd8a5ea86425f3448f875aa128c829b9728f1ebf87b297a5d04",
       "size_px": [
         2250,
         1860
@@ -20,14 +20,14 @@
   },
   "script": {
     "file": "make_S1_figures.py",
-    "sha256": "d81ab9a3e4c9f836f1486124aae5dd717b15ab78a0d3591c328adc23b4337edc",
+    "sha256": "4cc8db8dd6c3d0267d650ecbbc0210b56f0519ce48c437c81d9584ac05e58342",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_S1_figures.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-30T16:00:20Z",
+  "generated_utc": "2026-10-31T13:00:57Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -73,7 +73,7 @@
   },
   "parameters": {
     "panels": "A pooled across levels, B L0, C L1, D L2",
-    "cell_percent": "share of the panel's four counts; 2 decimals for L2, 1 elsewhere",
+    "cell_percent": "share of the panel's four counts, 2 decimals in every panel",
     "pooled": "sum of the L0, L1 and L2 counts (checked)"
   }
 }

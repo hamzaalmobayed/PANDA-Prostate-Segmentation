@@ -1,0 +1,7 @@
+{
+ "sed_years_in_pathology_including_residency": 17,
+ "source": "S.E.D. (Selma Erdogan Duzcu), statement relayed by H.A. on 31 October 2026: '17 yillik patolojideyim, asistanlik dahil'",
+ "review_counts_per_category": "not reported: the review was descriptive, case by case (S.E.D., 31 October 2026)",
+ "crowded_cells_entity": "no specific entity name; described as dense cellular crowding (S.E.D., 31 October 2026)",
+ "sicapv2_selection": "the first 100 images with Dice < 0.80 in the processing order of the first run (S.E.D., 31 October 2026); list in supporting_information/S2_Table.csv"
+}

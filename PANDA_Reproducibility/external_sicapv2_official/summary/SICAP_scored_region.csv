@@ -1,0 +1,3 @@
+subset,tiles,tiles_with_reference,reference_px,reference_unscored_px,reference_unscored_share,unscored_reference_bright_share,reference_bright_px,reference_bright_scored_share,bright_threshold_mean_rgb
+test partition,2122,1478,114461685,49383136,0.431438135826849,0.3969715289041182,21420540,0.08481770300842088,215
+all tiles,18783,8059,703219031,317793121,0.4519120032176717,0.29381756189744584,102171030,0.08610885101187685,215

@@ -3,7 +3,7 @@
   "outputs": {
     "png": {
       "file": "Fig09_model_related_errors.png",
-      "sha256": "5d0e1fa46e0043a2687ddfed9e4c070cbb41623128f1d85ac896f58488a99faa",
+      "sha256": "4f0c68c9a5e0e932453de15ef9018f7c816ab2dfaa1ec07ba61940618357ae76",
       "size_px": [
         2250,
         2403
@@ -11,7 +11,7 @@
     },
     "tif": {
       "file": "Fig9.tif",
-      "sha256": "6635d0479d62ae5a63a1959a375d25be4549cfd6b3bdc23def45506c17ff64bf",
+      "sha256": "1705cbfb7e0581d1a4ceb2d3d9332ab6eed897fb6b0ca9ea60303c7f8cf5ab3a",
       "size_px": [
         2250,
         2403
@@ -20,14 +20,14 @@
   },
   "script": {
     "file": "make_figures_9_10.py",
-    "sha256": "0321c5cda59528c3660e72a65f5402202c2622991bb05a9fa0ab9d6e339d44d7",
+    "sha256": "f3ce6e3f9e6678ba10739853527aea8716cfff6023cd86dc36f203d3e4973e15",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figures_9_10.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-30T15:56:09Z",
+  "generated_utc": "2026-10-31T12:57:16Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -87,7 +87,7 @@
         }
       },
       "category": "Benign mimic",
-      "pathologist_finding": "Benign glands mistaken as tumor."
+      "pathologist_finding": "Benign glands mistaken for tumor."
     },
     "B": {
       "dataset": "PANDA",
@@ -137,7 +137,7 @@
         }
       },
       "category": "Possible benign mimic",
-      "pathologist_finding": "Dense benign tissue resembles carcinoma."
+      "pathologist_finding": "Densely packed small cells in benign-appearing tissue resemble carcinoma."
     },
     "C": {
       "dataset": "PANDA",
@@ -186,14 +186,14 @@
           "sha256": "05b5e61b17ef66d40fcb904ac15112e42664dfd91b99233edd16d5f7d9eca0d5"
         }
       },
-      "category": "Crowded cells",
-      "pathologist_finding": "Crowded cells interpreted as tumor."
+      "category": "Cellular crowding",
+      "pathologist_finding": "Densely crowded cells predicted as tumor."
     }
   },
   "parameters": {
     "panel_size_px": 520,
     "masks": "binary (> 0), nearest-neighbour resize",
-    "error_map": "saved evaluation error map, colours as in the legend",
-    "labels": "case categories and findings from the pathologist review; GT written as Reference; 9B 'Hypercellular benign mimic' -> 'Possible benign mimic' (D4)"
+    "error_map": "saved evaluation error map, colours as in the legend; white = outside the scored region",
+    "labels": "case categories and findings from the pathologist review (S.E.D.); GT written as Reference"
   }
 }

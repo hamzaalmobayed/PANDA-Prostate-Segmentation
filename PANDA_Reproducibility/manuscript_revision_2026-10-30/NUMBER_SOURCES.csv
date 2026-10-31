@@ -24,193 +24,206 @@ P_f_subj_hi,0.6983,Abstract,82,PANDA_Reproducibility/revision_2026-10-30/precise
 D2_radboud_um,0.486,Dataset and image-level data separation,122,PANDA_Reproducibility/revision_2026-10-30/tables/D2_pixel_size.csv,radboud level-0 um/px from TIFF tags (min-max)
 D2_k_n452,493,Dataset and image-level data separation,122,PANDA_Reproducibility/revision_2026-10-30/tables/D2_pixel_size_values.csv,Karolinska images at 0.452 um
 D2_k_n503,325,Dataset and image-level data separation,122,PANDA_Reproducibility/revision_2026-10-30/tables/D2_pixel_size_values.csv,Karolinska images at 0.5032 um
-PREP_n_sel,"80,000",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,rows of the selected training manifest
-PREP_bucket_min,"13,333",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,smallest level-class bucket
-PREP_bucket_max,"13,334",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,largest level-class bucket
-PREP_n_tumor,"40,000",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,selected tumor patches
-PREP_n_normal,"40,000",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,selected normal patches
-PREP_n_wsi,"7,351",Feature engineering and structured data construction,151,PANDA_Reproducibility/selected/train_selected.csv,training WSIs with at least one selected patch
-TABLE_PREP,(table rows),Feature engineering and structured data construction,156,PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json; PANDA_Reproducibility/selected/train_selected.csv,Table: candidate grid of the Fig 2 WSI and selected buckets
-B4_cov_L0_av,92.7\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L0 share of annotated pixels in support
-B4_cov_L1_av,98.4\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of annotated pixels in support
-B4_cov_L2_av,97.0\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L2 share of annotated pixels in support
-B4_cov_L0_tum,94.3\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L0 share of reference tumor in support
-B4_cov_L1_tum,98.9\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of reference tumor in support
-B4_cov_L2_tum,97.9\%,Dense whole-slide inference and late fusion,180,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L2 share of reference tumor in support
-B2_meff,1.60,Performance metrics and statistical analysis,190,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,expected test WSIs per patient (max design effect at rho=1)
-D5_tol_um,16,Boundary-focused evaluation,197,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,surface-Dice tolerance (median um)
-S_tiles_all,"18,783",External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_all
-S_slides_all,155,External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_all
-S_patients_all,95,External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_all
-S_tiles_test,"2,122",External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_test
-S_slides_test,31,External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_test
-S_patients_test,21,External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_test
-S_tiles_listed,"12,081",External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_listed
-S_tiles_unlisted,"6,702",External validation on SICAPv2,200,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_unlisted
-A1_k_fusion_dice,0.8995,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
-D6_k_lo,0.8876,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, karolinska, ci_low"
-D6_k_hi,0.9104,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, karolinska, ci_high"
-A1_r_fusion_dice,0.7605,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
-D6_r_lo,0.7519,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, radboud, ci_low"
-D6_r_hi,0.7687,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, radboud, ci_high"
-A1_p_fusion_dice,0.8522,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
-D6_p_lo,0.8414,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, unstratified, ci_low"
-D6_p_hi,0.8618,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, unstratified, ci_high"
-D6_ps_lo,0.8425,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, provider-stratified, ci_low"
-D6_ps_hi,0.8615,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, provider-stratified, ci_high"
-A1_k_tumor_share,68.2\%,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,Karolinska reference tumor pixels / all
-A1_k_L1_dice,0.9023,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L1, dice"
-A1_k_L2_dice,0.8663,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L2, dice"
-A1_k_L0_dice,0.8102,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L0, dice"
-A1_r_L0_dice,0.7553,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L0, dice"
-A1_r_L1_dice,0.7362,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L1, dice"
-A1_r_L2_dice,0.5622,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L2, dice"
-A1_r_fusion_precision,0.7101,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, precision"
-A1_k_fusion_precision,0.9254,Whole-slide segmentation by provider and level,268,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, precision"
-TABLE_A1,(table rows),Whole-slide segmentation by provider and level,272,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,Table: provider x level metrics
-A1_r_stroma_in,23.8\%,Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma inside tumor envelope predicted tumor (fusion)
-A1_r_stroma_out,1.2\%,Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma outside envelope predicted tumor
-A1_r_benign,15.5\%,Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud benign epithelium predicted tumor
-A1_k_canc,87.4\%,Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska cancerous region predicted tumor
-A1_k_benign,2.4\%,Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska benign tissue predicted tumor
-D13_n_ink,12,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/D13_pen_ink.csv,Karolinska WSIs with ink-like pixels
-D13_dice_noink,0.8995,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/D13_pen_ink.csv,Karolinska Dice without pixels near ink
-B4_c_pool_L1,0.0106,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; difference
-B4_c_pool_L1_lo,0.0062,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; ci_low
-B4_c_pool_L1_hi,0.0151,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; ci_high
-B4_c_slide_L1,$-$0.0021,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; difference"
-B4_c_slide_L1_lo,$-$0.0086,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; ci_low"
-B4_c_slide_L1_hi,0.0043,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; ci_high"
-A4_v_c_pool,0.0054,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; difference"
-A4_v_c_pool_lo,0.0010,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; ci_low"
-A4_v_c_pool_hi,0.0098,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; ci_high"
-A4_v_c_slide,$-$0.0110,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; difference"
-A4_v_c_slide_lo,$-$0.0179,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; ci_low"
-A4_v_c_slide_hi,$-$0.0041,Paired comparisons of fusion and single levels,279,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; ci_high"
-B4_cov_L1_tum,98.9\%,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of reference tumor in support
-B4_o_pool_L1,0.0058,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; difference
-B4_o_pool_L1_lo,0.0017,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; ci_low
-B4_o_pool_L1_hi,0.0100,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; ci_high
-A4_v_o_pool,0.0004,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; difference"
-A4_v_o_pool_lo,$-$0.0039,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; ci_low"
-A4_v_o_pool_hi,0.0047,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; ci_high"
-A4_v_l_pool,$-$0.0001,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; difference"
-A4_v_l_pool_lo,$-$0.0045,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; ci_low"
-A4_v_l_pool_hi,0.0043,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; ci_high"
-B4_o_slide_L1,$-$0.0076,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; difference"
-B4_o_slide_L1_lo,$-$0.0140,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; ci_low"
-B4_o_slide_L1_hi,$-$0.0013,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; ci_high"
-B4_s_slide_L1,$-$0.0083,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; difference"
-B4_s_slide_L1_lo,$-$0.0146,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; ci_low"
-B4_s_slide_L1_hi,$-$0.0019,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; ci_high"
-A1_pc_k_pool_L1,$-$0.0002,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; difference"
-A1_pc_k_pool_L1_lo,$-$0.0059,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; ci_low"
-A1_pc_k_pool_L1_hi,0.0057,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; ci_high"
-A1_pc_r_pool_L1,0.0323,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; difference"
-A1_pc_r_pool_L1_lo,0.0271,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; ci_low"
-A1_pc_r_pool_L1_hi,0.0382,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; ci_high"
-A1_pc_k_slide_L1,$-$0.0317,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; difference"
-A1_pc_k_slide_L1_lo,$-$0.0429,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; ci_low"
-A1_pc_k_slide_L1_hi,$-$0.0208,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; ci_high"
-A1_pc_r_slide_L1,0.0239,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; difference"
-A1_pc_r_slide_L1_lo,0.0176,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; ci_low"
-A1_pc_r_slide_L1_hi,0.0307,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; ci_high"
-B2_de_pool,5.8,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,design effect at which the pooled CI reaches 0
-B2_meff,1.60,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,expected test WSIs per patient (max design effect at rho=1)
-TABLE_B4,(table rows),Paired comparisons of fusion and single levels,289,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv; PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,Table: paired contrasts
-TABLE_B4COV,(table rows),Paired comparisons of fusion and single levels,300,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_common_support_dice.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,Table: own vs common support
-B6_q1_max,0.62,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 upper area
-B6_q1_fus,0.5510,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 mean fused Dice
-B6_q1_diff,$-$0.0149,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 fusion-L1
-B6_q1_lo,$-$0.0325,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 ci_low
-B6_q1_hi,0.0024,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 ci_high
-B6_q4_diff,0.0087,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 fusion-L1
-B6_q4_lo,0.0038,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 ci_low
-B6_q4_hi,0.0137,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 ci_high
-B6_q1_r,210,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 Radboud WSIs
-B6_q1_n,282,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 WSIs
-B6_zero_extra,8,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,zero-overlap WSIs with non-empty prediction
-B6_miss_min,0.0001,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,min reference area of zero-overlap WSIs
-B6_miss_max,2.04,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,max reference area of zero-overlap WSIs
-B6_lim_L0,0.0031,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L0 5% of a fully annotated patch (mm2)
-B6_lim_L1,0.050,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L1 5% of a fully annotated patch (mm2)
-B6_lim_L2,0.79,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L2 5% of a fully annotated patch (mm2)
-B6_below_L1,2.0\%,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,share of tumor-bearing WSIs below the L1 limit
-B6_below_L2,32.1\%,Per-slide distribution and tumor size,314,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,share below the L2 limit
-TABLE_B6,(table rows),Per-slide distribution and tumor size,320,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Table: size strata
-D3_isup0,432,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,reference-negative with ISUP 0
-D3_isup_pos,19,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,reference-negative with ISUP >= 1
-D3_isup_pos_k,3,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,karolinska ISUP>=1
-D3_isup_pos_r,16,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,radboud ISUP>=1
-D3_k_any,120,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska any FP
-D3_k_n,292,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska n
-D3_r_any,114,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud any FP
-D3_r_n,159,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud n
-D3_p_med_area,0.076,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,median FP area among WSIs with FP
-D3_p_p90_area,0.67,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,90th percentile FP area
-D3_p_max_area,2.21,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,max FP area
-D3_p_med_largest,0.025,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,median largest FP component
-D3_p_ge001,149,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,pooled WSIs with FP component >= 0.01 mm2
-D3_k_ge001,86,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska WSIs with FP component >= 0.01 mm2
-D3_r_ge001,63,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud WSIs with FP component >= 0.01 mm2
-D3_r_med_foci,48,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud median FP components among WSIs with FP
-D3_k_med_foci,15,Reference-negative WSIs,324,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska median FP components among WSIs with FP
-D5_hd_med_um,144,Boundary quality,330,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,HD95 median um
-D5_hd_mean_um,719,Boundary quality,330,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,HD95 mean um
-D5_as_med_um,29,Boundary quality,330,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,ASSD median um
-D5_sd_mean,0.7413,Boundary quality,330,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,surface Dice mean
-TABLE_D5,(table rows),Boundary quality,335,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,Table: boundary metrics
-A1_k_fusion_dice,0.8995,Reported Dice of prostate tumor segmentation studies,386,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
-A1_r_fusion_dice,0.7605,Reported Dice of prostate tumor segmentation studies,387,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
-S_tiles_test,"2,122",External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_test
-S_slides_test,31,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_test
-S_patients_test,21,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_test
-S_t_tile_dice,0.6535,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, per patch, Dice"
-S_t_tile_pat_lo,0.5574,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,patient CI low
-S_t_tile_pat_hi,0.7170,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,patient CI high
-S_t_tile_prec,0.5844,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,precision
-S_t_tile_rec,0.7412,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,recall
-S_t_dd_dice,0.6277,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, deduplicated, Dice"
-S_t_dd_pat_lo,0.5500,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup patient CI low
-S_t_dd_pat_hi,0.6852,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup patient CI high
-S_t_dd_wsi_lo,0.5563,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI low
-S_t_dd_wsi_hi,0.6841,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI high
-S_tiles_all,"18,783",External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_all
-S_a_tile_dice,0.5713,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"all patches, per patch, Dice"
-S_l_tile_dice,0.6525,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"listed, Dice"
-S_l_tile_prec,0.6162,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,listed precision
-S_u_tile_prec,0.0012,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,unlisted precision
-S_u_fp_share,41.2\%,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,unlisted share of FP pixels
-S_coord_diff,0.0012,External evaluation on SICAPv2,415,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"region minus constant coordinates, test partition, per patch"
-TABLE_SICAP,(table rows),External evaluation on SICAPv2,420,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,Table: SICAPv2
-P_f_subj_lo,0.5129,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,fusion subject CI low
-P_f_subj_hi,0.6983,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,subject CI high
-P_f_wsi_lo,0.5132,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,"fusion WSI CI low (10,000 resamples)"
-P_f_wsi_hi,0.6964,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,WSI CI high
-P_fl1_diff,0.0246,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,fusion-L1
-P_fl1_lo,0.0026,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,ci_low
-P_fl1_hi,0.0442,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,ci_high
-P_neg_area_total,1.91,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,tumor-free FP area mm2
-P_neg_comp,"6,225",External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,tumor-free FP components
-P_neg_comp_med,306,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,median FP components per tumor-free WSI
-P_neg_maxcomp,0.057,External evaluation on PRECISE,433,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,largest FP component mm2
-TABLE_PRECISE,(table rows),External evaluation on PRECISE,440,PANDA_Reproducibility/external_precise_wsi/results/tables/external_wsi_metrics_per_level_and_fusion.csv; PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv; PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv; PANDA_Reproducibility/external_precise_wsi/results/tables/per_slide_wsi_metrics.csv,Table: PRECISE
-P_lab4_pred,40.5\%,External evaluation on PRECISE,443,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 4 predicted-tumor share
-P_lab6_pred,50.7\%,External evaluation on PRECISE,443,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 6 predicted-tumor share
-P_lab5_pred,61.9\%,External evaluation on PRECISE,443,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 5 predicted-tumor share
-P_lab2_pred,15.9\%,External evaluation on PRECISE,443,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 2 predicted-tumor share
-P_lab7_pred,2.9\%,External evaluation on PRECISE,443,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 7 predicted-tumor share
-TABLE_PRECISE_LABELS,(table rows),External evaluation on PRECISE,448,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,Table: PRECISE labels
-A1_k_fusion_dice,0.8995,Discussion,461,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
-A1_r_fusion_dice,0.7605,Discussion,461,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
-A1_p_fusion_dice,0.8522,Discussion,461,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
-A1_r_stroma_in,23.8\%,Discussion,461,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma inside tumor envelope predicted tumor (fusion)
-A1_k_canc_missed,12.6\%,Discussion,461,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska cancerous region not predicted
-B4_c_pool_L1,0.0106,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; difference
-A4_v_c_pool,0.0054,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; difference"
-B4_o_pool_L1,0.0058,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; difference
-A4_v_o_pool,0.0004,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; difference"
-A1_k_fusion_dice,0.8995,Conclusion,475,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
-A1_r_fusion_dice,0.7605,Conclusion,475,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
-A1_p_fusion_dice,0.8522,Conclusion,475,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
-S_t_dd_dice,0.6277,Conclusion,475,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, deduplicated, Dice"
+Z2_cap,32,Dataset and image-level data separation,122,PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json,candidate_cap_per_class_slide_level
+Z2_cap,32,Preprocessing and multiresolution patch extraction,145,PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json,candidate_cap_per_class_slide_level
+Z2_max_stored,8,Preprocessing and multiresolution patch extraction,145,PANDA_Reproducibility/revision_2026-10-30/tables/Z2_extraction_counts.json,"largest number of stored patches per WSI, level and class"
+PREP_n_sel,"80,000",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,rows of the selected training manifest
+PREP_bucket_min,"13,333",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,smallest level-class bucket
+PREP_bucket_max,"13,334",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,largest level-class bucket
+PREP_n_tumor,"40,000",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,selected tumor patches
+PREP_n_normal,"40,000",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,selected normal patches
+PREP_n_wsi,"7,351",Feature engineering and structured data construction,153,PANDA_Reproducibility/selected/train_selected.csv,training WSIs with at least one selected patch
+TABLE_PREP,(table rows),Feature engineering and structured data construction,158,PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L0.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L1.stats.json; PANDA_Reproducibility/manifests/coordinate_pools/362d30ace92ce17128d176137362b8c2_L2.stats.json; PANDA_Reproducibility/revision_2026-10-30/tables/Z2_extraction_counts.json; PANDA_Reproducibility/qc/05_select_final.json; PANDA_Reproducibility/selected/train_selected.csv,Table: candidate selection of the Fig 2 WSI; stored and selected buckets
+Z2_L0n_stored,"56,869",Feature engineering and structured data construction,161,PANDA_Reproducibility/qc/05_select_final.json,available (stored) L0 normal training patches
+B4_cov_L0_av,92.7\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L0 share of annotated pixels in support
+B4_cov_L1_av,98.4\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of annotated pixels in support
+B4_cov_L2_av,97.0\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L2 share of annotated pixels in support
+B4_cov_L0_tum,94.3\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L0 share of reference tumor in support
+B4_cov_L1_tum,98.9\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of reference tumor in support
+B4_cov_L2_tum,97.9\%,Dense whole-slide inference and late fusion,182,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L2 share of reference tumor in support
+B2_meff,1.60,Performance metrics and statistical analysis,192,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,expected test WSIs per patient (max design effect at rho=1)
+D5_tol_um,16,Boundary-focused evaluation,199,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,surface-Dice tolerance (median um)
+S_tiles_all,"18,783",External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_all
+S_slides_all,155,External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_all
+S_patients_all,95,External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_all
+S_tiles_test,"2,122",External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_test
+S_slides_test,31,External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_test
+S_patients_test,21,External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_test
+S_tiles_listed,"12,081",External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_listed
+S_tiles_unlisted,"6,702",External validation on SICAPv2,202,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_unlisted
+Z6_t_unscored,43.1\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: reference tumor pixels outside the scored region
+Z6_a_unscored,45.2\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,all tiles: reference tumor pixels outside the scored region
+Z6_t_unscored_bright,39.7\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: bright (mean RGB > 215) share of the unscored reference pixels
+A1_k_fusion_dice,0.8995,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
+D6_k_lo,0.8876,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, karolinska, ci_low"
+D6_k_hi,0.9104,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, karolinska, ci_high"
+A1_r_fusion_dice,0.7605,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
+D6_r_lo,0.7519,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, radboud, ci_low"
+D6_r_hi,0.7687,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, radboud, ci_high"
+A1_p_fusion_dice,0.8522,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
+D6_p_lo,0.8414,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, unstratified, ci_low"
+D6_p_hi,0.8618,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, unstratified, ci_high"
+D6_ps_lo,0.8425,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, provider-stratified, ci_low"
+D6_ps_hi,0.8615,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, provider-stratified, ci_high"
+A1_k_tumor_share,68.2\%,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,Karolinska reference tumor pixels / all
+A1_k_L1_dice,0.9023,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L1, dice"
+A1_k_L2_dice,0.8663,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L2, dice"
+A1_k_L0_dice,0.8102,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=L0, dice"
+A1_r_L0_dice,0.7553,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L0, dice"
+A1_r_L1_dice,0.7362,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L1, dice"
+A1_r_L2_dice,0.5622,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=L2, dice"
+A1_r_fusion_precision,0.7101,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, precision"
+A1_k_fusion_precision,0.9254,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, precision"
+TABLE_A1,(table rows),Whole-slide segmentation by provider and level,274,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,Table: provider x level metrics
+A1_r_stroma_in,23.8\%,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma inside tumor envelope predicted tumor (fusion)
+A1_r_stroma_out,1.2\%,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma outside envelope predicted tumor
+A1_r_benign,15.5\%,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud benign epithelium predicted tumor
+A1_k_canc,87.4\%,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska cancerous region predicted tumor
+A1_k_benign,2.4\%,Whole-slide segmentation by provider and level,276,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska benign tissue predicted tumor
+D13_n_ink,12,Whole-slide segmentation by provider and level,278,PANDA_Reproducibility/revision_2026-10-30/tables/D13_pen_ink.csv,Karolinska WSIs with ink-like pixels
+D13_dice_noink,0.8995,Whole-slide segmentation by provider and level,278,PANDA_Reproducibility/revision_2026-10-30/tables/D13_pen_ink.csv,Karolinska Dice without pixels near ink
+B4_c_pool_L1,0.0106,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; difference
+B4_c_pool_L1_lo,0.0062,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; ci_low
+B4_c_pool_L1_hi,0.0151,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; ci_high
+B4_c_slide_L1,$-$0.0021,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; difference"
+B4_c_slide_L1_lo,$-$0.0086,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; ci_low"
+B4_c_slide_L1_hi,0.0043,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,"common support, tumor-bearing; slide; fusion-L1; ci_high"
+A4_v_c_pool,0.0054,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; difference"
+A4_v_c_pool_lo,0.0010,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; ci_low"
+A4_v_c_pool_hi,0.0098,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; ci_high"
+A4_v_c_slide,$-$0.0110,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; difference"
+A4_v_c_slide_lo,$-$0.0179,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; ci_low"
+A4_v_c_slide_hi,$-$0.0041,Paired comparisons of fusion and single levels,281,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; slide; fusion-L1; ci_high"
+B4_cov_L1_tum,98.9\%,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,L1 share of reference tumor in support
+B4_o_pool_L1,0.0058,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; difference
+B4_o_pool_L1_lo,0.0017,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; ci_low
+B4_o_pool_L1_hi,0.0100,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; ci_high
+A4_v_o_pool,0.0004,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; difference"
+A4_v_o_pool_lo,$-$0.0039,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; ci_low"
+A4_v_o_pool_hi,0.0047,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; ci_high"
+A4_v_l_pool,$-$0.0001,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; difference"
+A4_v_l_pool_lo,$-$0.0045,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; ci_low"
+A4_v_l_pool_hi,0.0043,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, level-specific thresholds (L1 0.40, fusion 0.43); pooled; fusion-L1; ci_high"
+B4_o_slide_L1,$-$0.0076,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; difference"
+B4_o_slide_L1_lo,$-$0.0140,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; ci_low"
+B4_o_slide_L1_hi,$-$0.0013,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,"original: own support, zero-coded; slide; fusion-L1; ci_high"
+B4_s_slide_L1,$-$0.0083,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; difference"
+B4_s_slide_L1_lo,$-$0.0146,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; ci_low"
+B4_s_slide_L1_hi,$-$0.0019,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B4_per_slide_rule_sensitivity.csv,"own support, slides without reference tumor in the level's support dropped; slide; fusion-L1; ci_high"
+A1_pc_k_pool_L1,$-$0.0002,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; difference"
+A1_pc_k_pool_L1_lo,$-$0.0059,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; ci_low"
+A1_pc_k_pool_L1_hi,0.0057,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support; pooled; fusion-L1; ci_high"
+A1_pc_r_pool_L1,0.0323,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; difference"
+A1_pc_r_pool_L1_lo,0.0271,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; ci_low"
+A1_pc_r_pool_L1_hi,0.0382,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support; pooled; fusion-L1; ci_high"
+A1_pc_k_slide_L1,$-$0.0317,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; difference"
+A1_pc_k_slide_L1_lo,$-$0.0429,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; ci_low"
+A1_pc_k_slide_L1_hi,$-$0.0208,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"karolinska, common support, tumor-bearing; slide; fusion-L1; ci_high"
+A1_pc_r_slide_L1,0.0239,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; difference"
+A1_pc_r_slide_L1_lo,0.0176,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; ci_low"
+A1_pc_r_slide_L1_hi,0.0307,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_paired_contrasts.csv,"radboud, common support, tumor-bearing; slide; fusion-L1; ci_high"
+B2_de_pool,5.8,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,design effect at which the pooled CI reaches 0
+B2_meff,1.60,Paired comparisons of fusion and single levels,283,PANDA_Reproducibility/revision_2026-10-30/tables/B2_design_effect.csv,expected test WSIs per patient (max design effect at rho=1)
+TABLE_B4,(table rows),Paired comparisons of fusion and single levels,291,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv; PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,Table: paired contrasts
+TABLE_B4COV,(table rows),Paired comparisons of fusion and single levels,302,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_common_support_dice.csv; PANDA_Reproducibility/revision_2026-10-30/tables/B4_level_support_coverage.csv,Table: own vs common support
+B6_q1_max,0.62,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 upper area
+B6_q1_fus,0.5510,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 mean fused Dice
+B6_q1_diff,$-$0.0149,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 fusion-L1
+B6_q1_lo,$-$0.0325,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 ci_low
+B6_q1_hi,0.0024,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 ci_high
+B6_q4_diff,0.0087,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 fusion-L1
+B6_q4_lo,0.0038,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 ci_low
+B6_q4_hi,0.0137,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q4 ci_high
+B6_q1_r,210,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 Radboud WSIs
+B6_q1_n,282,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Q1 WSIs
+B6_zero_extra,8,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,zero-overlap WSIs with non-empty prediction
+B6_miss_min,0.0001,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,min reference area of zero-overlap WSIs
+B6_miss_max,2.04,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_complete_misses.csv,max reference area of zero-overlap WSIs
+B6_lim_L0,0.0031,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L0 5% of a fully annotated patch (mm2)
+B6_lim_L1,0.050,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L1 5% of a fully annotated patch (mm2)
+B6_lim_L2,0.79,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,L2 5% of a fully annotated patch (mm2)
+B6_below_L1,2.0\%,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,share of tumor-bearing WSIs below the L1 limit
+B6_below_L2,32.1\%,Per-slide distribution and tumor size,316,PANDA_Reproducibility/revision_2026-10-30/tables/B6_borderline_rule.csv,share below the L2 limit
+TABLE_B6,(table rows),Per-slide distribution and tumor size,322,PANDA_Reproducibility/revision_2026-10-30/tables/B6_size_strata.csv,Table: size strata
+D3_isup0,432,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,reference-negative with ISUP 0
+D3_isup_pos,19,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,reference-negative with ISUP >= 1
+D3_isup_pos_k,3,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,karolinska ISUP>=1
+D3_isup_pos_r,16,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slides_by_grade.csv,radboud ISUP>=1
+D3_k_any,120,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska any FP
+D3_k_n,292,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska n
+D3_r_any,114,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud any FP
+D3_r_n,159,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud n
+D3_p_med_area,0.076,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,median FP area among WSIs with FP
+D3_p_p90_area,0.67,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,90th percentile FP area
+D3_p_max_area,2.21,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,max FP area
+D3_p_med_largest,0.025,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,median largest FP component
+D3_p_ge001,149,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,pooled WSIs with FP component >= 0.01 mm2
+D3_k_ge001,86,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska WSIs with FP component >= 0.01 mm2
+D3_r_ge001,63,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud WSIs with FP component >= 0.01 mm2
+D3_r_med_foci,48,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,radboud median FP components among WSIs with FP
+D3_k_med_foci,15,Reference-negative WSIs,326,PANDA_Reproducibility/revision_2026-10-30/tables/D3_negative_slide_fp_by_provider.csv,karolinska median FP components among WSIs with FP
+D5_hd_med_um,144,Boundary quality,332,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,HD95 median um
+D5_hd_mean_um,719,Boundary quality,332,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,HD95 mean um
+D5_as_med_um,29,Boundary quality,332,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,ASSD median um
+D5_sd_mean,0.7413,Boundary quality,332,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,surface Dice mean
+TABLE_D5,(table rows),Boundary quality,337,PANDA_Reproducibility/revision_2026-10-30/tables/D5_boundary_nonempty.csv,Table: boundary metrics
+A1_k_fusion_dice,0.8995,Reported Dice of prostate tumor segmentation studies,388,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
+A1_r_fusion_dice,0.7605,Reported Dice of prostate tumor segmentation studies,389,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
+SED_years,17,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/revision_2026-10-30/tables/review_facts.json,S.E.D. years in pathology including residency (statement of 31 Oct 2026)
+S2_slides,4,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,slides of the 100 reviewed SICAPv2 images
+S2_patients,3,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,patients of the 100 reviewed SICAPv2 images
+S2_test_phrase,none of them belongs,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,reviewed SICAPv2 images in the official test partition
+Z6_a_bright_scored,8.6\%,Pathologist-guided qualitative error analysis,406,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,all tiles: share of bright reference pixels inside the scored region
+S_tiles_test,"2,122",External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_test
+S_slides_test,31,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_test
+S_patients_test,21,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,patients_test
+S_t_tile_dice,0.6535,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, per patch, Dice"
+S_t_tile_pat_lo,0.5574,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,patient CI low
+S_t_tile_pat_hi,0.7170,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,patient CI high
+S_t_tile_prec,0.5844,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,precision
+S_t_tile_rec,0.7412,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,recall
+S_t_dd_dice,0.6277,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, deduplicated, Dice"
+S_t_dd_pat_lo,0.5500,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup patient CI low
+S_t_dd_pat_hi,0.6852,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup patient CI high
+S_t_dd_wsi_lo,0.5563,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI low
+S_t_dd_wsi_hi,0.6841,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI high
+S_tiles_all,"18,783",External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_all
+S_a_tile_dice,0.5713,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"all patches, per patch, Dice"
+S_l_tile_dice,0.6525,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"listed, Dice"
+S_l_tile_prec,0.6162,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,listed precision
+S_u_tile_prec,0.0012,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,unlisted precision
+S_u_fp_share,41.2\%,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,unlisted share of FP pixels
+S_coord_diff,0.0012,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"region minus constant coordinates, test partition, per patch"
+TABLE_SICAP,(table rows),External evaluation on SICAPv2,422,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,Table: SICAPv2
+P_f_subj_lo,0.5129,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,fusion subject CI low
+P_f_subj_hi,0.6983,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,subject CI high
+P_f_wsi_lo,0.5132,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,"fusion WSI CI low (10,000 resamples)"
+P_f_wsi_hi,0.6964,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv,WSI CI high
+P_fl1_diff,0.0246,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,fusion-L1
+P_fl1_lo,0.0026,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,ci_low
+P_fl1_hi,0.0442,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv,ci_high
+P_neg_area_total,1.91,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,tumor-free FP area mm2
+P_neg_comp,"6,225",External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,tumor-free FP components
+P_neg_comp_med,306,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,median FP components per tumor-free WSI
+P_neg_maxcomp,0.057,External evaluation on PRECISE,435,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_summary.json,largest FP component mm2
+TABLE_PRECISE,(table rows),External evaluation on PRECISE,442,PANDA_Reproducibility/external_precise_wsi/results/tables/external_wsi_metrics_per_level_and_fusion.csv; PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_ci.csv; PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_paired.csv; PANDA_Reproducibility/external_precise_wsi/results/tables/per_slide_wsi_metrics.csv,Table: PRECISE
+P_lab4_pred,40.5\%,External evaluation on PRECISE,445,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 4 predicted-tumor share
+P_lab6_pred,50.7\%,External evaluation on PRECISE,445,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 6 predicted-tumor share
+P_lab5_pred,61.9\%,External evaluation on PRECISE,445,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 5 predicted-tumor share
+P_lab2_pred,15.9\%,External evaluation on PRECISE,445,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 2 predicted-tumor share
+P_lab7_pred,2.9\%,External evaluation on PRECISE,445,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,label 7 predicted-tumor share
+TABLE_PRECISE_LABELS,(table rows),External evaluation on PRECISE,450,PANDA_Reproducibility/revision_2026-10-30/precise/PRECISE_labels.csv,Table: PRECISE labels
+A1_k_fusion_dice,0.8995,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
+A1_r_fusion_dice,0.7605,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
+A1_p_fusion_dice,0.8522,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
+A1_r_stroma_in,23.8\%,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Radboud stroma inside tumor envelope predicted tumor (fusion)
+A1_k_canc_missed,12.6\%,Discussion,463,PANDA_Reproducibility/revision_2026-10-30/tables/A1_raw_label_prediction.csv,Karolinska cancerous region not predicted
+B4_c_pool_L1,0.0106,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_common_support.csv,common support; pooled; fusion-L1; difference
+A4_v_c_pool,0.0054,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common support, 0.43; pooled; fusion-L1; difference"
+B4_o_pool_L1,0.0058,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; difference
+A4_v_o_pool,0.0004,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; difference"
+Z6_t_unscored,43.1\%,Limitations,474,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: reference tumor pixels outside the scored region
+A1_k_fusion_dice,0.8995,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
+A1_r_fusion_dice,0.7605,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
+A1_p_fusion_dice,0.8522,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"
+S_t_dd_dice,0.6277,Conclusion,477,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"test partition, deduplicated, Dice"

@@ -79,7 +79,8 @@ for j, name in enumerate(("H&E", "Reference", "Prediction", "Error map")):
     axs[0, j].text(0.5, 1.04, name, transform=axs[0, j].transAxes, ha="center", va="bottom")
 from matplotlib.patches import Patch
 fig.legend(handles=[Patch(color=np.array(c) / 255, label=l) for c, l in (([60, 170, 90], "Overlap"), ([240, 190, 40], "False negative"), ([210, 60, 60], "False positive"), ([230, 230, 230], "True-negative tissue"))],
-           loc="outside lower center", ncol=4, frameon=False)
+           loc="outside lower center", ncol=4, frameon=False,
+           title="Error map (white: not scored)", title_fontsize=8)
 record = {"figure": "Fig 11", "sources": [source(SRC, WORK)], "panels": panels,
           "parameters": {"threshold": thr, "coordinate": [0.5, 0.5], "selection": "test partition, reference >= 10% of valid, Dice percentiles 20/40/60/80"},
           "checkpoint": str(ck)}
