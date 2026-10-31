@@ -1,0 +1,13 @@
+{
+  "title": "PANDA prostate cancer segmentation: code, manifests and result files for \"Prostate cancer segmentation in PANDA biopsy images by late fusion of three pyramid levels, with provider-specific and external evaluation\"",
+  "upload_type": "software",
+  "description": "Pipeline code, configurations, split and selection manifests, model checkpoint, training history, WSI probability caches (with the release panda-wsi-cache-complement-20261027), per-case result files, figure scripts with provenance logs, and the manuscript sources of the PLOS ONE submission. The PANDA, SICAPv2 and PRECISE images are not redistributed; they are available from their public releases under their own licenses.",
+  "creators": [
+    {"name": "Almobayed, Hamza"},
+    {"name": "Yilmaz, Ali"},
+    {"name": "Senturk, Umit"},
+    {"name": "Erdogan Duzcu, Selma"}
+  ],
+  "license": "MIT",
+  "keywords": ["prostate cancer", "digital pathology", "segmentation", "PANDA", "whole-slide images", "reproducibility"]
+}

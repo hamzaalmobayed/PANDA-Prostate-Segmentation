@@ -101,9 +101,9 @@ All edits are in `manuscript/PANDA_template.tex`. Both `.tex` files were regener
   - `make_S1_table.py` now maps Fig 11 → Fig 7, Fig 14A–C → Fig 9A–C and Fig 15A–C → Fig 10A–C.
   - `S1_Table.xlsx` and `.csv` were regenerated: in the delivery folder and in `supporting_information/`.
 - **Y5. PANDA licence — done.**
-  - [10] (Bulten et al., Nat Med 2022) writes "Creative Commons BY-SA-NC 4.0". The PANDA site and the organizers' blog use the same form.
-  - The Kaggle data page needs a login and could not be read here. **Please check its wording when you upload.**
-  - The Ethics statement and the Data Availability text in `FORM_TEXTS.md` now give both forms: the organizers' wording with the citation, and the Creative Commons name, "Attribution-NonCommercial-ShareAlike 4.0 International license (CC BY-NC-SA 4.0)".
+  - [10] (Bulten et al., Nat Med 2022) writes "Creative Commons BY-SA-NC 4.0".
+  - The Kaggle competition page and the PANDA Grand Challenge data page write "CC BY-SA-NC 4.0". The Grand Challenge page says: "please take the license (CC BY-SA-NC 4.0) into account and make sure you cite the PANDA paper".
+  - The Ethics statement now reads: "the Kaggle competition page and the challenge paper [10] state the license as CC BY-SA-NC 4.0, that is, the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license (CC BY-NC-SA 4.0)". The Data Availability text in `FORM_TEXTS.md` says the same.
 - **Y6. S1 Appendix builds from the delivery folder — done.**
   - `make_s1_appendix.py` no longer writes an absolute `\graphicspath`. It copies its three images next to `S1_Appendix.tex`: `stain_target_train.png`, `S1_augmentation.png` and `S1_confusion.png`.
   - The augmentation and confusion figures are renamed from `Fig05_augmentation.png` and `Fig10_confusion.png`, because Figs 5 and 10 are now other figures.
@@ -153,16 +153,19 @@ S.E.D. must also approve:
 - **Licence of the derived data files.** MIT or CC BY 4.0? This is marked in `FORM_TEXTS.md`.
 - **Form (C5).** Funding, competing interests, preprint or previous presentation, ORCIDs, e-mail addresses and the cover letter. Drafts are in `FORM_TEXTS.md`.
 - **[12] Ström 2020 erratum.**
-  - The erratum is "Correction to Lancet Oncol 2020; 21: 222–32" (Lancet Oncol 2020;21:e70; doi:10.1016/S1470-2045(20)30032-2; PMID 32007202). Its text is behind the publisher's login and could not be read here.
+  - The erratum is "Correction to Lancet Oncol 2020; 21: 222–32" (Lancet Oncol 2020;21:e70; doi:10.1016/S1470-2045(20)30032-2; PMID 32007202).
+  - Europe PMC lists a free PDF: https://www.thelancet.com/pdfs/journals/lanonc/PIIS1470-2045(20)30032-2.pdf. The publisher blocks automated downloads (HTTP 403), so it could not be read here. It opens in a normal browser.
   - The manuscript cites [12] once, together with [13], for a general statement in the Introduction: grading systems are often optimized for slide-level classification. It cites no number or result from that paper.
   - Please read the notice and confirm that it does not affect this statement.
-- **Repository (C4).** After all corrections:
-  - merge `revision-2026-10-30` into `main`;
-  - tag a release and archive it on Zenodo;
-  - put the DOI in the Data Availability text.
-
-  This needs your GitHub and Zenodo accounts, so it was not done here. The branch is pushed; see the commit below.
-- **GitHub cache.** Ask GitHub Support to purge the cached views of `d2070e8f04`. This needs your account.
+- **Repository (C4).**
+  - **Merged:** `main` was fast-forwarded to the revision branch on 31 October 2026, so `main` and `revision-2026-10-30` are the same commit; nothing was lost.
+  - **Zenodo — prepared, needs your Zenodo login.** `.zenodo.json` (title, the four authors, MIT, keywords) is in the repository root, so the Zenodo record takes its metadata from it. The repository has no Zenodo webhook yet, which means a release made now would get no DOI. Steps:
+    1. In Zenodo (log in with GitHub), open *GitHub* and switch on `hamzaalmobayed/PANDA-Prostate-Segmentation`.
+    2. Create a release: `gh release create v1.0.0 --target main --title "PLOS ONE submission" --notes "Code and result files of the PLOS ONE submission"`. Zenodo then archives it and issues a DOI.
+    3. Put the DOI (the "concept" DOI, which always points to the latest version) in place of `[doi:10.5281/zenodo.XXXXXXX]` in the Data Availability text of `FORM_TEXTS.md`.
+  - If S.E.D.'s corrections change the manuscript files later, a new release gets a new version under the same concept DOI.
+- **GitHub cache.** Ask GitHub Support (https://support.github.com, "Remove sensitive data") to purge the cached views of `d2070e8f04`. It needs a request from the repository owner's account, so it could not be done here.
+- **NAAS.** Upload `tiff/Fig1.tif` … `Fig12.tif` to PLOS NAAS (free account). The same rules were checked here and all 12 pass (see Checks).
 
 ## Checks
 
