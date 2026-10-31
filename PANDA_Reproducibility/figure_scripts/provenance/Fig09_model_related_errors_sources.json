@@ -3,7 +3,7 @@
   "outputs": {
     "png": {
       "file": "Fig09_model_related_errors.png",
-      "sha256": "4f0c68c9a5e0e932453de15ef9018f7c816ab2dfaa1ec07ba61940618357ae76",
+      "sha256": "798c706055a4a43097056577855fa771035aa36bdd7a9d808347c90b216a2187",
       "size_px": [
         2250,
         2403
@@ -11,7 +11,7 @@
     },
     "tif": {
       "file": "Fig9.tif",
-      "sha256": "1705cbfb7e0581d1a4ceb2d3d9332ab6eed897fb6b0ca9ea60303c7f8cf5ab3a",
+      "sha256": "8342aab3bf10d0bc18f70338a1f45fd543f10a6ca211a986beb1f8e211f84551",
       "size_px": [
         2250,
         2403
@@ -20,14 +20,14 @@
   },
   "script": {
     "file": "make_figures_9_10.py",
-    "sha256": "f3ce6e3f9e6678ba10739853527aea8716cfff6023cd86dc36f203d3e4973e15",
+    "sha256": "78256ece472e0d3b901b0141faf223a9e9f3254c0b1f0d5494a13ba682ed482e",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figures_9_10.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-31T12:57:16Z",
+  "generated_utc": "2026-10-31T16:04:32Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -186,8 +186,8 @@
           "sha256": "05b5e61b17ef66d40fcb904ac15112e42664dfd91b99233edd16d5f7d9eca0d5"
         }
       },
-      "category": "Cellular crowding",
-      "pathologist_finding": "Densely crowded cells predicted as tumor."
+      "category": "Crowded hyperplastic glands",
+      "pathologist_finding": "Closely packed hyperplastic glands with reduced stroma predicted as tumor."
     }
   },
   "parameters": {

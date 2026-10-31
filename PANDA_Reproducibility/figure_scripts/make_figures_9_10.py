@@ -4,8 +4,10 @@ Both figures use the detail images saved during the test run for each
 reviewed WSI (paper_results/test_visuals_bad_review/bad_<id>/*_detail_*.png).
 Case labels and findings are the pathologist's (S.E.D.); "GT" is written
 "Reference". Labels of 31 Oct 2026: 9A "mistaken for tumor"; 9B finding as in
-the text (densely packed cells in benign-appearing tissue); 9C "Cellular
-crowding", which has no specific entity name. The SICAPv2 panel D of Fig 10
+the text (densely packed cells in benign-appearing tissue); 9C "Crowded
+hyperplastic glands" (S.E.D.: closely packed hyperplastic glands with reduced
+stroma, with mild nuclear enlargement and hyperchromasia of the epithelium,
+were predicted as tumor). The SICAPv2 panel D of Fig 10
 was removed: on the official release mask the tile did not show the reported
 finding. Drawn with SciencePlots and the PLOS font settings
 (provenance_log.plos_style). Case identifiers, providers, stored Dice values
@@ -49,7 +51,8 @@ COLUMNS = ("H&E", "Reference", "Prediction", "Error map")
 FIG9 = [("A", "Benign mimic", "Benign glands mistaken for tumor.", "15bf6b34c8ce10b0eddf687e3a670e4d"),
         ("B", "Possible benign mimic", "Densely packed small cells in benign-appearing tissue resemble carcinoma.",
          "13813facc985c2ea007fdf764ef98a5a"),
-        ("C", "Cellular crowding", "Densely crowded cells predicted as tumor.", "b49d54b4f7e73808440c36fa240614c0")]
+        ("C", "Crowded hyperplastic glands", "Closely packed hyperplastic glands with reduced stroma predicted as tumor.",
+         "b49d54b4f7e73808440c36fa240614c0")]
 FIG10 = [("A", "Broader reference than prediction", "Reference includes additional benign tissue.",
           "9848ee7cc45f7cd373b155191085f06a"),
          ("B", "Possible stain-associated discrepancy", "Annotation may extend into non-tumorous tissue.",
