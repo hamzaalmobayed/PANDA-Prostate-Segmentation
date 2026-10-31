@@ -1,10 +1,9 @@
 {
  "n":100,
- "reference_negative":27,
+ "reference_negative":30,
  "slides":4,
  "patients":3,
- "in_test_partition":0,
- "skipped_without_result_folder":[
-  "1.jpg"
- ]
+ "in_test_partition":23,
+ "dice_below_0.80":76,
+ "saved_result_folders":2628
 }

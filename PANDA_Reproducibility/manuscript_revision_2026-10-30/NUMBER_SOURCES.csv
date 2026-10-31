@@ -170,9 +170,11 @@ TABLE_D5,(table rows),Boundary quality,337,PANDA_Reproducibility/revision_2026-1
 A1_k_fusion_dice,0.8995,Reported Dice of prostate tumor segmentation studies,388,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
 A1_r_fusion_dice,0.7605,Reported Dice of prostate tumor segmentation studies,389,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
 SED_years,17,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/revision_2026-10-30/tables/review_facts.json,S.E.D. years in pathology including residency (statement of 31 Oct 2026)
+S2_saved,"2,628",Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,first-run SICAPv2 images with saved per-image results
 S2_slides,4,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,slides of the 100 reviewed SICAPv2 images
 S2_patients,3,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,patients of the 100 reviewed SICAPv2 images
-S2_test_phrase,none of them belongs,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,reviewed SICAPv2 images in the official test partition
+S2_test_phrase,23 of them belong,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,reviewed SICAPv2 images in the official test partition
+S2_dice_low,76,Pathologist-guided qualitative error analysis,393,PANDA_Reproducibility/supporting_information/S2_Table_summary.json,reviewed SICAPv2 images with first-run Dice < 0.80
 Z6_a_bright_scored,8.6\%,Pathologist-guided qualitative error analysis,406,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,all tiles: share of bright reference pixels inside the scored region
 S_tiles_test,"2,122",External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_test
 S_slides_test,31,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,slides_test
