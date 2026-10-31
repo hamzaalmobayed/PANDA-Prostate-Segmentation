@@ -350,6 +350,8 @@ def build(reg: Registry):
     reg.put("S2_patients", str(s2["patients"]), rel(s2_p), "patients of the 100 reviewed SICAPv2 images")
     reg.put("S2_test_phrase", "none of them belongs" if s2["in_test_partition"] == 0 else f"{s2['in_test_partition']} of them belong",
             rel(s2_p), "reviewed SICAPv2 images in the official test partition")
+    reg.put("S2_saved", thousands(s2["saved_result_folders"]), rel(s2_p), "first-run SICAPv2 images with saved per-image results")
+    reg.put("S2_dice_low", str(s2["dice_below_0.80"]), rel(s2_p), "reviewed SICAPv2 images with first-run Dice < 0.80")
 
     # ---- SICAPv2 scored region (tissue rule)
     sr_p = reg.sicap / "SICAP_scored_region.csv"

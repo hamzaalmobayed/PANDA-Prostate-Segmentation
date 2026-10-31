@@ -1,11 +1,11 @@
 """S2 Table: the 100 SICAPv2 images of the pathologist-guided review.
 
 The review used the per-image result folders of the first SICAPv2 run (renamed
-Kaggle copy, 0.jpg, 1.jpg, ...). The images are the first 100 with Dice < 0.80
-in the processing order of that run (the row order of
-external_sicapv2/results/tables/per_external_image_metrics.csv) among the
-images that have a saved result folder. The folder names are listed in
-external_sicapv2/results/review/saved_result_folders.txt.
+Kaggle copy, 0.jpg, 1.jpg, ...), one folder per image, named by the image number.
+The folder names are listed in external_sicapv2/results/review/saved_result_folders.txt.
+The images are the first 100 folders in numeric order of their names (0, 10, 11,
+100, ...), the order in which the folders were shown and reviewed, selected
+without regard to Dice.
 
 Each result folder holds combined_original_gt_model_error.png, whose first
 panel is the original 512 x 512 H&E image, pixel for pixel (rows 170-681,
@@ -24,14 +24,13 @@ import pandas as pd
 from PIL import Image
 
 REP, RES, SIC, OUT = (Path(a) for a in sys.argv[1:5])
-N, DICE_MAX = 100, 0.80
+N = 100
 
 m = pd.read_csv(REP / "external_sicapv2/results/tables/per_external_image_metrics.csv")
-saved = set((REP / "external_sicapv2/results/review/saved_result_folders.txt").read_text().split())
+saved = (REP / "external_sicapv2/results/review/saved_result_folders.txt").read_text().split()
 m["stem"] = m.image_name.str[:-4]
-sel = m[m.stem.isin(saved) & (m.dice < DICE_MAX)].head(N).copy()
+sel = m.set_index("stem").loc[sorted(saved, key=int)[:N]].reset_index()
 assert len(sel) == N
-skipped = m[~m.stem.isin(saved) & (m.dice < DICE_MAX) & (m.index < sel.index.max())]
 
 digest = lambda a: hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()
 want = {}
@@ -63,6 +62,6 @@ s2.to_csv(OUT / "S2_Table.csv", index=False)
 summary = {"n": N, "reference_negative": int((s2["Reference tumor in valid tissue"] == "No").sum()),
            "slides": int(s2.Slide.nunique()), "patients": int(s2.Patient.nunique()),
            "in_test_partition": int((s2["Official test partition"] == "Yes").sum()),
-           "skipped_without_result_folder": skipped.image_name.tolist()}
+           "dice_below_0.80": int((sel.dice < 0.80).sum()), "saved_result_folders": len(saved)}
 pd.Series(summary).to_json(OUT / "S2_Table_summary.json", indent=1)
 print(s2.head().to_string(index=False)); print(summary)
