@@ -65,7 +65,7 @@ SICAPV2_ROOT=<SICAPv2 folder> python figure_scripts/provenance_index.py figure_s
 | Fig 5, 8 | `figure_scripts/make_figures_5_8.py` | `runs/final_main_training/history.csv`; `paper_results/tables/threshold_sensitivity_validation.csv`, `best_threshold.json` |
 | Fig 6 | `figure_scripts/make_figure_6.py` | `revision_2026-10-30/tables/cache_per_slide_stats_test.csv` |
 | Fig 7, 12 | `figure_scripts/make_figures_7_12.py` | `paper_results/test_visuals_bad_review/` (one reviewed test WSI) and its WSI cache; PRECISE WSI caches and saved visuals |
-| Fig 9, 10 | `figure_scripts/make_figures_9_10.py` | `paper_results/test_visuals_bad_review/` (WSIs in S1 Table) and their WSI caches; one SICAPv2 tile in `external_sicapv2_official/results/figure_tile/` |
+| Fig 9, 10 | `figure_scripts/make_figures_9_10.py` | `paper_results/test_visuals_bad_review/` (WSIs in S1 Table) and their WSI caches |
 | Fig 11 | `figure_scripts/make_figure_11.py` | `external_sicapv2_official/results/tables/per_tile_metrics.csv`, the SICAPv2 release, the checkpoint |
 | S1 Appendix figures | `figure_scripts/make_S1_figures.py` | one selected L0 training patch (training-time Vahadane copy); `paper_results/tables/patch_metrics_per_level_and_pooled.csv` |
 
@@ -104,7 +104,7 @@ with its source file in `manuscript_revision_2026-10-30/NUMBER_SOURCES.csv`.
 
 | Table | Output file | Written by |
 |---|---|---|
-| 1 Patch preparation | `manifests/coordinate_pools/<Fig 2 WSI>_L*.stats.json`, `selected/train_selected.csv` | pipeline (candidate grid, selection); fill |
+| 1 Patch preparation | `manifests/coordinate_pools/<Fig 2 WSI>_L*.stats.json`, `revision_2026-10-30/tables/Z2_extraction_counts.json`, `qc/05_select_final.json`, `selected/train_selected.csv` | pipeline (candidate grid, selection); fill |
 | 2 Cohort | `paper_results/tables/dataset_counts_verified.json`, `split_ids_reproducibility.csv` | `PANDA_Pipeline/run_full_panda_paper.py` (`panda_stream_paper.py`) |
 | 3 Pilot configurations | `paper_results/tables/pilot_ablation_results.csv` | `run_full_panda_paper.py` (pilot stage) |
 | 4 Encoder comparison | `paper_results/tables/pilot_encoder_comparison.csv` | `run_full_panda_paper.py` (pilot stage) |
@@ -122,6 +122,9 @@ with its source file in `manuscript_revision_2026-10-30/NUMBER_SOURCES.csv`.
 
 S1 Table (the 30 WSIs of the pathologist-guided review) is in
 `supporting_information/` and is produced by `figure_scripts/make_S1_table.py`.
+S2 Table (the 100 SICAPv2 images of the review) is in `supporting_information/` and is produced by
+`analysis_scripts/revision_2026-10-30/make_S2_table.py` from the first run's per-image results
+(`external_sicapv2/results/review/saved_result_folders.txt`) and the official release.
 S1 Appendix (`manuscript_revision_2026-10-30/S1_Appendix.tex`) is written by
 `analysis_scripts/revision_2026-10-30/make_s1_appendix.py`.
 
@@ -159,6 +162,15 @@ S1 Appendix (`manuscript_revision_2026-10-30/S1_Appendix.tex`) is written by
   batch 8, lr 2e-4, weight decay 1e-4).
 - **Original data.** Original PANDA WSIs and masks are not redistributed:
   https://www.kaggle.com/competitions/prostate-cancer-grade-assessment/data
-- **External results.** The SICAPv2 evaluation used an all-images fallback index,
-  not the official test partition. PRECISE was evaluated with a separate full-WSI
+- **External results.** The first SICAPv2 run (`external_sicapv2/`) used an
+  all-images fallback index on a renamed copy, not the official test partition; the
+  manuscript reports the official release (`external_sicapv2_official/`), and the
+  first run is kept for the review cases. PRECISE was evaluated with a separate full-WSI
   protocol. Neither is interchangeable with the PANDA held-out evaluation.
+
+## Licenses
+
+The code is under the MIT license (`../LICENSE`). Files derived from PANDA images or
+masks (figures with PANDA panels, the stain target, review images, WSI caches) are
+under CC BY-NC-SA 4.0, as the PANDA license requires; files derived from SICAPv2 and
+PRECISE keep CC BY 4.0. `../DATA_LICENSES.md` lists the files.

@@ -243,6 +243,7 @@ fresh_diff_e = float(np.abs(vahadane(raw_e).astype(int) - norm_e.astype(int)).me
 src4 = pick(1, "tumor", src=all_rows)
 x4 = vahadane(rgb(src4.img))
 gt4 = binary(src4["mask"])
+valid4 = binary(src4["valid_mask"])
 PROV = prov_dir(OUT)
 Image.fromarray(x4).save(PROV / "Fig04_input_normalized.png")
 model = UNetEfficientNetB4()
@@ -306,13 +307,20 @@ arrow(ax, (cx, 0.57), (cx, cy - 0.1), color="#8a4ee6")
 rbox(ax, 6.1, mid(dec[3]) - 0.23, 0.32, 0.46, "#dcefd1", "#4f9d2f")
 ax.text(6.26, mid(dec[3]), "1×1\nconv", ha="center", va="center")
 arrow(ax, (dec[3][0] + dec[3][1], mid(dec[3])), (6.08, mid(dec[3])))
-image_axes(fig, HF, 6.52, 4.15, 0.9, 0.9, prob4, edge="#555").images[0].set_cmap("magma")
+prob_im = image_axes(fig, HF, 6.52, 4.15, 0.9, 0.9, prob4, edge="#555").images[0]
+prob_im.set_cmap("magma"); prob_im.set_clim(0, 1)
 ax.text(6.97, 5.1, "Tumor probability", ha="center", va="bottom", fontweight="bold", color=NAVY)
-ax.text(6.97, 4.08, "1 @ 512×512", ha="center", va="top")
+cbar = fig.colorbar(prob_im, cax=fig.add_axes([6.52 / 7.5, 4.0 / HF, 0.9 / 7.5, 0.07 / HF]), orientation="horizontal",
+                    ticks=[0, 0.5, 1])
+cbar.ax.minorticks_off(); cbar.ax.tick_params(length=2, pad=1)
 arrow(ax, (6.42, mid(dec[3])), (6.5, mid(dec[3])))
-image_axes(fig, HF, 6.52, 2.65, 0.9, 0.9, gt4.astype(float), edge="#555", gray=True)
-ax.text(6.97, 3.62, "Reference mask", ha="center", va="bottom", fontweight="bold", color=NAVY)
-ax.text(6.97, 2.58, "same patch", ha="center", va="top")
+# reference as in Fig 2C: white tumor, gray annotated non-tumor tissue, black not annotated (label 0)
+ref4 = np.zeros(gt4.shape + (3,), np.uint8)
+ref4[valid4] = (110, 110, 110)
+ref4[gt4 & valid4] = (255, 255, 255)
+image_axes(fig, HF, 6.52, 2.55, 0.9, 0.9, ref4, edge="#555")
+ax.text(6.97, 3.52, "Reference mask", ha="center", va="bottom", fontweight="bold", color=NAVY)
+ax.text(6.97, 2.48, "same patch", ha="center", va="top")
 ax.text(0.2, 2.4, "Encoder", fontweight="bold", color="#8a6100", va="top")
 ax.text(0.2, 2.22, "ImageNet-pretrained\nEfficientNet-B4", va="top", color="#8a6100")
 ax.text(6.25, 2.1, "Decoder", fontweight="bold", color="#1d5fa8", va="top")
@@ -327,7 +335,9 @@ save(fig, "Fig04_architecture.png", "Fig4.tif", {
                                                           epoch=ck.get("epoch") if isinstance(ck, dict) else None),
                                      "coords_input": [float(src4.coord_x), float(src4.coord_y)],
                                      "probability_range": [round(float(prob4.min()), 6), round(float(prob4.max()), 6)]},
-               "reference_mask": {"tumor_mask": source(src4["mask"], WORK)}},
+               "reference_mask": {"tumor_mask": source(src4["mask"], WORK), "valid_mask": source(src4["valid_mask"], WORK),
+                                  "shown": "white tumor, gray annotated non-tumor tissue, black not annotated"},
+               "probability_colour_scale": "magma, 0-1, colour bar below the map"},
     "parameters": {"patch_choice": "stored L1 tumor patch of the slide (any stored patch); fewest mask seams, then most tissue",
                    "vahadane_target": source(target_path, WORK), "vahadane_numpy_seed": VAHADANE_SEED,
                    "encoder_channels": list(ch)}},

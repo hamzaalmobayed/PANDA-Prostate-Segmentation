@@ -303,26 +303,63 @@ def build(reg: Registry):
     fig2_wsi = "362d30ace92ce17128d176137362b8c2"  # the WSI of Fig 2 (figure_scripts/provenance/Fig02_preprocessing_sources.json)
     stats = {lv: json.loads((pools / f"{fig2_wsi}_L{lv}.stats.json").read_text()) for lv in (0, 1, 2)}
     sstats = "; ".join(rel(pools / f"{fig2_wsi}_L{lv}.stats.json") for lv in (0, 1, 2))
-    rows = ["\\multicolumn{4}{l}{\\textit{Candidate grid of the training WSI in Fig~\\ref{fig:prep}}}\\\\",
+    z2_p = T / "Z2_extraction_counts.json"
+    z2 = json.loads(z2_p.read_text())
+    sel_q = reg.rev / "qc" / "05_select_final.json"
+    stored = {(s["level"], s["category"]): s["available"] for s in json.loads(sel_q.read_text())["details"]["selection"]}
+    cap = {stats[lv]["candidate_cap_per_class_slide_level"] for lv in (0, 1, 2)}
+    assert len(cap) == 1
+    cap = cap.pop()
+    rows = ["\\multicolumn{4}{l}{\\textit{Candidate selection on the training WSI in Fig~\\ref{fig:prep}}}\\\\",
             "Level & L0 & L1 & L2\\\\\\midrule"]
     for key, lab in (("grid_positions_total", "Grid positions"), ("rejected_low_tissue", "Rejected: tissue fraction below threshold"),
                      ("rejected_low_valid_annotation", "Rejected: little annotated tissue"),
                      ("rejected_mixed_borderline", "Rejected: tumor fraction $>0$ and $<0.05$"),
                      ("eligible_normal_before_cap", "Eligible normal (tumor fraction 0)"),
-                     ("eligible_tumor_before_cap", "Eligible tumor (tumor fraction $\\geq0.05$)")):
+                     ("eligible_tumor_before_cap", "Eligible tumor (tumor fraction $\\geq0.05$)"),
+                     ("normal_candidates_after_cap", f"Pooled normal (at most {cap})"),
+                     ("tumor_candidates_after_cap", f"Pooled tumor (at most {cap})")):
         rows.append(f"{lab} & " + " & ".join(thousands(stats[lv][key]) for lv in (0, 1, 2)) + "\\\\")
+    for cat in ("normal", "tumor"):
+        rows.append(f"Stored {cat} & " + " & ".join(thousands(z2["fig2_wsi_stored"][f"L{lv}_{cat}"]) for lv in (0, 1, 2)) + "\\\\")
     sel_p = reg.rev / "selected" / "train_selected.csv"
     sel = pd.read_csv(sel_p, usecols=["image_id", "level", "category", "provider"])
     b = sel.groupby(["level", "category", "provider"]).size()
-    rows += ["\\midrule", "\\multicolumn{4}{l}{\\textit{Selected training patches, all training WSIs}}\\\\",
-             "Bucket & Karolinska & Radboud & Total\\\\\\midrule"]
+    rows += ["\\midrule", "\\multicolumn{4}{l}{\\textit{Stored and selected training patches, all training WSIs}}\\\\",
+             "& & \\multicolumn{2}{c}{Selected}\\\\",
+             "Bucket & Stored & Karolinska / Radboud & Total\\\\\\midrule"]
     for lv in (0, 1, 2):
         for cat in ("normal", "tumor"):
             k_, r_ = int(b.get((lv, cat, "karolinska"), 0)), int(b.get((lv, cat, "radboud"), 0))
-            rows.append(f"L{lv} {cat} & {thousands(k_)} & {thousands(r_)} & {thousands(k_ + r_)}\\\\")
+            rows.append(f"L{lv} {cat} & {thousands(stored[(lv, cat)])} & {thousands(k_)} / {thousands(r_)} & {thousands(k_ + r_)}\\\\")
     kt, rt = int(b.xs("karolinska", level="provider").sum()), int(b.xs("radboud", level="provider").sum())
-    rows.append(f"Total & {thousands(kt)} & {thousands(rt)} & {thousands(kt + rt)}\\\\")
-    reg.put("TABLE_PREP", "\n".join(rows) + "\n", f"{sstats}; {rel(sel_p)}", "Table: candidate grid of the Fig 2 WSI and selected buckets")
+    rows.append(f"Total & {thousands(sum(stored.values()))} & {thousands(kt)} / {thousands(rt)} & {thousands(kt + rt)}\\\\")
+    reg.put("TABLE_PREP", "\n".join(rows) + "\n", f"{sstats}; {rel(z2_p)}; {rel(sel_q)}; {rel(sel_p)}",
+            "Table: candidate selection of the Fig 2 WSI; stored and selected buckets")
+    reg.put("Z2_cap", str(cap), sstats, "candidate_cap_per_class_slide_level")
+    reg.put("Z2_max_stored", str(z2["stored_per_wsi_level_class_max"]), rel(z2_p), "largest number of stored patches per WSI, level and class")
+    reg.put("Z2_L0n_stored", thousands(stored[(0, "normal")]), rel(sel_q), "available (stored) L0 normal training patches")
+
+    # ---- pathologist review: S.E.D. statement and S2 Table
+    rf_p = T / "review_facts.json"
+    reg.put("SED_years", str(json.loads(rf_p.read_text())["sed_years_in_pathology_including_residency"]), rel(rf_p),
+            "S.E.D. years in pathology including residency (statement of 31 Oct 2026)")
+    s2_p = reg.rev / "supporting_information" / "S2_Table_summary.json"
+    s2 = json.loads(s2_p.read_text())
+    reg.put("S2_slides", str(s2["slides"]), rel(s2_p), "slides of the 100 reviewed SICAPv2 images")
+    reg.put("S2_patients", str(s2["patients"]), rel(s2_p), "patients of the 100 reviewed SICAPv2 images")
+    reg.put("S2_test_phrase", "none of them belongs" if s2["in_test_partition"] == 0 else f"{s2['in_test_partition']} of them belong",
+            rel(s2_p), "reviewed SICAPv2 images in the official test partition")
+
+    # ---- SICAPv2 scored region (tissue rule)
+    sr_p = reg.sicap / "SICAP_scored_region.csv"
+    sr = pd.read_csv(sr_p).set_index("subset")
+    for key, sub in (("t", "test partition"), ("a", "all tiles")):
+        reg.put(f"Z6_{key}_unscored", pct(sr.loc[sub, "reference_unscored_share"]), rel(sr_p), f"{sub}: reference tumor pixels outside the scored region")
+        reg.put(f"Z6_{key}_unscored_bright", pct(sr.loc[sub, "unscored_reference_bright_share"]), rel(sr_p),
+                f"{sub}: bright (mean RGB > 215) share of the unscored reference pixels")
+        reg.put(f"Z6_{key}_bright_scored", pct(sr.loc[sub, "reference_bright_scored_share"]), rel(sr_p),
+                f"{sub}: share of bright reference pixels inside the scored region")
     lvl = sel.groupby(["level", "category"]).size()
     reg.put("PREP_n_sel", thousands(len(sel)), rel(sel_p), "rows of the selected training manifest")
     reg.put("PREP_bucket_min", thousands(lvl.min()), rel(sel_p), "smallest level-class bucket")

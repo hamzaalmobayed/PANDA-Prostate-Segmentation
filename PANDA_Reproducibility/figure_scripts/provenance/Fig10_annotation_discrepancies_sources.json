@@ -3,31 +3,31 @@
   "outputs": {
     "png": {
       "file": "Fig10_annotation_discrepancies.png",
-      "sha256": "feea01c43e03906eaff174b67b64b46c870734394eb5ca88819da8ee91376f97",
+      "sha256": "7fb7b1adb2c939bdd62e9f4b27e434c286a835b10fa99d69363a3b31fab2d1c5",
       "size_px": [
         2250,
-        1158
+        2403
       ]
     },
     "tif": {
       "file": "Fig10.tif",
-      "sha256": "61dae2a9c375965a0900c1a72e72104189a84054da5d957f09eca81dc8a8f7c2",
+      "sha256": "ecced9941f829569e28c9db8072b85052c1c466efe41df3bb506481514e43d8a",
       "size_px": [
         2250,
-        1158
+        2403
       ]
     }
   },
   "script": {
     "file": "make_figures_9_10.py",
-    "sha256": "0321c5cda59528c3660e72a65f5402202c2622991bb05a9fa0ab9d6e339d44d7",
+    "sha256": "f3ce6e3f9e6678ba10739853527aea8716cfff6023cd86dc36f203d3e4973e15",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figures_9_10.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-30T15:58:19Z",
+  "generated_utc": "2026-10-31T12:59:10Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -188,66 +188,12 @@
       },
       "category": "Connected-foci convention",
       "pathologist_finding": "Reference joins separate tumor foci."
-    },
-    "D": {
-      "dataset": "SICAPv2 official release v2",
-      "tile": "16B0001851_Block_Region_1_0_0_xini_6803_yini_59786.jpg",
-      "earlier_figure": "0.jpg of the renamed Kaggle copy (first run); same H&E file (SHA-256)",
-      "first_run_dice": 0.7443,
-      "first_run_metrics_table": {
-        "path": "external_sicapv2/results/tables/per_external_image_metrics.csv",
-        "sha256": "6c80b7cd3ade99b8f79f43f85f567b0d0c101aab4d4e85ef616d2b09bfd83601"
-      },
-      "redrawn": {
-        "coordinates": [
-          0.5,
-          0.5
-        ],
-        "threshold": 0.43,
-        "counts": {
-          "tp": 30497,
-          "fp": 15674,
-          "tn": 8999,
-          "fn": 6696
-        },
-        "counts_official_run": {
-          "tp": 30498,
-          "fp": 15676,
-          "tn": 8997,
-          "fn": 6695
-        },
-        "dice": 0.7317,
-        "tile_record": {
-          "path": "external_sicapv2_official/results/figure_tile/16B0001851_Block_Region_1_0_0_xini_6803_yini_59786.json",
-          "sha256": "9950b92e737c10fbe59d2277e06099f7fadb2d4ac57850cc4c975b9b9b76d7a6"
-        }
-      },
-      "files": {
-        "he": {
-          "path": "external_sicapv2_official/results/figure_tile/16B0001851_Block_Region_1_0_0_xini_6803_yini_59786.jpg",
-          "sha256": "e741a2de01625da644e7e03c094eeaed992f0bf5b5b4e1725af1a6703b69089c"
-        },
-        "gt": {
-          "path": "external_sicapv2_official/results/figure_tile/16B0001851_Block_Region_1_0_0_xini_6803_yini_59786.png",
-          "sha256": "cf931fcece86c593df98e153930c70422a5ac19d1bc398b7f4133deb414b0974"
-        },
-        "model": {
-          "path": "external_sicapv2_official/results/figure_tile/16B0001851_Block_Region_1_0_0_xini_6803_yini_59786_pred_mask.png",
-          "sha256": "e23873ebefcc929bd89371f277eb00f7595adce31881e8db370f4db26d2d101b"
-        },
-        "error": {
-          "path": "external_sicapv2_official/results/figure_tile/16B0001851_Block_Region_1_0_0_xini_6803_yini_59786_error_map.png",
-          "sha256": "2349a59ea00a12998056e2c756f7a70b497d4561809fd65a9b9dd1e725827714"
-        }
-      },
-      "category": "Luminal spaces",
-      "pathologist_finding": "Reference includes internal luminal spaces."
     }
   },
   "parameters": {
     "panel_size_px": 520,
     "masks": "binary (> 0), nearest-neighbour resize",
-    "error_map": "saved evaluation error map, colours as in the legend",
-    "labels": "case categories and findings from the pathologist review; GT written as Reference; 9B 'Hypercellular benign mimic' -> 'Possible benign mimic' (D4)"
+    "error_map": "saved evaluation error map, colours as in the legend; white = outside the scored region",
+    "labels": "case categories and findings from the pathologist review (S.E.D.); GT written as Reference"
   }
 }

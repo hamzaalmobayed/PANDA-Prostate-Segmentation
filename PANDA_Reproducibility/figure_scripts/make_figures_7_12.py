@@ -114,7 +114,8 @@ for ax, (img, lab), let in zip(axs.flat, panels, "ABCDEF"):
     show(ax, img, gray=img.ndim == 2)
     ax.set_xlabel(lab)
     letter(ax, let)
-fig.legend(handles=LEGEND, loc="outside lower center", ncol=4, frameon=False, title="Error map", title_fontsize=8)
+fig.legend(handles=LEGEND, loc="outside lower center", ncol=4, frameon=False, title="Error map (white: not scored)",
+           title_fontsize=8)
 save(fig, "Fig07_qualitative_good.png", "Fig7.tif", {
     "figure": "Fig 7",
     "panels": {"A-F": {"dataset": "PANDA", "split": "test", "slide_id": FIG7_WSI, "provider": m7.provider,
@@ -190,8 +191,8 @@ for i, ((let, sid, panels, m), ph) in enumerate(zip(rows12, sizes)):
     fig.text(0.5, (y - 0.08) / H_IN, f"Dice {m['fusion_dice']:.4f}, precision {m['fusion_precision']:.4f}, "
              f"recall {m['fusion_recall']:.4f}", ha="center", va="top")
     y -= METRICS + ROW_GAP
-fig.legend(handles=LEGEND, loc="lower center", bbox_to_anchor=(0.5, 0.0), ncol=4, frameon=False, title="Error map",
-           title_fontsize=8)
+fig.legend(handles=LEGEND, loc="lower center", bbox_to_anchor=(0.5, 0.0), ncol=4, frameon=False,
+           title="Error map (white: not scored)", title_fontsize=8)
 save(fig, "Fig12_precise_external.png", "Fig12.tif", {
     "figure": "Fig 12", "panels": src12,
     "parameters": {"prediction": f"fused probability >= {THR} inside the evaluation tissue mask", "grid": "16x",

@@ -60,8 +60,9 @@ def fig5():
     ax1.set_ylabel("Loss")
     ax2.set_ylim(0.78, 0.85); ax2.set_yticks(np.arange(0.78, 0.8401, 0.01))
     ax2.set_ylabel("Validation Dice")
-    ax1.axvline(best.epoch, color="#FF9500", ls=":", lw=0.9)
-    ax1.axvline(mloss.epoch, color="#845B97", ls=":", lw=0.9)
+    # each marker line has the colour of the series it refers to
+    ax1.axvline(best.epoch, color="#00B945", ls=":", lw=0.9)
+    ax1.axvline(mloss.epoch, color="#FF9500", ls=":", lw=0.9)
     # labels beside their marker line, right-aligned for the earlier epoch so that they cannot overlap
     first, second = sorted([best.epoch, mloss.epoch])
     for e, txt in ((best.epoch, f"Highest validation Dice\nepoch {int(best.epoch)}, Dice {best.val_dice:.4f}"),
@@ -104,7 +105,7 @@ def fig8():
                     arrowprops=dict(arrowstyle="-", color=colors[k], lw=0.6))
     ax.set_xlabel("Threshold"); ax.set_ylabel("Score")
     ax.set_xlim(0.285, 0.715); ax.set_ylim(0.60, 0.98)
-    ax.set_xticks([0.30, 0.35, thr, 0.50, 0.55, 0.60, 0.65, 0.70])
+    ax.set_xticks(np.arange(0.30, 0.701, 0.05))  # regular ticks; the selected threshold is the dashed line
     ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1.0), frameon=False)
     save(fig, "Fig08_threshold_sweep.png", "Fig8.tif", {
         "figure": "Fig 8",

@@ -3,7 +3,7 @@
   "outputs": {
     "png": {
       "file": "Fig11_sicap_external.png",
-      "sha256": "7f81dd48e4b95503ad64f1d0472205a62e41db82f4d7069fa24661d0365bf11c",
+      "sha256": "de0a8985ad954989c8f2fb6147575de51026155556b082fb3945315059e15bd4",
       "size_px": [
         2250,
         2430
@@ -11,7 +11,7 @@
     },
     "tif": {
       "file": "Fig11.tif",
-      "sha256": "4c28eba7647683336c3ff58bb944f9c2133921428a22a5ed0bdc1c932c8b7e6a",
+      "sha256": "a8234983e128d4b0d4ed1c92c19b76cf1fa832aa58db31eff61d77c5dbb47a94",
       "size_px": [
         2250,
         2430
@@ -20,14 +20,14 @@
   },
   "script": {
     "file": "make_figure_11.py",
-    "sha256": "93c936f4468132679c8f49a53cd9a4cc1cea0edbe05ff62e98b1e5bae9834761",
+    "sha256": "2c07001f3ad6996f9c6a5f1d0b8b3b94038e5b5bac90daf994873f0ff2a0bc58",
     "helper": {
       "file": "provenance_log.py",
       "sha256": "dac608b7e0774f4de2da56735d390c8bd861b85538aae9a0bf7786b626d34386"
     },
     "command": "python make_figure_11.py <output_dir> <PANDA_DATA_ROOT>"
   },
-  "generated_utc": "2026-10-30T15:59:44Z",
+  "generated_utc": "2026-10-31T13:00:25Z",
   "environment": {
     "python": "3.10.0",
     "platform": "Windows-10-10.0.26200-SP0",
@@ -63,7 +63,7 @@
         "root": "SICAPV2_ROOT"
       },
       "stored_dice": 0.4768012491635066,
-      "redrawn_dice": 0.4767720707155206,
+      "redrawn_dice": 0.47675877645484205,
       "reference_share_of_valid": 0.25284390758766273
     },
     "B": {
@@ -80,7 +80,7 @@
         "root": "SICAPV2_ROOT"
       },
       "stored_dice": 0.61498957584895,
-      "redrawn_dice": 0.6150058892815077,
+      "redrawn_dice": 0.615027621706303,
       "reference_share_of_valid": 0.923719165085389
     },
     "C": {
@@ -97,7 +97,7 @@
         "root": "SICAPV2_ROOT"
       },
       "stored_dice": 0.7442031855993957,
-      "redrawn_dice": 0.7442078984459204,
+      "redrawn_dice": 0.7442168974380233,
       "reference_share_of_valid": 0.647751944997286
     },
     "D": {
@@ -114,7 +114,7 @@
         "root": "SICAPV2_ROOT"
       },
       "stored_dice": 0.8734023967879364,
-      "redrawn_dice": 0.8733582627086175,
+      "redrawn_dice": 0.8733798451394397,
       "reference_share_of_valid": 0.8873160195556016
     }
   },

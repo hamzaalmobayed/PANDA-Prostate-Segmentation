@@ -102,7 +102,7 @@ def augmentation():
 def confusion():
     csv = WORK / "paper_results" / "tables" / "patch_metrics_per_level_and_pooled.csv"
     t = pd.read_csv(csv).set_index("subset")
-    specs = [("A", "all_levels_pooled", 1), ("B", "L0", 1), ("C", "L1", 1), ("D", "L2", 2)]
+    specs = [("A", "all_levels_pooled", 2), ("B", "L0", 2), ("C", "L1", 2), ("D", "L2", 2)]
     pooled = t.loc[["L0", "L1", "L2"], ["tp", "fp", "tn", "fn"]].sum()
     assert (pooled == t.loc["all_levels_pooled", ["tp", "fp", "tn", "fn"]]).all()
     cmap = ListedColormap(["#174e82", "#e6f1fa", "#e8f2fb", "#c1dcf6"])
@@ -127,7 +127,7 @@ def confusion():
         "sources": {"patch_metrics": source(csv, WORK)},
         "values_shown": shown,
         "parameters": {"panels": "A pooled across levels, B L0, C L1, D L2",
-                       "cell_percent": "share of the panel's four counts; 2 decimals for L2, 1 elsewhere",
+                       "cell_percent": "share of the panel's four counts, 2 decimals in every panel",
                        "pooled": "sum of the L0, L1 and L2 counts (checked)"}}, WORK, __file__)
 
 
