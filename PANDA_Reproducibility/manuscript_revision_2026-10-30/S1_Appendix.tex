@@ -1,8 +1,8 @@
 \documentclass[10pt]{article}
 \usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage[margin=1in]{geometry}\usepackage{graphicx}\usepackage{booktabs}\usepackage{float}\usepackage{amsmath}\usepackage{url}
-\usepackage[labelfont=bf,labelsep=period]{caption}\renewcommand{\figurename}{S1 Appendix, Fig}\renewcommand{\tablename}{S1 Appendix, Table}
+\usepackage[labelfont=bf,labelsep=period]{caption}\renewcommand{\figurename}{S1 Text, Fig}\renewcommand{\tablename}{S1 Text, Table}
 \begin{document}
-\section*{S1 Appendix. Implementation details, patch-level audit, and supporting analyses}
+\section*{S1 Text. Implementation details, patch-level audit, and supporting analyses}
 \subsection*{Implementation and audit details}
 Candidate patch positions were checkpointed so that extraction could resume after storage or power interruptions. Training used channels-last memory layout and persistent data-loader workers. Epoch numbering in the training history begins at 1. The selected checkpoint had patch-level validation Dice 0.83316355 at epoch 11; the minimum validation loss, 0.622861, occurred at epoch 13 (\path{runs/final_main_training/history.csv}).
 
@@ -32,7 +32,7 @@ all levels pooled & 0.7831 & 0.6436 & 0.8343 & 0.7379 & 0.9614 & 0.9148\\
 \begin{table}[H]\centering\footnotesize
 \caption{\textbf{Paired comparisons of fusion and single levels within each provider (common scoring region, 10,000 WSI resamples).} Source: \texttt{revision\_2026-10-30/tables/A1\_provider\_paired\_contrasts.csv}.}
 \begin{tabular}{lllrrll}\toprule
-Provider & Estimand & Contrast & WSI $n$ & Difference & 95\% CI & Holm $p$\\\midrule
+Provider & Measure & Contrast & WSI $n$ & Difference & 95\% CI & Holm $p$\\\midrule
 Karolinska & pooled & Fusion$-$L0 & 818 & 0.1016 & [0.0929, 0.1110] & $<$0.0006\\
 Karolinska & pooled & Fusion$-$L1 & 818 & $-$0.0002 & [$-$0.0059, 0.0057] & 0.9570\\
 Karolinska & pooled & Fusion$-$L2 & 818 & 0.0379 & [0.0295, 0.0470] & $<$0.0006\\
@@ -50,7 +50,7 @@ Radboud & per slide & Fusion$-$L2 & 600 & 0.2497 & [0.2365, 0.2635] & $<$0.0006\
 \begin{table}[H]\centering\footnotesize
 \caption{\textbf{Design-effect sensitivity of the fusion-minus-L1 contrasts (common scoring region). The variance is inflated by $1+(m-1)\rho$ with $m$ the expected number of test WSIs per patient.} Source: \texttt{revision\_2026-10-30/tables/B2\_design\_effect.csv}.}
 \begin{tabular}{lrrrlr}\toprule
-Estimand & Difference & $\rho$ & Design effect & Inflated 95\% CI & Design effect for CI to reach 0\\\midrule
+Measure & Difference & $\rho$ & Design effect & Inflated 95\% CI & Design effect for CI to reach 0\\\midrule
 pooled & 0.0106 & 0.25 & 1.15 & [0.0059, 0.0153] & 5.78\\
 pooled & 0.0106 & 0.50 & 1.30 & [0.0056, 0.0156] & 5.78\\
 pooled & 0.0106 & 1.00 & 1.60 & [0.0050, 0.0162] & 5.78\\
@@ -125,7 +125,7 @@ fusion assd level0 px & 1334 & 243 & 270.6 & 38.3 & 792.5 & 0 & 9690\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{table}[H]\centering\footnotesize
-\caption{\textbf{First SICAPv2 run on 18,765 patches of a renamed Kaggle copy (all patches of its Train folder; constant coordinate). Replaced in the main text by the evaluation of the official release.} Source: \texttt{external\_sicapv2/results/tables/global\_external\_metrics.json}.}
+\caption{\textbf{First SICAPv2 run on 18,765 patches of a renamed Kaggle copy (all patches of its Train folder; constant coordinate). The main text reports the evaluation of the official release.} Source: \texttt{external\_sicapv2/results/tables/global\_external\_metrics.json}.}
 \begin{tabular}{lr}\toprule
 Metric & Value\\\midrule
 dice & 0.5737\\

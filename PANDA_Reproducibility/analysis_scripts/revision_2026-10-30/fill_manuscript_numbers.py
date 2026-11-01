@@ -128,7 +128,7 @@ def build(reg: Registry):
     rows.append(row(a4, "validation, common support, 0.43", "pooled", "fusion-L1", "Validation, pooled Dice"))
     rows.append(row(a4, "validation, common support, 0.43", "slide", "fusion-L1", "Validation, per-slide Dice"))
     rows.append("\\midrule")
-    rows.append("\\multicolumn{5}{l}{\\textit{Each level on its own support (earlier analysis)}}\\\\")
+    rows.append("\\multicolumn{5}{l}{\\textit{Each level on its own support (sensitivity analysis)}}\\\\")
     rows.append(row(b4o, "original: own support", "pooled", "fusion-L1", "Test, pooled Dice"))
     rows.append(row(b4o, "original: own support, zero-coded", "slide", "fusion-L1", "Test, per-slide Dice$^a$"))
     rows.append(row(a4, "validation, common threshold 0.43", "pooled", "fusion-L1", "Validation, pooled Dice"))
