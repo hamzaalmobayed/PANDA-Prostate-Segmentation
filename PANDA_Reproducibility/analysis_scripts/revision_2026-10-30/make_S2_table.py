@@ -63,5 +63,9 @@ summary = {"n": N, "reference_negative": int((s2["Reference tumor in valid tissu
            "slides": int(s2.Slide.nunique()), "patients": int(s2.Patient.nunique()),
            "in_test_partition": int((s2["Official test partition"] == "Yes").sum()),
            "dice_below_0.80": int((sel.dice < 0.80).sum()), "saved_result_folders": len(saved)}
+# the first run gave Dice 0 to every reference-negative image, so all of them count as Dice < 0.80
+pos = sel.gt_tumor_pixels.values > 0
+assert (sel.dice.values[~pos] == 0).all()
+summary.update({"reference_positive": int(pos.sum()), "reference_positive_dice_below_0.80": int((sel.dice.values[pos] < 0.80).sum())})
 pd.Series(summary).to_json(OUT / "S2_Table_summary.json", indent=1)
 print(s2.head().to_string(index=False)); print(summary)

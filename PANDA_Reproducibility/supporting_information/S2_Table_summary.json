@@ -5,5 +5,7 @@
  "patients":3,
  "in_test_partition":23,
  "dice_below_0.80":76,
- "saved_result_folders":2628
+ "saved_result_folders":2628,
+ "reference_positive":70,
+ "reference_positive_dice_below_0.80":46
 }

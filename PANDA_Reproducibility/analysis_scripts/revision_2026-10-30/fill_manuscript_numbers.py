@@ -352,6 +352,10 @@ def build(reg: Registry):
             rel(s2_p), "reviewed SICAPv2 images in the official test partition")
     reg.put("S2_saved", thousands(s2["saved_result_folders"]), rel(s2_p), "first-run SICAPv2 images with saved per-image results")
     reg.put("S2_dice_low", str(s2["dice_below_0.80"]), rel(s2_p), "reviewed SICAPv2 images with first-run Dice < 0.80")
+    reg.put("S2_neg", str(s2["reference_negative"]), rel(s2_p), "reviewed SICAPv2 images without reference tumor in the scored tissue")
+    reg.put("S2_pos", str(s2["reference_positive"]), rel(s2_p), "reviewed SICAPv2 images with reference tumor in the scored tissue")
+    reg.put("S2_pos_low", str(s2["reference_positive_dice_below_0.80"]), rel(s2_p),
+            "reference-positive reviewed SICAPv2 images with first-run Dice < 0.80")
 
     # ---- SICAPv2 scored region (tissue rule)
     sr_p = reg.sicap / "SICAP_scored_region.csv"

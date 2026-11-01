@@ -4,8 +4,13 @@ Candidate selection has four stages (panda_final_pipeline.py):
   eligible  grid positions that pass the tissue, annotation and class rules
             (coordinate_pools/<WSI>_L<l>.stats.json: eligible_*_before_cap);
   pooled    at most coordinate_pool_cap_per_class_slide_level (32) per WSI,
-            level and class, kept by seeded reservoir sampling, i.e. a uniform
-            random sample of the eligible positions (build_coordinate_pool);
+            level and class, kept by reservoir sampling, i.e. a uniform
+            random sample of the eligible positions (build_coordinate_pool).
+            The seed of each pool includes Python's hash() of (image_id,
+            level), which changes between processes, so a new run would draw
+            other pools; the pools drawn in this study are saved in
+            manifests/coordinate_pools/ and are reused when the pipeline is
+            run again;
   stored    pooled candidates read at full resolution in order of decreasing
             tissue fraction, whose class is confirmed on the full-resolution
             mask, written to patches/ (materialize_from_pool; manifests/patches.csv);
