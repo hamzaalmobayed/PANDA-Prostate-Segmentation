@@ -54,6 +54,10 @@ S_tiles_unlisted,"6,702",External validation on SICAPv2,202,PANDA_Reproducibilit
 Z6_t_unscored,43.1\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: reference tumor pixels outside the scored region
 Z6_a_unscored,45.2\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,all tiles: reference tumor pixels outside the scored region
 Z6_t_unscored_bright,39.7\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: bright (mean RGB > 215) share of the unscored reference pixels
+Z6_t_unscored_nb,26.0\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,"test partition: reference tumor pixels that are unscored and not bright, share of all reference tumor pixels"
+Z6_t_nb_below_floor,44.8\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,"test partition, unscored not-bright reference: saturation at or below the fixed floor 0.20"
+Z6_t_nb_floor_to_otsu,27.7\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,"test partition, unscored not-bright reference: saturation above the fixed floor 0.20 but at or below the patch's Otsu threshold"
+Z6_t_nb_cleanup,27.6\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,"test partition, unscored not-bright reference: saturation above the threshold, removed by the morphological cleanup"
 Z6_a_bright_scored,8.6\%,External validation on SICAPv2,204,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,all tiles: share of bright reference pixels inside the scored region
 A1_k_fusion_dice,0.8995,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
 D6_k_lo,0.8876,Whole-slide segmentation by provider and level,270,PANDA_Reproducibility/revision_2026-10-30/tables/D6_primary_ci_10000.csv,"fusion, karolinska, ci_low"
@@ -194,6 +198,14 @@ S_t_dd_pat_lo,0.5500,External evaluation on SICAPv2,417,PANDA_Reproducibility/ex
 S_t_dd_pat_hi,0.6852,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup patient CI high
 S_t_dd_wsi_lo,0.5563,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI low
 S_t_dd_wsi_hi,0.6841,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,dedup wsi CI high
+SR_rule_dd,0.6277,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition, reconstructed slide regions, Dice, scoring rule 'rule'"
+SR_repro,0.01\%,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"repeated predictions, tissue rule: scored pixels whose predicted class differs from the official run"
+SR_fixed_ref_scored,66.1\%,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition: reference tumor pixels inside the scored region, scoring rule 'fixed'"
+SR_rule_ref_scored,56.9\%,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition: reference tumor pixels inside the scored region, scoring rule 'rule'"
+SR_fixed_dd,0.6192,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition, reconstructed slide regions, Dice, scoring rule 'fixed'"
+SR_all_dd,0.5426,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition, reconstructed slide regions, Dice, scoring rule 'all'"
+SR_all_dd_prec,0.4449,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,all pixels scored: precision
+SR_all_dd_rec,0.6952,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,all pixels scored: recall
 S_tiles_all,"18,783",External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_facts.json,tiles_all
 S_a_tile_dice,0.5713,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"all patches, per patch, Dice"
 S_l_tile_dice,0.6525,External evaluation on SICAPv2,417,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_official_summary.csv,"listed, Dice"
@@ -230,6 +242,7 @@ A4_v_c_pool,0.0054,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tabl
 B4_o_pool_L1,0.0058,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/B4_paired_contrasts_original_rule.csv,original: own support; pooled; fusion-L1; difference
 A4_v_o_pool,0.0004,Discussion,465,PANDA_Reproducibility/revision_2026-10-30/tables/A4_validation_paired_contrasts.csv,"validation, common threshold 0.43; pooled; fusion-L1; difference"
 Z6_t_unscored,43.1\%,Limitations,474,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scored_region.csv,test partition: reference tumor pixels outside the scored region
+SR_all_dd,0.5426,Limitations,474,PANDA_Reproducibility/external_sicapv2_official/summary/SICAP_scoring_rules.csv,"test partition, reconstructed slide regions, Dice, scoring rule 'all'"
 A1_k_fusion_dice,0.8995,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=karolinska, map=fusion, dice"
 A1_r_fusion_dice,0.7605,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=radboud, map=fusion, dice"
 A1_p_fusion_dice,0.8522,Conclusion,477,PANDA_Reproducibility/revision_2026-10-30/tables/A1_provider_level_metrics.csv,"provider=pooled, map=fusion, dice"

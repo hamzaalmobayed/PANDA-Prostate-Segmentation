@@ -366,6 +366,29 @@ def build(reg: Registry):
                 f"{sub}: bright (mean RGB > 215) share of the unscored reference pixels")
         reg.put(f"Z6_{key}_bright_scored", pct(sr.loc[sub, "reference_bright_scored_share"]), rel(sr_p),
                 f"{sub}: share of bright reference pixels inside the scored region")
+    t_sr = sr.loc["test partition"]
+    reg.put("Z6_t_unscored_nb", pct(t_sr["reference_unscored_not_bright_share"]), rel(sr_p),
+            "test partition: reference tumor pixels that are unscored and not bright, share of all reference tumor pixels")
+    for grp, what in (("floor_to_otsu", "saturation above the fixed floor 0.20 but at or below the patch's Otsu threshold"),
+                      ("cleanup", "saturation above the threshold, removed by the morphological cleanup"),
+                      ("below_floor", "saturation at or below the fixed floor 0.20")):
+        reg.put(f"Z6_t_nb_{grp}", pct(t_sr[f"unscored_not_bright_{grp}_share"]), rel(sr_p),
+                f"test partition, unscored not-bright reference: {what}")
+
+    # ---- SICAPv2 Dice under three scoring rules (test partition, constant coordinate)
+    rr_p = reg.sicap / "SICAP_scoring_rules.csv"
+    rr = pd.read_csv(rr_p).set_index(["rule", "unit"])
+    for rule in ("rule", "fixed", "all"):
+        dd = rr.loc[(rule, "slide regions")]
+        reg.put(f"SR_{rule}_dd", f4(dd.dice), rel(rr_p), f"test partition, reconstructed slide regions, Dice, scoring rule '{rule}'")
+        reg.put(f"SR_{rule}_ref_scored", pct(rr.loc[(rule, "patches"), "reference_scored_share"]), rel(rr_p),
+                f"test partition: reference tumor pixels inside the scored region, scoring rule '{rule}'")
+    reg.put("SR_all_dd_prec", f4(rr.loc[("all", "slide regions"), "precision"]), rel(rr_p), "all pixels scored: precision")
+    reg.put("SR_all_dd_rec", f4(rr.loc[("all", "slide regions"), "recall"]), rel(rr_p), "all pixels scored: recall")
+    rp = rr.loc[("rule", "patches")]
+    # same scored pixels, so each pixel with another predicted class changes two of the four counts
+    reg.put("SR_repro", pct(rp.official_tile_counts_diff_px / 2 / (rp.tp + rp.fp + rp.tn + rp.fn), 2), rel(rr_p),
+            "repeated predictions, tissue rule: scored pixels whose predicted class differs from the official run")
     lvl = sel.groupby(["level", "category"]).size()
     reg.put("PREP_n_sel", thousands(len(sel)), rel(sel_p), "rows of the selected training manifest")
     reg.put("PREP_bucket_min", thousands(lvl.min()), rel(sel_p), "smallest level-class bucket")

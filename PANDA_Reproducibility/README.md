@@ -127,6 +127,12 @@ S2 Table (the 100 SICAPv2 images of the review) is in `supporting_information/` 
 (`external_sicapv2/results/review/saved_result_folders.txt`) and the official release.
 S1 Appendix (`manuscript_revision_2026-10-30/S1_Appendix.tex`) is written by
 `analysis_scripts/revision_2026-10-30/make_s1_appendix.py`.
+The SICAPv2 scored region (Methods) is computed without a model by
+`analysis_scripts/revision_2026-10-30/sicap_scored_region.py`
+(`external_sicapv2_official/summary/SICAP_scored_region.csv`). The test-partition Dice under two other
+scoring rules (Results) is computed by `PANDA_Pipeline/run_sicapv2_scoring_rules.py`, which predicts the
+test-partition patches again (`external_sicapv2_official/summary/SICAP_scoring_rules.csv`, per patch in
+`external_sicapv2_official/results/tables/scoring_rules_per_tile.csv`).
 
 ## Analysis scripts
 

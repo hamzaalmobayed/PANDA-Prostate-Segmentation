@@ -29,12 +29,15 @@ def normalize(rgb):
     return _PROC.transform(rgb)
 
 
-def generate_tissue_mask(rgb):
+def generate_tissue_mask(rgb, otsu=True):
+    """otsu=False uses the fixed threshold 0.20 alone (sensitivity analysis of 1 Nov 2026)."""
     hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
     sat = hsv[..., 1]
     try:
-        otsu, _ = cv2.threshold(sat, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        threshold = max(int(otsu), int(round(TISSUE_DEFAULT_THRESHOLD * 255)))
+        if not otsu:
+            raise ValueError
+        otsu_thr, _ = cv2.threshold(sat, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        threshold = max(int(otsu_thr), int(round(TISSUE_DEFAULT_THRESHOLD * 255)))
     except Exception:
         threshold = int(round(TISSUE_DEFAULT_THRESHOLD * 255))
     mask = sat > threshold
@@ -62,12 +65,25 @@ def prepare_sicap(paths):
     if m.shape[:2] != (h, w):
         m = cv2.resize(m, (w, h), interpolation=cv2.INTER_NEAREST)
     gt = m > 0
-    valid = generate_tissue_mask(rgb).astype(bool)
+    return _PROC.transform(rgb), gt, sicap_valid(rgb)
+
+
+def sicap_valid(rgb, otsu=True):
+    """Scored pixels of a SICAPv2 tile: the tissue rule with the fallbacks of prepare_sample()."""
+    valid = generate_tissue_mask(rgb, otsu).astype(bool)
     if valid.mean() < 0.01:
         valid = rgb.mean(axis=2) < 245
     if valid.mean() < 0.01:
-        valid = np.ones((h, w), bool)
-    return _PROC.transform(rgb), gt, valid
+        valid = np.ones(rgb.shape[:2], bool)
+    return valid
+
+
+def prepare_sicap_rules(paths):
+    """prepare_sicap() with the scored pixels of three rules: the tissue rule, every pixel,
+    and the tissue rule with the fixed threshold 0.20 instead of Otsu."""
+    img, gt, valid = prepare_sicap(paths)
+    rgb = np.asarray(Image.open(paths[0]).convert("RGB"), dtype=np.uint8)
+    return img, gt, {"rule": valid, "all": np.ones_like(valid), "fixed": sicap_valid(rgb, otsu=False)}
 
 
 def check_equivalence(paths):
