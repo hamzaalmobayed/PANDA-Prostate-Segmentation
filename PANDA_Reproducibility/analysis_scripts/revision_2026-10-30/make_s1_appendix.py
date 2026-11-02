@@ -57,10 +57,10 @@ def main():
     pm = pd.read_csv(R / "paper_results/tables/patch_metrics_per_level_and_pooled.csv")
     rows = [f"{r.subset.replace('_', ' ')} & {f4(r.dice)} & {f4(r.iou)} & {f4(r.precision)} & {f4(r.recall)} & {f4(r.specificity)} & {f4(r.accuracy)}"
             for r in pm.itertuples()]
-    body.append("\\subsection*{Patch-level audit}\nThe audit scores the stored test patches (at most two per class, level, and WSI). "
+    body.append("\\subsection*{Patch-level audit}\nThe audit pools the confusion counts of all patches processed during the dense reconstruction of the test WSIs, at threshold 0.50. "
                 "Overlapping patches count tissue locations repeatedly, and the L0 patches contribute 93.8\\% of the audited pixels, "
                 "so the pooled value is dominated by L0. These values are not comparable with the reconstructed WSI results.\n\n")
-    body.append(table("Patch-level audit on the stored test patches.", "lrrrrrr", "Subset & Dice & IoU & Precision & Recall & Specificity & Accuracy",
+    body.append(table("Patch-level audit on all patches of the dense test reconstruction.", "lrrrrrr", "Subset & Dice & IoU & Precision & Recall & Specificity & Accuracy",
                       rows, "paper_results/tables/patch_metrics_per_level_and_pooled.csv"))
     body.append("\\begin{figure}[H]\\centering\\includegraphics[width=\\linewidth]{S1_confusion.png}\n"
                 "\\caption{\\textbf{Patch-level confusion matrices.} (A) Pooled across levels, (B) L0, (C) L1, and (D) L2.}\\end{figure}\n\n")

@@ -32,7 +32,7 @@ import tifffile
 
 THR = np.float32(0.43)
 B = 10_000
-UM = 0.243 * 16
+UM = 0.243 * 16        # README value for every WSI; precise_pixel_size.py redoes the areas with each WSI's own pixel size
 LABELS = {0: ("Background", "not annotated tissue"), 1: ("Tumor", "tumor"), 2: ("Benign gland", "negative"),
           3: ("Artifact", "not scored"), 4: ("High-grade prostatic intraepithelial neoplasia", "not scored"),
           5: ("Intraductal carcinoma", "not scored"), 6: ("Atypical intraductal proliferation", "not scored"),

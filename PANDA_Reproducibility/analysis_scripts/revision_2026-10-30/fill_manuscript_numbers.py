@@ -259,6 +259,21 @@ def build(reg: Registry):
                     f"{f4(r.precision)} & {f4(r.recall)} & {f4(r.specificity)}\\\\")
     reg.put("TABLE_SICAP", "\n".join(rows) + "\n", sss, "Table: SICAPv2")
 
+    # ---- encoder pilots (best epoch of each run)
+    enc = pd.read_csv(reg.rev / "paper_results/tables/pilot_encoder_comparison.csv").set_index("encoder")
+    senc = "PANDA_Reproducibility/paper_results/tables/pilot_encoder_comparison.csv"
+    enc_names = {"resnet50": "ResNet-50", "resnet101": "ResNet-101", "efficientnet-b0": "EfficientNet-B0",
+                 "efficientnet-b2": "EfficientNet-B2", "efficientnet-b4": "EfficientNet-B4"}
+    best = enc.best_val_dice.idxmax()
+    rows = []
+    for e, nm in enc_names.items():
+        reg.put(f"ENC_{e.split('-')[-1]}_dice", f4(enc.loc[e, "best_val_dice"]), senc, f"{e} best_val_dice")
+        d, j = f4(enc.loc[e, "best_val_dice"]), f4(enc.loc[e, "best_val_iou"])
+        rows.append(f"{nm} & \\textbf{{{d}}} & \\textbf{{{j}}}\\\\" if e == best else f"{nm} & {d} & {j}\\\\")
+    reg.put("TABLE_ENC", "\n".join(rows) + "\n", senc, "Table: encoder comparison")
+    eff = enc.loc[[e for e in enc_names if e.startswith("efficientnet")], "best_val_dice"]
+    reg.put("ENC_eff_maxdiff", f"{eff.max() - eff.min():.3f}", senc, "largest Dice difference between the EfficientNet variants")
+
     # ---- PRECISE (run reported in the manuscript; analyses of precise_first_run_analyses.py)
     P = reg.precise
     pci = pd.read_csv(P / "PRECISE_ci.csv"); spci = rel(P / "PRECISE_ci.csv")
@@ -270,10 +285,18 @@ def build(reg: Registry):
     reg.put("P_f_subj_lo", f4(c("fusion", "subject").ci_low), spci, "fusion subject CI low"); reg.put("P_f_subj_hi", f4(c("fusion", "subject").ci_high), spci, "subject CI high")
     reg.put("P_f_wsi_lo", f4(c("fusion", "WSI").ci_low), spci, "fusion WSI CI low (10,000 resamples)"); reg.put("P_f_wsi_hi", f4(c("fusion", "WSI").ci_high), spci, "WSI CI high")
     reg.put("P_fl1_diff", sgn(pp.difference), spp, "fusion-L1"); reg.put("P_fl1_lo", sgn(pp.ci_low), spp, "ci_low"); reg.put("P_fl1_hi", sgn(pp.ci_high), spp, "ci_high")
-    reg.put("P_neg_area_total", mm2(pj["neg_fp_area_mm2_total"]), spj, "tumor-free FP area mm2")
+    # areas with each WSI's own pixel size (precise_pixel_size.py)
+    pa = json.load(open(P / "PRECISE_area_summary.json")); spa = rel(P / "PRECISE_area_summary.json")
+    px = pd.read_csv(P / "PRECISE_pixel_size.csv"); spx = rel(P / "PRECISE_pixel_size.csv")
+    alt = px[px.image_id.isin(pa["wsi_other_pixel_size"])]
+    reg.put("P_px_n_std", str(len(px) - len(alt)), spx, "WSIs at the common level-0 pixel size")
+    reg.put("P_px_um0_alt", f"{alt.um_per_px_level0.iloc[0]:.3f}", spx, "level-0 um per pixel of the other WSIs")
+    reg.put("P_px_um2_alt", f"{alt.um_per_px_level2.iloc[0]:.2f}", spx, "level-2 um per pixel of the other WSIs")
+    reg.put("P_px_um4_alt", f"{alt.um_per_px_eval_level4.iloc[0]:.1f}", spx, "level-4 (evaluation grid) um per pixel of the other WSIs")
+    reg.put("P_neg_area_total", mm2(pa["neg_fp_area_mm2_total"]), spa, "tumor-free FP area mm2, own pixel size per WSI")
     reg.put("P_neg_comp", thousands(pj["neg_components_total"]), spj, "tumor-free FP components")
     reg.put("P_neg_comp_med", f"{pj['neg_components_median']:.0f}", spj, "median FP components per tumor-free WSI")
-    reg.put("P_neg_maxcomp", mm2(pj["neg_largest_component_mm2"]), spj, "largest FP component mm2")
+    reg.put("P_neg_maxcomp", mm2(pa["neg_largest_component_mm2"]), spa, "largest FP component mm2, own pixel size per WSI")
     for L in (2, 4, 5, 6, 7):
         reg.put(f"P_lab{L}_pred", pct(lab.loc[L, "predicted_tumor_share"]), slab, f"label {L} predicted-tumor share")
     rows = []

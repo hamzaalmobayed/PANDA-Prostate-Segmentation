@@ -13,10 +13,10 @@ Candidate patch positions were checkpointed so that extraction could resume afte
 \caption{\textbf{Training augmentations.} Seven configured transforms, each at its strongest setting, applied to one normalized L0 training patch: (A) normalized patch, (B) horizontal flip, (C) 90-degree rotation, (D) color jitter, (E) gamma, (F) Gaussian blur, (G) Gaussian noise, and (H) JPEG compression.}\end{figure}
 
 \subsection*{Patch-level audit}
-The audit scores the stored test patches (at most two per class, level, and WSI). Overlapping patches count tissue locations repeatedly, and the L0 patches contribute 93.8\% of the audited pixels, so the pooled value is dominated by L0. These values are not comparable with the reconstructed WSI results.
+The audit pools the confusion counts of all patches processed during the dense reconstruction of the test WSIs, at threshold 0.50. Overlapping patches count tissue locations repeatedly, and the L0 patches contribute 93.8\% of the audited pixels, so the pooled value is dominated by L0. These values are not comparable with the reconstructed WSI results.
 
 \begin{table}[H]\centering\footnotesize
-\caption{\textbf{Patch-level audit on the stored test patches.} Source: \texttt{paper\_results/tables/patch\_metrics\_per\_level\_and\_pooled.csv}.}
+\caption{\textbf{Patch-level audit on all patches of the dense test reconstruction.} Source: \texttt{paper\_results/tables/patch\_metrics\_per\_level\_and\_pooled.csv}.}
 \begin{tabular}{lrrrrrr}\toprule
 Subset & Dice & IoU & Precision & Recall & Specificity & Accuracy\\\midrule
 L0 & 0.7799 & 0.6392 & 0.8333 & 0.7329 & 0.9614 & 0.9138\\

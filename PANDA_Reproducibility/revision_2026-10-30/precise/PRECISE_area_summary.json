@@ -1,0 +1,15 @@
+{
+  "um_per_px_level0_values": {
+    "0.2433": 25,
+    "0.1766": 2
+  },
+  "wsi_other_pixel_size": [
+    "sub-24_ses-01",
+    "sub-25_ses-01"
+  ],
+  "um_per_px_level0_other": 0.1766004446198754,
+  "neg_fp_area_mm2_total": 1.641244513322666,
+  "neg_largest_component_mm2": 0.05684991007719612,
+  "neg_largest_component_wsi": "sub-01_ses-01",
+  "neg_fp_area_mm2_total_at_0.243um": 1.914842861568
+}

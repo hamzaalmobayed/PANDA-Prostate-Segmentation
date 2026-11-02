@@ -133,6 +133,10 @@ The SICAPv2 scored region (Methods) is computed without a model by
 scoring rules (Results) is computed by `PANDA_Pipeline/run_sicapv2_scoring_rules.py`, which predicts the
 test-partition patches again (`external_sicapv2_official/summary/SICAP_scoring_rules.csv`, per patch in
 `external_sicapv2_official/results/tables/scoring_rules_per_tile.csv`).
+The PRECISE pixel sizes and the false-positive areas of the tumor-free WSIs are computed by
+`analysis_scripts/revision_2026-10-30/precise_pixel_size.py`, which reads the TIFF resolution tags of the
+H&E files from the PRECISE archive on Zenodo (`revision_2026-10-30/precise/PRECISE_pixel_size.csv`,
+`PRECISE_negative_wsi_area.csv`, `PRECISE_area_summary.json`).
 
 ## Analysis scripts
 
